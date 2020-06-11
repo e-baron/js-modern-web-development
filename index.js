@@ -1,10 +1,15 @@
-const EMBEDED_SANDBOX_GLOBAL_URL =
-  "https://codesandbox.io/embed/github/e-baron/js-modern-web-development/tree/master/?fontsize=14&theme=dark";
-let sandboxUrl;
+//const CODESANDBOX_OPTIONS = "fontsize=14&theme=dark&moduleview=1&codemirror=1";
+const CODESANDBOX_OPTIONS = "&codemirror=1";
+// It seems that "embed" cannot be edited
+const EMBEDED_SANDBOX_GLOBAL_URL ="https://codesandbox.io/embed/github/e-baron/js-modern-web-development/tree/master/?";
+//const EMBEDED_SANDBOX_GLOBAL_URL ="https://codesandbox.io/s/github/e-baron/js-modern-web-development/tree/master/?";
+
+//const EMBEDED_SANDBOX_GLOBAL_URL = "https://codesandbox.io/embed/first-demo-7i03e?";
+  let sandboxUrl;
 let fileToOpen;
 let elementWithLink;
 
-createEmbededSandboxUrl(EMBEDED_SANDBOX_GLOBAL_URL, "codesandbox");
+createEmbededSandboxUrl(EMBEDED_SANDBOX_GLOBAL_URL + CODESANDBOX_OPTIONS, "codesandbox");
 
 /**
  * function which change all endpoint URL (or local URL, such as /demo/js-location/...) 
@@ -12,6 +17,7 @@ createEmbededSandboxUrl(EMBEDED_SANDBOX_GLOBAL_URL, "codesandbox");
  * This function applies to HTML components that contains those parameters :
  * - class={classContainingLocalUrl}
  * - href={localURL}
+ * - src={localURL}
  * - data-associated-files={localURL of all files you want to see opened in the editor seperated by comma}
  * @param {embededGlobalUrl} URL to be used to access to an embedded Sandbox 
  * @param {classContainingLocalUrl}
@@ -21,8 +27,12 @@ function createEmbededSandboxUrl(embededGlobalUrl,classContainingLocalUrl) {
     /** get the pathname from the element
      * NB : href provides the protocol with http://...
      */
-    fileToOpen = sandboxButton.pathname;
-    console.log(fileToOpen);
+    if("href" in sandboxButton)
+      fileToOpen = sandboxButton.pathname;
+    else
+      fileToOpen = sandboxUrl.src;
+    
+    console.log("path: " , fileToOpen);
 
     sandboxUrl =
       embededGlobalUrl + "&initialpath=" + fileToOpen + "&module=" + fileToOpen;
@@ -35,7 +45,9 @@ function createEmbededSandboxUrl(embededGlobalUrl,classContainingLocalUrl) {
      */
     if ("associatedFiles" in sandboxButton.dataset)
       sandboxUrl += "," + sandboxButton.dataset.associatedFiles;
-
-    sandboxButton.href = sandboxUrl;
+    if("href" in sandboxButton)
+      sandboxButton.href = sandboxUrl;
+    else
+      sandboxButton.src = sandboxUrl;
   });
 }
