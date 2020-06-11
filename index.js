@@ -1,11 +1,12 @@
 //const CODESANDBOX_OPTIONS = "fontsize=14&theme=dark&moduleview=1&codemirror=1";
 const CODESANDBOX_OPTIONS = "&codemirror=1";
 // It seems that "embed" cannot be edited
-const EMBEDED_SANDBOX_GLOBAL_URL ="https://codesandbox.io/embed/github/e-baron/js-modern-web-development/tree/master/?";
-//const EMBEDED_SANDBOX_GLOBAL_URL ="https://codesandbox.io/s/github/e-baron/js-modern-web-development/tree/master/?";
+//const EMBEDED_SANDBOX_GLOBAL_URL ="https://codesandbox.io/embed/github/e-baron/js-modern-web-development/tree/master/?";
+const EMBEDED_SANDBOX_GLOBAL_URL ="https://codesandbox.io/s/github/e-baron/js-modern-web-development/tree/master/?";
+// Note than with the "s" version, the code can be edited via a forked sandbox. However, only one
+// file can be automatically open in the editor
 
-//const EMBEDED_SANDBOX_GLOBAL_URL = "https://codesandbox.io/embed/first-demo-7i03e?";
-  let sandboxUrl;
+let sandboxUrl;
 let fileToOpen;
 let elementWithLink;
 
@@ -30,7 +31,7 @@ function createEmbededSandboxUrl(embededGlobalUrl,classContainingLocalUrl) {
     if("href" in sandboxButton)
       fileToOpen = sandboxButton.pathname;
     else
-      fileToOpen = sandboxUrl.src;
+      fileToOpen = sandboxButton.getAttribute("src");
     
     console.log("path: " , fileToOpen);
 
