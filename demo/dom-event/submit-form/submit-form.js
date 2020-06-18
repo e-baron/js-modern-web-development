@@ -1,6 +1,6 @@
 const HEADER_TITLE = "JavaScript & Node.js full course";
 const PAGE_TITLE = "Demo : form validation following a submit event";
-const FOOTER_TEXT = "Happy learning : )"
+const FOOTER_TEXT = "Happy learning : )";
 
 let msgBoard = document.getElementById("messageBoard");
 let myForm = document.querySelector("form");
