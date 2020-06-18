@@ -1,6 +1,6 @@
 "use strict";
 const HEADER_TITLE = "JavaScript & Node.js full course";
-const PAGE_TITLE = "Demo : form validation with HTML5 validation constraints";
+const PAGE_TITLE = "Demo : designing an animation with the Canvas API";
 const FOOTER_TEXT = "Happy learning : )";
 
 const RECT_NUMBER = 101;
@@ -8,16 +8,19 @@ const RECT_NUMBER = 101;
 let myCanva = document.querySelector("canvas");
 let myContext = myCanva.getContext("2d");
 let page = document.querySelector("#page");
-//get dimensions of page div to get a full page animation
-let pageWidth = page.clientWidth;
-let pageHeight = page.clientHeight;
+// set the canvas dimensions
+let InitPageWidth = page.clientWidth;
+let InitPageHeight = page.clientHeight;
+let pageWidth = InitPageWidth;
+let pageHeight = InitPageHeight;
 myCanva.width = pageWidth - 20;
-myCanva.height = pageHeight - 0;
+myCanva.height = pageHeight;
+let isEnlarged = false;
 
 // call the callback to draw our animation when the browser is ready
-requestAnimationFrame(draw_2D);
+requestAnimationFrame(drawOneFrame);
 
-function draw_2D() {  
+function drawOneFrame() {
   // Reset everything done in the previous frame
   // We could force the width or height of canvas to force a redraw myCanva.width = pageWidth;myCanva.height = pageHeight;
   // however that would not be optimized.
@@ -35,20 +38,28 @@ function draw_2D() {
     );
   }
   // Refresh automatically the animation via this recursive call :
-  requestAnimationFrame(draw_2D);
+  requestAnimationFrame(drawOneFrame);
 
   // Slow the animation down via setTimeout
-  //requestAnimationFrame(setTimeout(draw_2D,1000));
+  //requestAnimationFrame(setTimeout(drawOneFrame,1000));
 }
 
+// enlarge the animation when there is a click, go back to previous width when there is another click
 const onClickBody = (e) => {
-  // get the width of the window
-  pageWidth = window.innerWidth;
-  pageHeight = window.innerHeight;
-  myCanva.width = pageWidth - 40;
-  myCanva.height = pageHeight - 0;
+  if (!isEnlarged) {
+    pageWidth = window.innerWidth;
+    pageHeight = window.innerHeight;
+    myCanva.width = pageWidth - 40;
+    myCanva.height = pageHeight;
+    isEnlarged = true;
+  } else {
+    pageWidth = InitPageWidth;
+    pageHeight = InitPageHeight;
+    myCanva.width = pageWidth - 20;
+    myCanva.height = pageHeight;
+    isEnlarged = false;
+  }
 };
-
 document.querySelector("body").addEventListener("click", onClickBody);
 
 setLayout(HEADER_TITLE, PAGE_TITLE, FOOTER_TEXT);
