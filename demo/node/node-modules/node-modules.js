@@ -3,7 +3,14 @@ let http = require("http");
 let url = require("url");
 let fs = require("fs");
 let path = require("path");
-
+// import default export
+//let Vehicle = require("./Car.js") ;
+// import Named object
+let vehicle = require("./Car.js") ;
+// import Named object & destructuring assignement
+let {Car} = require("./Car.js") ;
+// import mime package
+const mime = require('mime');
 
 
 let webFolderPath = "/public";
@@ -40,7 +47,8 @@ var serverHTTP = http.createServer(function (request, response) {
         the MIME type is text/html / application/javascript / text/css / image/jpeg ....
       */
 
-      let mimeType;
+      let mimeType = mime.getType(localPath);
+      /*let mimeType;
       switch (fileExtension) {
         case ".js":
           mimeType = "application/javascript";
@@ -55,7 +63,8 @@ var serverHTTP = http.createServer(function (request, response) {
         default:
           mimeType = "text/html";
           break;
-      }
+      }*/
+
       console.log(" - fileExtension:", fileExtension, "MIME type :",mimeType);
 
       response.writeHead(200, {
@@ -71,4 +80,12 @@ var serverHTTP = http.createServer(function (request, response) {
 });
 // listen on the 777 port
 serverHTTP.listen(777);
-console.log("Minimal web server");
+console.log("Minimal web server with modules and packages");
+// use of external default module
+//let dacia = new Car("Dacia", "Sandero");
+// use of external Named object
+let dacia = new vehicle.Car("Dacia", "Sandero");
+console.log(dacia.getDescription());
+// use of external Named object following destructuring assignement
+dacia = new Car("Dacia", "Sandero");
+console.log(dacia.getDescription());
