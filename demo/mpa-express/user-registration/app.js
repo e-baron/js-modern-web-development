@@ -38,4 +38,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// set the user array as local variable within the application
+app.locals.userList=[];
+
 module.exports = app;
