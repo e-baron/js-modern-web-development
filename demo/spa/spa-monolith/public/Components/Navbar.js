@@ -21,7 +21,7 @@ const Navbar = (userData) => {
       <a class="nav-item nav-link" href="#">Home</a>    
       <a class="nav-item nav-link" href="#">List</a>
       <a class="nav-item nav-link" href="#">Logout</a>
-      <a class="nav-item nav-link" href="#">${userData.username}</a>
+      <a class="nav-item nav-link disabled" href="#">${userData.username}</a>
     </div>
   </div>
   </nav>`;

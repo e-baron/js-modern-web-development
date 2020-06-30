@@ -44,7 +44,7 @@ const onLogin = (e) => {
         throw new Error(
           "Error code : " + response.status + " : " + response.statusText
         );
-      response.json();
+      return response.json();
     })
     .then((data) => onUserLogin(data))
     .catch((err) => onError(err));
