@@ -3,7 +3,7 @@ import { RedirectUrl } from "./Router.js";
 let page = document.querySelector("#page");
 
 const UserListPage = () => {
-  fetch("/api/users/")
+  fetch("/api/users")
     .then((response) => {
       if (!response.ok)
         throw new Error(
