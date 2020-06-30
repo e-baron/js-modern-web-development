@@ -1,6 +1,6 @@
 import { setLayout } from "./utils/render.js";
 import HomePage from "./Components/HomePage.js";
-import {Router} from "./Components/Router.js";
+import Router from "./Components/Router.js";
 import Navbar from "./Components/Navbar.js";
 
 const HEADER_TITLE = "JavaScript & Node.js full course";

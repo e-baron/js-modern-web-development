@@ -1,12 +1,12 @@
 let userListPage = `<h5>List of MyCMS users</h5>
 <ul class="list-group list-group-horizontal-lg">
   <li class="list-group-item">item.username</li>
-</ul>`;
+</ul>` ;
 
-let page = document.querySelector("#page");
+let root = document.querySelector("#root");
 
 const UserListPage = () => {
-  return (page.innerHTML = userListPage);
+    return userListPage;  
 };
 
 export default UserListPage;
