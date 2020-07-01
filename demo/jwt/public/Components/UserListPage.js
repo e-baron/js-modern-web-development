@@ -1,22 +1,37 @@
 import { RedirectUrl } from "./Router.js";
-import {getUserSessionData} from "../utils/session.js";
+import { getUserSessionData } from "../utils/session.js";
 
 let page = document.querySelector("#page");
 
 const UserListPage = () => {
   const user = getUserSessionData();
-  let params = "";
-  if(user)
-    params = `?username=${user.username}`;
-  fetch(`/api/users/${params}`)
+  if (!user) RedirectUrl("/error", "Resource not authorized. Please login.");
+
+  fetch("/api/users", {
+    method: "GET",
+    headers: {
+      Authorization: user.token,
+    },
+  })
     .then((response) => {
-      if (!response.ok)
-        throw new Error(
-          "Error code : " + response.status + " : " + response.statusText
-        );
+      if (!response.ok) {
+        let fullErrorMessage =
+          " Error code : " +
+          response.status +
+          " : " +
+          response.statusText +
+          "/nMessage : ";
+        return response.text().then((errorMessage) => {
+          fullErrorMessage += errorMessage;
+          return fullErrorMessage;
+        });
+      }
       return response.json();
     })
-    .then((data) => onUserList(data))
+    .then((data) => {
+      if (typeof data === "string") onError(data);
+      else onUserList(data);
+    })
     .catch((err) => onError(err));
 };
 
@@ -36,13 +51,11 @@ const onUserList = (data) => {
 
 const onError = (err) => {
   console.error("UserListPage::onError:", err);
-  let errorMessage = "Error";
+  let errorMessage;
   if (err.message) {
-    if (err.message.includes("401"))
-      errorMessage =
-        "Unauthorized access to this ressource : you must first login.";
-    else errorMessage = err.message;
-  }
+    errorMessage = err.message;
+  } else errorMessage = err;
+  if (errorMessage.includes("jwt expired")) errorMessage += "<br> Please logout first, then login.";
   RedirectUrl("/error", errorMessage);
 };
 

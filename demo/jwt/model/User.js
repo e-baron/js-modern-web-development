@@ -11,7 +11,36 @@ class User {
     this.password = password;
   }
 
-  // Some example of bcrypt with sync function 
+  /* return a promise with async / await */ 
+  async save() {
+    let userList = getUserListFromFile(FILE_PATH);
+    const hashedPassword = await bcrypt.hash(this.password, saltRounds);
+    console.log("save:", this.email);
+    userList.push({
+      username: this.email,
+      email: this.email,
+      password: hashedPassword,
+    });
+    saveUserListToFile(FILE_PATH, userList);
+    return true;
+  }
+
+  /* return a promise with classic promise syntax*/
+  checkCredentials(email, password) {
+    if (!email || !password) return false;
+    let userFound = User.getUserFromList(email);
+    console.log("User::checkCredentials:", userFound, " password:", password);
+    if (!userFound) return Promise.resolve(false);
+    //try {
+    console.log("checkCredentials:prior to await");
+    // return the promise
+    return bcrypt
+      .compare(password, userFound.password)
+      .then((match) => match)
+      .catch((err) => err);
+  }
+
+  // Some example of bcrypt used with sync function
   /*
   save() {
     let userList = getUserListFromFile(FILE_PATH);
@@ -34,34 +63,6 @@ class User {
     const match = bcrypt.compareSync(password, userFound.password);
     return match;
   }*/
-
-  // async save() {
-  async save() {
-    let userList = getUserListFromFile(FILE_PATH);
-    const hashedPassword = await bcrypt.hash(this.password, saltRounds);
-    console.log("save:", this.email);
-    userList.push({
-      username: this.email,
-      email: this.email,
-      password: hashedPassword,
-    });
-    saveUserListToFile(FILE_PATH, userList);
-    return true;
-  }
-
-  checkCredentials(email, password) {
-    if (!email || !password) return false;
-    let userFound = User.getUserFromList(email);
-    console.log("User::checkCredentials:", userFound, " password:", password);
-    if (!userFound) return false;
-    //try {
-    console.log("checkCredentials:prior to await");
-    // return the promise
-    return bcrypt
-      .compare(password, userFound.password)
-      .then((match) => match)
-      .catch((err) => console.error("checkCredentials:", err));
-  }
 
   static get list() {
     let userList = getUserListFromFile(FILE_PATH);
