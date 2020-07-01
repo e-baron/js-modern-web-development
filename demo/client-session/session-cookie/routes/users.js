@@ -2,14 +2,16 @@ var express = require("express");
 var router = express.Router();
 var User = require("../model/User.js");
 
+/**
+ * This application is willingly not secured... Security holes will be in a new app resolved.
+ */
+
 /* GET user list*/
 router.get("/", function (req, res, next) {
-  console.log("GET users/", User.list);
-  if (req.session.isAuthenticated) {
-    return res.json(User.list);
-  } else {
-    return res.status(401).send("You are not authentified.");
-  }
+  console.log("GET users/", "params:", req.query, " list:", User.list);
+  if (req.session.isAuthenticated)
+    if (User.isUser(req.session.user)) return res.json(User.list);
+    else return res.status(401).send("You are not authentified.");
 });
 
 /* POST user data for authentication */
@@ -46,11 +48,8 @@ router.post("/", function (req, res, next) {
 router.get("/logout", function (req, res, next) {
   console.log("GET users/logout");
   if (req.session.isAuthenticated) {
-    req.session.destroy(function (err) {
-      // cannot access session here
-      if (err) return console.error("Error in session destroy:", err);
-      return res.status(200).end();
-    });
+    req.session = null;
+    return res.status(200).end();
   }
 });
 

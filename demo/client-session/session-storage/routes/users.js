@@ -2,14 +2,17 @@ var express = require("express");
 var router = express.Router();
 var User = require("../model/User.js");
 
+/**
+ * This application is willingly not secured... Security holes will be in a new app resolved.
+ */
+
 /* GET user list*/
 router.get("/", function (req, res, next) {
-  console.log("GET users/", User.list);
-  if (req.session.isAuthenticated) {
-    return res.json(User.list);
-  } else {
-    return res.status(401).send("You are not authentified.");
-  }
+  console.log("GET users/", "params:", req.query, " list:", User.list);
+  //if (req.session.isAuthenticated) {
+  if (req.query.username)
+    if (User.isUser(req.query.username)) return res.json(User.list);
+    else return res.status(401).send("You are not authentified.");
 });
 
 /* POST user data for authentication */
@@ -18,8 +21,8 @@ router.post("/login", function (req, res, next) {
   console.log("POST users/login:", User.list);
   if (user.checkCredentials(req.body.email, req.body.password)) {
     // manage session data
-    req.session.isAuthenticated = true;
-    req.session.user = req.body.email;
+    //req.session.isAuthenticated = true;
+    //req.session.user = req.body.email;
     return res.json({ username: req.body.email });
   } else {
     return res.status(401).send("bad email/password");
@@ -37,12 +40,13 @@ router.post("/", function (req, res, next) {
   newUser.save();
 
   // manage session data
-  req.session.isAuthenticated = true;
-  req.session.user = req.body.email;
+  //req.session.isAuthenticated = true;
+  //req.session.user = req.body.email;
   return res.status(200).send({ username: req.body.email });
 });
 
 /* GET logout */
+/* Session is fully managed at client side 
 router.get("/logout", function (req, res, next) {
   console.log("GET users/logout");
   if (req.session.isAuthenticated) {
@@ -52,6 +56,6 @@ router.get("/logout", function (req, res, next) {
       return res.status(200).end();
     });
   }
-});
+});*/
 
 module.exports = router;
