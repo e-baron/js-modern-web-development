@@ -4,7 +4,7 @@ function welcome() {
   return "Welcome dear students ; )";
 }
 
-let msg = document.querySelector("div");
+let msg = document.querySelector(".message");
 
 msg.addEventListener("mouseover", () => {
   console.log("msg::mouseover");

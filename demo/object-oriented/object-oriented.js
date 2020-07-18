@@ -13,7 +13,7 @@ let raphael = {
   sayHello: () => "Hi everyone !",
 };
 
-let sandra = {};
+let sandra = {}; 
 sandra.firstname = "Sandra";
 sandra.lastname = "Parisi";
 

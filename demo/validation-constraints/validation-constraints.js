@@ -2,7 +2,12 @@ const HEADER_TITLE = "JavaScript & Node.js full course";
 const PAGE_TITLE = "Demo : form validation with HTML5 validation constraints";
 const FOOTER_TEXT = "Happy learning : )";
 
-setLayout(HEADER_TITLE,PAGE_TITLE,FOOTER_TEXT);
+setLayout(HEADER_TITLE, PAGE_TITLE, FOOTER_TEXT);
+
+// example of custom validation error message
+const EMAIL_ERROR = "Wrong email format !";
+let emailInput = document.getElementById("email");
+emailInput.setCustomValidity(EMAIL_ERROR);
 
 /**
  * setLayout allows to display specific information in an HTML template
@@ -11,7 +16,7 @@ setLayout(HEADER_TITLE,PAGE_TITLE,FOOTER_TEXT);
  * @param {pageTitle} pageTitle
  * @param {footerText} footerText
  */
-function setLayout(headerTitle, pageTitle, footerText){
+function setLayout(headerTitle, pageTitle, footerText) {
   document.querySelector("#headerTitle").innerText = headerTitle;
   document.querySelector("title").innerText = pageTitle;
   document.querySelector("#pageTitle").innerText = pageTitle;

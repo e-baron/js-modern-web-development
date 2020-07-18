@@ -17,11 +17,7 @@ const onSubmit = (e) => {
 
   if (myForm.elements.email.value == "") {
     showHtmlErrorMessage("No email");
-  }
-  // Check the email format. Explanations: https://www.w3resource.com/javascript/form/email-validation.php
-  // You can learn over RegEx here : https://www.w3schools.com/jsref/jsref_obj_regexp.asp
-  // You can use Regex to test your strings : https://regex101.com/
-  else if (
+  } else if (
     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(
       myForm.elements.email.value
     ) === false
@@ -32,8 +28,6 @@ const onSubmit = (e) => {
   if (/.*[A-Z]+.*/.test(myForm.elements.password.value) === false) {
     showHtmlErrorMessage("Password format invalid");
   }
-
-  // use Bootstrap to show the msgBoard, without using JQuery, by adding the right Bootstrap class
 };
 
 function showHtmlErrorMessage(message) {
@@ -45,8 +39,7 @@ function showHtmlErrorMessage(message) {
 
 myForm.addEventListener("submit", onSubmit);
 
-setLayout(HEADER_TITLE,PAGE_TITLE,FOOTER_TEXT);
-
+setLayout(HEADER_TITLE, PAGE_TITLE, FOOTER_TEXT);
 
 /**
  * setLayout allows to display specific information in an HTML template
@@ -55,7 +48,7 @@ setLayout(HEADER_TITLE,PAGE_TITLE,FOOTER_TEXT);
  * @param {pageTitle} pageTitle
  * @param {footerText} footerText
  */
-function setLayout(headerTitle, pageTitle, footerText){
+function setLayout(headerTitle, pageTitle, footerText) {
   document.querySelector("#headerTitle").innerText = headerTitle;
   document.querySelector("title").innerText = pageTitle;
   document.querySelector("#pageTitle").innerText = pageTitle;
