@@ -1,7 +1,9 @@
+<!-- The skeleton of this page was generated through the bootstrap Extension / "b4-$" Snippet -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Title</title>
+    <title></title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta
@@ -16,11 +18,11 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <!-- Own stylelsheet -->
-    <link rel="stylesheet" href="style.css" />
+    <!-- Own styelsheet to deal with the validation constraint styles -->
+    <link rel="stylesheet" href="./stylesheets/style.css" />
   </head>
 
-  <!-- Viewport height of 100% (see CSS) -->
+  <!-- Viewport height of 100% -->
   <body>
     <!-- Use of bootstrap to get a responsive design : container-fluid for a full width
     h-100 for a full height element  
@@ -37,12 +39,45 @@
       </div>
 
       <!-- Page content row. 
-        flex-grow-1: Fill available space -->
+        flex-grow-1: Fill available space 
+        mb-5 : to ensure that we see all of the content of the page row -->
       <div class="row flex-grow-1 mb-5">
         <div class="d-none d-md-block col-md bg-dark"></div>
         <div class="col col-md-10 mt-2">
           <h4 id="pageTitle"></h4>
-          <p id="page"></p>
+          <form action="">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="text"
+                name="email"
+                id="email"
+                class="form-control"
+                placeholder="Enter your email"
+                required
+                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$"
+              />
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="form-control"
+                placeholder="Enter your password"
+                required
+                pattern=".*[A-Z]+.*"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn">
+              Submit
+            </button>
+          </form>
+          <!-- Create an alert component with bootstrap that is not displayed by default  -->
+          <div id="messageBoard" class="alert alert-danger mt-2 d-none">
+            <span id="errorMessage"></span>
+          </div>
         </div>
         <div class="d-none d-md-block col-md bg-dark"></div>
       </div>
@@ -73,7 +108,6 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
-    <!-- To be able to use JQuery, it is best to put your custom scripts at the end -->
-    <script src="dynamic-html.js"></script>
+    <script src="javascripts/validation-constraints.js"></script>
   </body>
 </html>

@@ -18,7 +18,7 @@
       crossorigin="anonymous"
     />
     <!-- Own styelsheet to deal with the validation constraint styles -->
-    <link rel="stylesheet" href="animejs.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <!-- Viewport height of 100% (see CSS) -->
@@ -45,10 +45,11 @@
         <div id="page" class="col col-md-10 mt-2 align-self-center">
           <h4 id="pageTitle"></h4>
           
-          
-            <div id="lift">
-              <div class="text-center bg-secondary" id="propeller">
-                <a href="#" class="btn btn-primary" id="message">Welcome</a>
+            <!-- the flex classes allows to horizontally center the embedded div (the propeller) -->
+            <div class="d-flex justify-content-center" id="lift">
+              <!-- <div class="text-center bg-secondary propeller mx-auto" id="propeller"> -->
+                <!-- d-inline-block allow to wrap the div to the width of its content -->
+                <div class="text-center bg-secondary d-inline-block" id="propeller">XXX<a href="#" class="btn btn-primary" id="message">Welcome</a>XXX
               </div>
             </div>  
           
@@ -85,7 +86,7 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
-    <script src="../../lib/vendors/anime.min.js"></script>
+    <script src="anime.min.js"></script>
     <script src="animejs.js"></script>
   </body>
 </html>

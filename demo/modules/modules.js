@@ -6,7 +6,7 @@ import {setLayout} from "./utils/render.js";
 
 const HEADER_TITLE = "JavaScript & Node.js full course";
 const PAGE_TITLE =
-  "Demo : Oriented Object Programming";
+  "Demo : ES6 Modules";
 const FOOTER_TEXT = "Happy learning : )";
 setLayout(HEADER_TITLE, PAGE_TITLE, FOOTER_TEXT);
 

@@ -4,7 +4,7 @@ let url = require("url");
 let fs = require("fs");
 let path = require("path");
 // import default export
-//let Vehicle = require("./Car.js") ;
+//let vehicle = require("./Car.js") ;
 // import Named object
 let vehicle = require("./Car.js") ;
 // import Named object & destructuring assignement

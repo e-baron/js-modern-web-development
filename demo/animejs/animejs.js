@@ -8,7 +8,7 @@ let lift = document.getElementById("lift");
 
 // start with aligning the lift & propeller in the center of the page content
 
-var animation = anime({
+let animation = anime({
   //here you specify your targeted element through CSS selector syntax
   targets: "#propeller", //propeller,
   rotate: "360",

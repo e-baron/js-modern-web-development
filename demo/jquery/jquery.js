@@ -1,7 +1,6 @@
 "use strict";
 const HEADER_TITLE = "JavaScript & Node.js full course";
-const PAGE_TITLE =
-  "Demo : JQuery & dynamic HTML generation";
+const PAGE_TITLE = "Demo : JQuery & dynamic HTML generation";
 const FOOTER_TEXT = "Happy learning : )";
 
 const LIBRARIES = [
@@ -51,17 +50,13 @@ $(document).ready(function () {
 
   // JQuery : setting the html content of the p#page element to add the two list groups prepared
   $("#page").html(htmlText);
-  // page.innerHTML = htmlText;
 
   // Same thing by working directly with DOM elements
   $("#page").append(
     "<h6 class='mt-3'>4. List through classical for loop and JQuery append()</h6>"
   );
-  //let listTitle = document.createElement("h6");
-  //listTitle.classList = "mt-3";
-  //listTitle.innerText =
+
   //  "4. List through classical for loop and JQuery append()";
-  //page.appendChild(listTitle);
   $("#page").append("<ul>");
   $("ul").addClass("list-group list-group-horizontal-lg");
   //let list = document.createElement("ul");
@@ -69,15 +64,9 @@ $(document).ready(function () {
   for (let i = 0; i < LIBRARIES.length; i++) {
     // to demonstrate the use of bootstrap and the List group
     $("ul").append("<li class='list-group-item'>" + LIBRARIES[i] + "</li>");
-    //let item = document.createElement("li");
-    //item.className = "list-group-item";
-    //item.innerText = LIBRARIES[i];
-    //item.addEventListener("click", onClickHandler);
-    //list.appendChild(item);
   }
   // for all list items, add an event handler
   $("li").click(onClickHandler);
-  //page.appendChild(list);
 
   setLayout(HEADER_TITLE, PAGE_TITLE, FOOTER_TEXT);
 });
@@ -91,11 +80,9 @@ $(document).ready(function () {
  */
 function setLayout(headerTitle, pageTitle, footerText) {
   $("#headerTitle").text(headerTitle);
-  //document.querySelector("#headerTitle").innerText = headerTitle;
   $("#title").text(pageTitle);
-  //document.querySelector("title").innerText = pageTitle;
   $("#pageTitle").text(pageTitle);
-  //document.querySelector("#pageTitle").innerText = pageTitle;
   $("#footerText").text(footerText);
-  //document.querySelector("#footerText").innerText = footerText;
 }
+
+
