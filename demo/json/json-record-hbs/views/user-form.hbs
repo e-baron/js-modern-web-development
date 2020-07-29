@@ -1,5 +1,9 @@
 <h4>{{pageTitle}}</h4>
+{{#if isLogin}}
+<form action='/login' method='post'>
+{{else}}
 <form action='/register' method='post'>
+{{/if}}
     <div class="form-group">
         <label for="email">Email</label>
         <input class="form-control" id="email" type="text" name="email" placeholder="Enter your email" required
