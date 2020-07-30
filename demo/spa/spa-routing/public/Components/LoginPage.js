@@ -1,7 +1,7 @@
 let loginPage = `<form action="/api/login" method="post">
 <div class="form-group">
   <label for="email">Email</label>
-  <input class="form-control" id="email" type="text" name="email" placeholder="Enter your email" required="" pattern="^\w+([.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$" />
+  <input class="form-control" id="email" type="text" name="email" placeholder="Enter your email" required="" pattern="^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(.\\w{2,4})+$" />
 </div>
 <div class="form-group">
   <label for="password">Password</label>

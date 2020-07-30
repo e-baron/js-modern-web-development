@@ -38,7 +38,7 @@ const onRegister = (e) => {
   })
     .then((response) => {
       if (!response.ok) throw new Error("Error code : " + response.status + " : " + response.statusText);
-      response.json();
+      return response.json();
     })
     .then((data) => onUserRegistration(data))
     .catch((err) => onError(err));
