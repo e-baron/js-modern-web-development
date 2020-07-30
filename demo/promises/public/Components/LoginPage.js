@@ -32,22 +32,10 @@ const onLogin = (e) => {
     password: document.getElementById("password").value,
   };
 
-  fetch("/api/users/login", {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
-    body: JSON.stringify(user), // body data type must match "Content-Type" header
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => {
-      if (!response.ok)
-        throw new Error(
-          "Error code : " + response.status + " : " + response.statusText
-        );
-      return response.json();
-    })
-    .then((data) => onUserLogin(data))
-    .catch((err) => onError(err));
+  console.log("onLogin:before async call");
+  asyncLogin(user).then(onUserLogin).catch(onError);
+  //asyncLogin2(user).then(onUserLogin).catch(onError);
+  console.log("onLogin:end");
 };
 
 import { RedirectUrl } from "./Router.js";
@@ -68,6 +56,54 @@ const onError = (err) => {
   messageBoard.innerText = errorMessage;
   // show the messageBoard div (add relevant Bootstrap class)
   messageBoard.classList.add("d-block");
+};
+
+// function that return a promise
+const asyncLogin = (user) => {
+  return new Promise((resolve, reject) => {
+    fetch("/api/users/login", {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      body: JSON.stringify(user), // body data type must match "Content-Type" header
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok)
+          throw new Error(
+            "Error code : " + response.status + " : " + response.statusText
+          );
+        return response.json();
+      })
+      .then((data) => {
+        console.log("asyncLogin:end of fetch()", "user:", user);
+        resolve(data);
+      })
+      .catch((err) => reject(err));
+  });
+};
+
+// same function that returns a promise through the use of async / await
+const asyncLogin2 = async (user) => {
+  try {
+    let response = await fetch("/api/users/login", {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      body: JSON.stringify(user), // body data type must match "Content-Type" header
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok)
+      throw new Error(
+        "Error code : " + response.status + " : " + response.statusText
+      );
+    let data = await response.json();
+    console.log("asyncLogin2:end of fetch()", "user:", user);
+    return data;
+  } catch (err) {
+    return err;
+  }
 };
 
 export default LoginPage;

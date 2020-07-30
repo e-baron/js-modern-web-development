@@ -1,0 +1,27 @@
+#You need to install the Rest Client through VS Code Extensions
+
+### GET /user/login (does not exist)
+
+http://localhost:3000/api/users/login
+
+### GET /user/login (does not exist)
+GET http://localhost:3000/api/users/login
+
+### POST /user/login for a user that does not exist
+POST http://localhost:3000/api/users/login
+
+### POST users : john@here.com / john
+POST http://localhost:3000/api/users/
+Content-Type: application/json
+
+{
+    "email":"john@here.com",
+    "password":"John"
+}
+
+### POST/users/login for an existant user
+POST http://localhost:3000/api/users/login
+Content-Type: application/x-www-form-urlencoded
+
+email=john@here.com
+&password=John

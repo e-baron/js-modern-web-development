@@ -1,10 +1,10 @@
 /* In a template literal, the ` (backtick), \ (backslash), and $ (dollar sign) characters should be 
 escaped using the escape character \ if they are to be included in their template value. 
 By default, all escape sequences in a template literal are ignored.*/
-let registerPage = `<form>
+let loginPage = `<form>
 <div class="form-group">
   <label for="email">Email</label>
-  <input class="form-control" id="email" type="text" name="email" placeholder="Enter your email" required="" pattern="^\\w+([.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+\$" />
+  <input class="form-control" id="email" type="text" name="email" placeholder="Enter your email" required="" pattern="^\\w+([.-]?\\w+)*@\\w+([\.-]?\\w+)*(\\.\\w{2,4})+\$" />
 </div>
 <div class="form-group">
   <label for="password">Password</label>
@@ -12,24 +12,27 @@ let registerPage = `<form>
 </div>
 <button class="btn btn-primary" id="btn" type="submit">Submit</button>
 <!-- Create an alert component with bootstrap that is not displayed by default-->
-<div class="alert alert-danger mt-2 d-none" id="messageBoard"></div><span id="errorMessage"></span>
+<div class="alert alert-danger mt-2 d-none" id="messageBoard"></div>
 </form>`;
 
-const RegisterPage = () => {
+const LoginPage = () => {
   let page = document.querySelector("#page");
-  page.innerHTML = registerPage;
-  let registerForm = document.querySelector("form");
-  registerForm.addEventListener("submit", onRegister);
+  page.innerHTML = loginPage;
+  let loginForm = document.querySelector("form");
+  loginForm.addEventListener("submit", onLogin);
 };
 
-const onRegister = (e) => {
+const onLogin = (e) => {
   e.preventDefault();
+  let email = document.getElementById("email");
+  let password = document.getElementById("password");
+
   let user = {
     email: document.getElementById("email").value,
     password: document.getElementById("password").value,
   };
 
-  fetch("/api/users/", {
+  fetch("/api/users/login", {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     body: JSON.stringify(user), // body data type must match "Content-Type" header
     headers: {
@@ -37,18 +40,21 @@ const onRegister = (e) => {
     },
   })
     .then((response) => {
-      if (!response.ok) throw new Error("Error code : " + response.status + " : " + response.statusText);
+      if (!response.ok)
+        throw new Error(
+          "Error code : " + response.status + " : " + response.statusText
+        );
       return response.json();
     })
-    .then((data) => onUserRegistration(data))
+    .then((data) => onUserLogin(data))
     .catch((err) => onError(err));
 };
 
 import { RedirectUrl } from "./Router.js";
 import Navbar from "./Navbar.js";
 
-const onUserRegistration = (userData) => {
-  console.log(userData);
+const onUserLogin = (userData) => {
+  console.log("onUserLogin:", userData);
   // re-render the navbar for the authenticated user
   Navbar(userData);
   RedirectUrl("/list");
@@ -57,11 +63,11 @@ const onUserRegistration = (userData) => {
 const onError = (err) => {
   let messageBoard = document.querySelector("#messageBoard");
   let errorMessage = "";
-  if (err.message.includes("409")) errorMessage = "This user is already registered.";
+  if (err.message.includes("401")) errorMessage = "Wrong username or password.";
   else errorMessage = err.message;
   messageBoard.innerText = errorMessage;
   // show the messageBoard div (add relevant Bootstrap class)
-  messageBoard.classList.add("d-block");  
+  messageBoard.classList.add("d-block");
 };
 
-export default RegisterPage;
+export default LoginPage;
