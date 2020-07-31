@@ -1,7 +1,6 @@
 "strict mode";
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-const myPlaintextPassword = "145OkyayNo668Pass";
 const FILE_PATH = __dirname + "/users.json";
 
 class User {
@@ -49,12 +48,13 @@ class User {
     return true;
   }
 
+  // async checkCredentials which always return a promise (without async / await)
   checkCredentials(email, password) {
     if (!email || !password) return false;
     let userFound = User.getUserFromList(email);
     console.log("User::checkCredentials:", userFound, " password:", password);
-    if (!userFound) return false;
-    //try {
+    // return a resolved promise
+    if (!userFound) return Promise.resolve(false); // return false; : that would raise an error when calling checkCredentials.then() 
     console.log("checkCredentials:prior to await");
     // return the promise
     return bcrypt
