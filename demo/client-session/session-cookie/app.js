@@ -6,23 +6,18 @@ var logger = require("morgan");
 // Cookies to deal with server side session data
 //var session = require("express-session");
 // Cookies to deal with client side session data
-var cookieSession = require('cookie-session')
+var cookieSession = require("cookie-session");
 
 //var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
 var app = express();
 
-// view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "pug");
-
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
 
 /*
 // use the express-session middleware
@@ -59,17 +54,17 @@ app.use(function (req, res, next) {
 });*/
 
 // use the cookieSession middleware
-let expiryDate = new Date(Date.now() + 60 * 60 * 1000) // 1h;
-app.use(cookieSession({
-  name: 'user',
-  keys: ["689HiHoveryDi79*"],  
-  //secrete: "689HiHoveryDi79*",
-  cookie: {   
-    httpOnly: true, 
-    signed:false,   
-    expires: expiryDate
-  }
-}))
+let expiryDate = new Date(Date.now() + 60 * 60 * 1000); // 1h;
+app.use(
+  cookieSession({
+    name: "user",
+    keys: ["689HiHoveryDi79*"],
+    cookie: {
+      httpOnly: true,
+      expires: expiryDate,
+    },
+  })
+);
 
 // initialize the session data to be stored in the client side cookie
 app.use(function (req, res, next) {
@@ -93,9 +88,9 @@ app.use(function (req, res, next) {
 });
 
 // not found in static files, so default to index.html
-app.use((req, res,next) => {  
+app.use((req, res, next) => {
   if (!req.path.startsWith("/api/"))
-    return res.sendFile(`${__dirname}/public/index.html`);  
+    return res.sendFile(`${__dirname}/public/index.html`);
   next();
 });
 

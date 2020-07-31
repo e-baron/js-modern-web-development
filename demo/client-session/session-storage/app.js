@@ -10,10 +10,6 @@ var usersRouter = require("./routes/users");
 
 var app = express();
 
-// view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "pug");
-
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -78,8 +74,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-
-// set the userList object as local variable within the application
-//app.locals.userList = {}; //new Map(); // init a map
 
 module.exports = app;

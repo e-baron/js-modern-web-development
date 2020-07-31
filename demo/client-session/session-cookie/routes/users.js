@@ -11,7 +11,7 @@ router.get("/", function (req, res, next) {
   console.log("GET users/", "params:", req.query, " list:", User.list);
   if (req.session.isAuthenticated)
     if (User.isUser(req.session.user)) return res.json(User.list);
-    else return res.status(401).send("You are not authentified.");
+  return res.status(401).send("You are not authentified.");
 });
 
 /* POST user data for authentication */
@@ -33,7 +33,6 @@ router.post("/", function (req, res, next) {
   console.log("POST users/", User.list);
   console.log("email:", req.body.email);
   if (User.isUser(req.body.email))
-    //return res.status(409).send({error:"This user already exists."});
     return res.status(409).end();
   let newUser = new User(req.body.email, req.body.email, req.body.password);
   newUser.save();
@@ -41,7 +40,7 @@ router.post("/", function (req, res, next) {
   // manage session data
   req.session.isAuthenticated = true;
   req.session.user = req.body.email;
-  return res.status(200).send({ username: req.body.email });
+  return res.json({ username: req.body.email });
 });
 
 /* GET logout */
@@ -50,6 +49,17 @@ router.get("/logout", function (req, res, next) {
   if (req.session.isAuthenticated) {
     req.session = null;
     return res.status(200).end();
+  }
+});
+
+/* GET user object from username */
+router.get("/:username", function (req, res, next) {
+  console.log("GET users/:username", req.params.username);
+  const userFound = User.getUserFromList(req.params.username);
+  if (userFound) {
+    return res.json(userFound);
+  } else {
+    return res.status(404).send("ressource not found");
   }
 });
 

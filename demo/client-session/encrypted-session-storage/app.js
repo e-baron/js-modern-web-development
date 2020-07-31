@@ -26,60 +26,7 @@ app.use((req, res,next) => {
   next();
 });
 
-/*
-// use the express-session middleware
-// NB : the middleware shall be prior to the router
-app.use(
-  session({
-    secret: "689HiHoveryDi79*",
-    //resave: false,
-    //saveUninitialized: true,
-  })
-);
-
-// initialize the session data
-app.use(function (req, res, next) {
-  console.log("app.use:: check if the session data shall be initialized");
-
-  if (!req.session.isAuthenticated) {
-    console.log("app.use:: !req.session.isAuthenticated");
-    req.session.isAuthenticated = false;
-  }
-
-  if (!req.session.user) {
-    req.session.user = "";
-  }
-
-  console.log(
-    "app.use()::req.sessionID : ",
-    req.sessionID,
-    " ",
-    req.session.id
-  );
-
-  next();
-});*/
-
 //app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
-
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render("error");
-});
-
-// set the userList object as local variable within the application
-//app.locals.userList = {}; //new Map(); // init a map
 
 module.exports = app;
