@@ -1,6 +1,7 @@
 import { RedirectUrl } from "./Router.js";
 import Navbar from "./Navbar.js";
-import {setUserSessionData} from "../utils/session.js";
+import { setUserSessionData } from "../utils/session.js";
+import { API_URL } from "../utils/server.js";
 
 /* In a template literal, the ` (backtick), \ (backslash), and $ (dollar sign) characters should be 
 escaped using the escape character \ if they are to be included in their template value. 
@@ -33,7 +34,7 @@ const onRegister = (e) => {
     password: document.getElementById("password").value,
   };
 
-  fetch("/api/users/", {
+  fetch(API_URL + "users/", {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     body: JSON.stringify(user), // body data type must match "Content-Type" header
     headers: {
@@ -41,7 +42,10 @@ const onRegister = (e) => {
     },
   })
     .then((response) => {
-      if (!response.ok) throw new Error("Error code : " + response.status + " : " + response.statusText);
+      if (!response.ok)
+        throw new Error(
+          "Error code : " + response.status + " : " + response.statusText
+        );
       return response.json();
     })
     .then((data) => onUserRegistration(data))
@@ -50,7 +54,7 @@ const onRegister = (e) => {
 
 const onUserRegistration = (userData) => {
   console.log("onUserRegistration", userData);
-  const user = {...userData, isAutenticated:true};
+  const user = { ...userData, isAutenticated: true };
   setUserSessionData(user);
   // re-render the navbar for the authenticated user
   Navbar();
@@ -60,11 +64,12 @@ const onUserRegistration = (userData) => {
 const onError = (err) => {
   let messageBoard = document.querySelector("#messageBoard");
   let errorMessage = "";
-  if (err.message.includes("409")) errorMessage = "This user is already registered.";
+  if (err.message.includes("409"))
+    errorMessage = "This user is already registered.";
   else errorMessage = err.message;
   messageBoard.innerText = errorMessage;
   // show the messageBoard div (add relevant Bootstrap class)
-  messageBoard.classList.add("d-block");  
+  messageBoard.classList.add("d-block");
 };
 
 export default RegisterPage;

@@ -9,7 +9,7 @@ const jwtSecret = "jkjJ1235Ohno!";
 
 const authorize = (req, res, next) => {
   console.log("authorize() middleware");
-  var token = req.get("authorization");
+  let token = req.get("authorization");
   if (!token) return res.status(401).send("You are not authenticated.");
 
   jwt.verify(token, jwtSecret, (err, token) => {

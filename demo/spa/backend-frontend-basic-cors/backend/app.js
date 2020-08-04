@@ -6,7 +6,7 @@ var logger = require("morgan");
 var cors = require('cors');
 
 // set cors option
-var corsOptions = {
+let corsOptions = {
   origin: 'http://localhost',
 }
 
