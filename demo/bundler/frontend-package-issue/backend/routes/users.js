@@ -49,18 +49,18 @@ router.post("/", function (req, res, next) {
       console.log("POST users/ token:", token);
       return res.json({ username: newUser.username, token });
     });
-
-    /* Example on how to create and use your own asynchronous function (signAsynchronous())
-    signAsynchronous(newUser, (err, token) => {
-      if (err) {
-        console.error("POST users/ :", err);
-        return res.status(500).send(err.message);
-      }
-      console.log("POST users/ token:", token);
-      return res.json({ username: req.body.email, token });
-    });
-    */
   });
+});
+
+/* GET user object from username */
+router.get("/:username", function (req, res, next) {
+  console.log("GET users/:username", req.params.username);
+  const userFound = User.getUserFromList(req.params.username);
+  if (userFound) {
+    return res.json(userFound);
+  } else {
+    return res.status(404).send("ressource not found");
+  }
 });
 
 module.exports = router;

@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
 
 const HEADER_TITLE = "JavaScript & Node.js full course";
-const PAGE_TITLE = "Demo : Monolith SPA";
+const PAGE_TITLE = "Demo : use of webpack as a module bundler";
 const FOOTER_TEXT = "Happy learning : )";
 
 Navbar();
