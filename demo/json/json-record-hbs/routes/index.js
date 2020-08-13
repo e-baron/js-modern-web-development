@@ -2,6 +2,10 @@ var express = require("express");
 var router = express.Router();
 let User = require("../model/User.js");
 
+const HEADER_TITLE = "JavaScript & Node.js full course";
+const FOOTER_TEXT = "Happy learning : )";
+const PAGE_TITLE = "Demo : MPA with Express & JSON";
+
 /* GET home page. */
 router.get("/", function (req, res, next) {
   console.log(
@@ -11,12 +15,13 @@ router.get("/", function (req, res, next) {
     req.session.isAuthenticated
   );
   res.render("index", {
-    headerTitle: "JavaScript & Node.js full course",
-    pageTitle: "Demo : MPA with Express",
-    footerText: "Happy learning : )",
+    headerTitle: HEADER_TITLE,
+    pageTitle: PAGE_TITLE,
+    footerText: FOOTER_TEXT,
     user: req.session.user,
     isAuthenticated: req.session.isAuthenticated,
-    message:"Welcome to this amazing site which allows users to register with an email and a password.",
+    message:
+      "Welcome to this amazing site which allows users to register with an email and a password.",
   });
 });
 
@@ -24,9 +29,9 @@ router.get("/", function (req, res, next) {
 router.get("/register", function (req, res, next) {
   if (!req.session.isAuthenticated) {
     res.render("user-form", {
-      headerTitle: "JavaScript & Node.js full course",
-      pageTitle: "Demo : MPA with Express : Register Form",
-      footerText: "Happy learning : )",
+      headerTitle: HEADER_TITLE,
+      pageTitle: PAGE_TITLE + " : Register Form",
+      footerText: FOOTER_TEXT,
       user: req.session.user,
       isAuthenticated: req.session.isAuthenticated,
     });
@@ -34,19 +39,18 @@ router.get("/register", function (req, res, next) {
 });
 
 /* POST new user */
-router.post("/register", function (req, res, next) {  
-  if(User.isUser(req.body.email)){   
+router.post("/register", function (req, res, next) {
+  if (User.isUser(req.body.email)) {
     return res.render("user-form", {
-      headerTitle: "JavaScript & Node.js full course",
-      pageTitle:
-        "Demo : MPA with Express : User / email already exists. Please retry",
-      footerText: "Happy learning : )",
+      headerTitle: HEADER_TITLE,
+      pageTitle: PAGE_TITLE + " : User / email already exists. Please retry",
+      footerText: FOOTER_TEXT,
       user: req.session.user,
       isAuthenticated: req.session.isAuthenticated,
       isLogin: false,
     });
   }
-  let newUser = new User(req.body.email,req.body.email,req.body.password);
+  let newUser = new User(req.body.email, req.body.email, req.body.password);
   newUser.save();
   //console.log("POST /register:", req.app.locals.userList);
   console.log("POST /register:", User.list);
@@ -57,29 +61,28 @@ router.post("/register", function (req, res, next) {
 });
 
 /* GET user list*/
-router.get("/list", function (req, res, next) {  
+router.get("/list", function (req, res, next) {
   console.log("GET /register:", User.list);
   //let mapToObject = Object.fromEntries(User.list); // if we wanted to use a map, we would have to convert it to an object as Pug does not support yet Maps
   if (req.session.isAuthenticated) {
     res.render("user-list", {
-      headerTitle: "JavaScript & Node.js full course",
-      pageTitle: "Demo : MPA with Express : User List",
-      footerText: "Happy learning : )",
-      userList: User.list, //mapToObject, // if we were to use a Map 
+      headerTitle: HEADER_TITLE,
+      pageTitle: PAGE_TITLE + " : User List",
+      footerText: FOOTER_TEXT,      
+      userList: User.list, //mapToObject, // if we were to use a Map
       user: req.session.user,
       isAuthenticated: req.session.isAuthenticated,
     });
-  } 
-  else {
+  } else {
     res.render("index", {
-      headerTitle: "JavaScript & Node.js full course",
-      pageTitle: "Demo : MPA with Express",
-      footerText: "Happy learning : )",
+      headerTitle: HEADER_TITLE,
+      pageTitle: PAGE_TITLE,
+      footerText: FOOTER_TEXT,
       user: req.session.user,
       isAuthenticated: req.session.isAuthenticated,
-      message:"You are not authorized to see this ressource. Please login first, or register if you don't have an account.",
+      message:
+        "You are not authorized to see this ressource. Please login first, or register if you don't have an account.",
     });
-
   }
 });
 
@@ -87,9 +90,9 @@ router.get("/list", function (req, res, next) {
 router.get("/login", function (req, res, next) {
   if (!req.session.isAuthenticated) {
     res.render("user-form", {
-      headerTitle: "JavaScript & Node.js full course",
-      pageTitle: "Demo : MPA with Express : Login Form",
-      footerText: "Happy learning : )",
+      headerTitle: HEADER_TITLE,
+      pageTitle: PAGE_TITLE + " : Login Form",
+      footerText: FOOTER_TEXT,
       user: req.session.user,
       isAuthenticated: req.session.isAuthenticated,
       isLogin: true,
@@ -98,20 +101,19 @@ router.get("/login", function (req, res, next) {
 });
 
 /* POST user credentials to login*/
-router.post("/login", function (req, res, next) {   
-  let user = new User(req.body.email,req.body.email,req.body.password);
+router.post("/login", function (req, res, next) {
+  let user = new User(req.body.email, req.body.email, req.body.password);
   console.log("POST /login:", User.list);
-  if(user.checkCredentials(req.body.email,req.body.password)){
+  if (user.checkCredentials(req.body.email, req.body.password)) {
     // manage session data
     req.session.isAuthenticated = true;
     req.session.user = req.body.email;
     return res.redirect("/list");
   } else {
     res.render("user-form", {
-      headerTitle: "JavaScript & Node.js full course",
-      pageTitle:
-        "Demo : MPA with Express : ERROR in email or password. Please retry.",
-      footerText: "Happy learning : )",
+      headerTitle: HEADER_TITLE,
+      pageTitle: PAGE_TITLE + " : ERROR in email or password. Please retry",
+      footerText: FOOTER_TEXT,     
       user: req.session.user,
       isAuthenticated: req.session.isAuthenticated,
       isLogin: true,

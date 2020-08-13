@@ -1,6 +1,6 @@
 "use strict";
 const HEADER_TITLE = "JavaScript & Node.js full course";
-const PAGE_TITLE = "Demo : Oriented Object Programming";
+const PAGE_TITLE = "Demo : Oriented Object Programming in JS";
 const FOOTER_TEXT = "Happy learning : )";
 
 let btn = document.querySelector("#btn");

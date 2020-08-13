@@ -12,7 +12,7 @@ router.get("/", function (req, res, next) {
   );
   res.render("index", {
     headerTitle: "JavaScript & Node.js full course",
-    pageTitle: "Demo : MPA with Express",
+    pageTitle: "Demo : MPA with Express & MVC",
     footerText: "Happy learning : )",
     user: req.session.user,
     isAuthenticated: req.session.isAuthenticated,
@@ -25,7 +25,7 @@ router.get("/register", function (req, res, next) {
   if (!req.session.isAuthenticated) {
     res.render("user-form", {
       headerTitle: "JavaScript & Node.js full course",
-      pageTitle: "Demo : MPA with Express : Register Form",
+      pageTitle: "Demo : MPA with Express & MVC : Register Form",
       footerText: "Happy learning : )",
       user: req.session.user,
       isAuthenticated: req.session.isAuthenticated,
@@ -39,7 +39,7 @@ router.post("/register", function (req, res, next) {
     return res.render("user-form", {
       headerTitle: "JavaScript & Node.js full course",
       pageTitle:
-        "Demo : MPA with Express : User / email already exists. Please retry",
+        "Demo : MPA with Express & MVC : User / email already exists. Please retry",
       footerText: "Happy learning : )",
       user: req.session.user,
       isAuthenticated: req.session.isAuthenticated,
@@ -63,7 +63,7 @@ router.get("/list", function (req, res, next) {
   if (req.session.isAuthenticated) {
     res.render("user-list", {
       headerTitle: "JavaScript & Node.js full course",
-      pageTitle: "Demo : MPA with Express : User List",
+      pageTitle: "Demo : MPA with Express & MVC : User List",
       footerText: "Happy learning : )",
       userList: User.list, //mapToObject, // if we were to use a Map 
       user: req.session.user,
@@ -73,7 +73,7 @@ router.get("/list", function (req, res, next) {
   else {
     res.render("index", {
       headerTitle: "JavaScript & Node.js full course",
-      pageTitle: "Demo : MPA with Express",
+      pageTitle: "Demo : MPA with Express & MVC",
       footerText: "Happy learning : )",
       user: req.session.user,
       isAuthenticated: req.session.isAuthenticated,
@@ -88,7 +88,7 @@ router.get("/login", function (req, res, next) {
   if (!req.session.isAuthenticated) {
     res.render("user-form", {
       headerTitle: "JavaScript & Node.js full course",
-      pageTitle: "Demo : MPA with Express : Login Form",
+      pageTitle: "Demo : MPA with Express & MVC : Login Form",
       footerText: "Happy learning : )",
       user: req.session.user,
       isAuthenticated: req.session.isAuthenticated,
@@ -110,7 +110,7 @@ router.post("/login", function (req, res, next) {
     res.render("user-form", {
       headerTitle: "JavaScript & Node.js full course",
       pageTitle:
-        "Demo : MPA with Express : ERROR in email or password. Please retry.",
+        "Demo : MPA with Express & MVC : ERROR in email or password. Please retry.",
       footerText: "Happy learning : )",
       user: req.session.user,
       isAuthenticated: req.session.isAuthenticated,
