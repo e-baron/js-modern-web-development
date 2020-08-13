@@ -1,10 +1,12 @@
-import HomePage from "./HomePage.js";
+//import HomePage from "./HomePage.js";
+import AboutPage from "./AboutPage.js";
 import ContentPage from "./ContentPage.js";
 import ErrorPage from "./ErrorPage.js";
 
 const routes = {
-  "/": HomePage,
+  "/": ContentPage,
   "/contenu": ContentPage, 
+  "/about": AboutPage, 
   "/error": ErrorPage,
 };
 
@@ -30,11 +32,8 @@ const Router = () => {
     let uri;
     if (e.target.tagName === "A") {
       e.preventDefault();
-      if (e.target.text === "Home" || e.target.text === "MyCMS") {
-        uri = "/";
-      } else {
-        uri = "/" + e.target.text.toLowerCase();
-      }
+      // To get a data attribute through the dataset object, get the property by the part of the attribute name after data- (note that dashes are converted to camelCase).
+      uri = e.target.dataset.uri;
     }
     if (uri) {
       console.log(

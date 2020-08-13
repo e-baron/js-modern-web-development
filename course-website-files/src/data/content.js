@@ -5,12 +5,16 @@ const SLIDES_BASE_URL = "/course-files/slides/";
 const COURSE_CONTENT = [
   {
     contentType: "presentation",
-    subject: "Informations générales",
+    subject: "Informations générales à destination des participants",
     week: 1,
     courseFiles: [
       {
-        name: "JS-Node-InfosGénérales",
-        url: SLIDES_BASE_URL + "JS-Node-InfosGénérales.pdf",
+        name: "JS-Node-InfosGénérales-EtudiantsVinciOnly",
+        url: SLIDES_BASE_URL + "JS-Node-InfosGénérales-EtudiantsVinciOnly.pdf",
+      },
+      {
+        name: "JS-Node-InfosGénérales-ParticipantsExternesOnly",
+        url: SLIDES_BASE_URL + "JS-Node-InfosGénérales-ParticipantsExternesOnly.pdf",
       },
     ],
     courseVideos: [],
@@ -239,27 +243,7 @@ const COURSE_CONTENT = [
     exerciceInstructions: [],
     exerciceSolutions: [],
   },
-  {
-    contentType: "presentation",
-    subject: "Les modules côté client",
-    week: 4,
-    courseFiles: [
-      {
-        name: "JS-Node-Modules",
-        url: SLIDES_BASE_URL + "JS-Node-Modules.pdf",
-      },
-    ],
-    courseVideos: [],
-    courseDemos: [
-      {
-        contentType: "code",
-        name: "Les modules ES6",
-        url: CODE_BASE_URL + "modules",
-      },
-    ],
-    exerciceInstructions: [],
-    exerciceSolutions: [],
-  },
+
   {
     contentType: "presentation",
     subject: "L’orienté objet en JS",
@@ -281,6 +265,29 @@ const COURSE_CONTENT = [
     exerciceInstructions: [],
     exerciceSolutions: [],
   },
+
+  {
+    contentType: "presentation",
+    subject: "Les modules côté client",
+    week: 4,
+    courseFiles: [
+      {
+        name: "JS-Node-Modules",
+        url: SLIDES_BASE_URL + "JS-Node-Modules.pdf",
+      },
+    ],
+    courseVideos: [],
+    courseDemos: [
+      {
+        contentType: "code",
+        name: "Les modules ES6",
+        url: CODE_BASE_URL + "modules",
+      },
+    ],
+    exerciceInstructions: [],
+    exerciceSolutions: [],
+  },
+
   {
     contentType: "presentation",
     subject: "Communications client / serveur",
@@ -566,6 +573,141 @@ const COURSE_CONTENT = [
     exerciceSolutions: [],
   },
 
+  {
+    contentType: "presentation",
+    subject:
+      "Authentification sécurisée et autorisation d’un utilisateur via JWT",
+    week: 8,
+    courseFiles: [
+      {
+        name: "JS-Node-JWT-auths",
+        url: SLIDES_BASE_URL + "JS-Node-JWT-auths.pdf",
+      },
+    ],
+    courseVideos: [],
+    courseDemos: [
+      {
+        contentType: "code",
+        name:
+          "SPA monolithique avec JWT auths (authentication & authorization)",
+        url: CODE_BASE_URL + "jwt",
+      },
+    ],
+    exerciceInstructions: [],
+    exerciceSolutions: [],
+  },
+
+  {
+    contentType: "presentation",
+    subject: "SPA avec backend indépendant du frontend",
+    week: 8,
+    courseFiles: [
+      {
+        name: "JS-Node-SPABackendIndependant",
+        url: SLIDES_BASE_URL + "JS-Node-SPABackendIndependant.pdf",
+      },
+    ],
+    courseVideos: [],
+    courseDemos: [
+      {
+        contentType: "code",
+        name: "SPA avec frontend indépendant du backend : problème de CORS",
+        url: CODE_BASE_URL + "spa/backend-frontend-basic-issue",
+      },
+    ],
+    exerciceInstructions: [],
+    exerciceSolutions: [],
+  },
+
+  {
+    contentType: "presentation",
+    subject: "Gestion de la sécurité du browser",
+    week: 8,
+    courseFiles: [
+      {
+        name: "JS-Node-JS-Node-Sécurité",
+        url: SLIDES_BASE_URL + "JS-Node-Sécurité.pdf",
+      },
+    ],
+    courseVideos: [],
+    courseDemos: [
+      {
+        contentType: "code",
+        name: "SPA avec frontend indépendant du backend : gestion de CORS",
+        url: CODE_BASE_URL + "spa/backend-frontend-basic-cors",
+      },
+      {
+        contentType: "code",
+        name: "SPA avec frontend indépendant du backend : gestion de proxy ",
+        url: CODE_BASE_URL + "spa/backend-frontend-basic-proxy",
+      },
+    ],
+    exerciceInstructions: [],
+    exerciceSolutions: [],
+  },
+
+  {
+    contentType: "presentation",
+    subject: "Module bundler",
+    week: 8,
+    courseFiles: [
+      {
+        name: "JS-Node-Bundler",
+        url: SLIDES_BASE_URL + "JS-Node-Bundler.pdf",
+      },
+    ],
+    courseVideos: [],
+    courseDemos: [
+      {
+        contentType: "code",
+        name:
+          "Problème lors de l’utilisation d’un package dans le browser via require",
+        url: CODE_BASE_URL + "bundler/frontend-package-issue",
+      },
+      {
+        contentType: "code",
+        name: "Utilisation d’un package bundler (webpack)",
+        url: CODE_BASE_URL + "bundler/frontend-package-bundler",
+      },
+    ],
+    exerciceInstructions: [],
+    exerciceSolutions: [],
+  },
+
+  {
+    contentType: "presentation",
+    subject: "Déploiement d’applications web",
+    week: 8,
+    courseFiles: [
+      {
+        name: "JS-Node-Déploiement",
+        url: SLIDES_BASE_URL + "JS-Node-Déploiement.pdf",
+      },
+      {
+        name: "JS-Node-ProcédureDéploiementHeroku",
+        url: SLIDES_BASE_URL + "JS-Node-ProcédureDéploiementHeroku.pdf",
+      },
+    ],
+    courseVideos: [],
+    courseDemos: [],
+    exerciceInstructions: [],
+    exerciceSolutions: [],
+  },
+
+  {
+    contentType: "support",
+    subject: "Bibliographie",    
+    courseFiles: [
+      {
+        name: "JS-Node-Bibliographie",
+        url: SLIDES_BASE_URL + "JS-Node-Bibliographie.pdf",
+      },
+    ],
+    courseVideos: [],
+    courseDemos: [],
+    exerciceInstructions: [],
+    exerciceSolutions: [],
+  },
 ];
 
 export default COURSE_CONTENT;
