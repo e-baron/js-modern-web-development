@@ -36,11 +36,8 @@ const Router = () => {
     let uri;
     if (e.target.tagName === "A") {
       e.preventDefault();
-      if (e.target.text === "Home") {
-        uri = "/";
-      } else {
-        uri = "/" + e.target.text.toLowerCase();
-      }
+      // To get a data attribute through the dataset object, get the property by the part of the attribute name after data- (note that dashes are converted to camelCase).
+      uri = e.target.dataset.uri;
     }
     if (uri) {
       console.log(

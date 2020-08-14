@@ -24,7 +24,9 @@ const Router = () => {
     console.log("onload page:", [window.location.pathname]);
     componentToRender = routes[window.location.pathname];
     if (!componentToRender)
-      return ErrorPage("The " + window.location.pathname + " ressource does not exist.");
+      return ErrorPage(
+        "The " + window.location.pathname + " ressource does not exist."
+      );
     componentToRender();
   });
 
@@ -33,14 +35,13 @@ const Router = () => {
     let uri;
     if (e.target.tagName === "A") {
       e.preventDefault();
-      if (e.target.text === "Home") {
-        uri = "/";
-      } else {
-        uri = "/" + e.target.text.toLowerCase();
-      }
+      // To get a data attribute through the dataset object, get the property by the part of the attribute name after data- (note that dashes are converted to camelCase).
+      uri = e.target.dataset.uri;
     }
     if (uri) {
       console.log(
+        "extra info associated to this link:",
+        e.target.dataset.extraInfo,
         "onNavigate() uri:",
         uri,
         " location:",
