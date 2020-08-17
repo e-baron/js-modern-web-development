@@ -1,6 +1,8 @@
 const CODE_BASE_URL =
   "https://github.com/e-baron/js-modern-web-development/tree/master/demo/";
 const SLIDES_BASE_URL = "/course-files/slides/";
+const OTHERS_BASE_URL = "/course-files/others/";
+const INSTRUCTIONS_BASE_URL = "/course-files/instructions/";
 
 const COURSE_CONTENT = [
   {
@@ -9,12 +11,12 @@ const COURSE_CONTENT = [
     week: 1,
     courseFiles: [
       {
-        name: "JS-Node-InfosGénérales-EtudiantsVinciOnly",
-        url: SLIDES_BASE_URL + "JS-Node-InfosGénérales-EtudiantsVinciOnly.pdf",
+        name: "01-JS-Node-InfosGénérales-EtudiantsVinciOnly",
+        url: SLIDES_BASE_URL + "01-JS-Node-InfosGénérales-EtudiantsVinciOnly.pdf",
       },
       {
-        name: "JS-Node-InfosGénérales-ParticipantsExternesOnly",
-        url: SLIDES_BASE_URL + "JS-Node-InfosGénérales-ParticipantsExternesOnly.pdf",
+        name: "01-JS-Node-InfosGénérales-ParticipantsExternesOnly",
+        url: SLIDES_BASE_URL + "01-JS-Node-InfosGénérales-ParticipantsExternesOnly.pdf",
       },
     ],
     courseVideos: [],
@@ -28,8 +30,8 @@ const COURSE_CONTENT = [
     week: 1,
     courseFiles: [
       {
-        name: "JS-Node-Contexte",
-        url: SLIDES_BASE_URL + "JS-Node-Contexte.pdf",
+        name: "02-JS-Node-Contexte",
+        url: SLIDES_BASE_URL + "02-JS-Node-Contexte.pdf",
       },
     ],
     courseVideos: [],
@@ -43,8 +45,8 @@ const COURSE_CONTENT = [
     week: 1,
     courseFiles: [
       {
-        name: "JS-Node-IntroLangageJS",
-        url: SLIDES_BASE_URL + "JS-Node-IntroLangageJS.pdf",
+        name: "03-JS-Node-IntroLangageJS",
+        url: SLIDES_BASE_URL + "03-JS-Node-IntroLangageJS.pdf",
       },
     ],
     courseVideos: [],
@@ -74,8 +76,8 @@ const COURSE_CONTENT = [
     week: 1,
     courseFiles: [
       {
-        name: "JS-Node-Git",
-        url: SLIDES_BASE_URL + "JS-Node-Git.pdf",
+        name: "04-JS-Node-Git",
+        url: SLIDES_BASE_URL + "04-JS-Node-Git.pdf",
       },
     ],
     courseVideos: [],
@@ -89,8 +91,8 @@ const COURSE_CONTENT = [
     week: 2,
     courseFiles: [
       {
-        name: "JS-Node-DOM-Events",
-        url: SLIDES_BASE_URL + "JS-Node-DOM-Events.pdf",
+        name: "05-JS-Node-DOM-Events",
+        url: SLIDES_BASE_URL + "05-JS-Node-DOM-Events.pdf",
       },
     ],
     courseVideos: [],
@@ -120,8 +122,8 @@ const COURSE_CONTENT = [
     week: 2,
     courseFiles: [
       {
-        name: "JS-Node-Bootstrap-HtmlDynamique-Events",
-        url: SLIDES_BASE_URL + "JS-Node-Bootstrap-HtmlDynamique-Events.pdf",
+        name: "06-JS-Node-Bootstrap-HtmlDynamique-Events",
+        url: SLIDES_BASE_URL + "06-JS-Node-Bootstrap-HtmlDynamique-Events.pdf",
       },
     ],
     courseVideos: [],
@@ -151,8 +153,8 @@ const COURSE_CONTENT = [
     week: 2,
     courseFiles: [
       {
-        name: "JS-Node-ContraintesDeValidation",
-        url: SLIDES_BASE_URL + "JS-Node-ContraintesDeValidation.pdf",
+        name: "07-JS-Node-ContraintesDeValidation",
+        url: SLIDES_BASE_URL + "07-JS-Node-ContraintesDeValidation.pdf",
       },
     ],
     courseVideos: [],
@@ -173,8 +175,8 @@ const COURSE_CONTENT = [
     week: 2,
     courseFiles: [
       {
-        name: "JS-Node-Debugging-Frontend",
-        url: SLIDES_BASE_URL + "JS-Node-Debugging-Frontend.pdf",
+        name: "08-JS-Node-Debugging-Frontend",
+        url: SLIDES_BASE_URL + "08-JS-Node-Debugging-Frontend.pdf",
       },
     ],
     courseVideos: [],
@@ -186,8 +188,8 @@ const COURSE_CONTENT = [
     week: 3,
     courseFiles: [
       {
-        name: "JS-Node-Canvas",
-        url: SLIDES_BASE_URL + "JS-Node-Canvas.pdf",
+        name: "09-JS-Node-Canvas",
+        url: SLIDES_BASE_URL + "09-JS-Node-Canvas.pdf",
       },
     ],
     courseVideos: [],
@@ -207,8 +209,8 @@ const COURSE_CONTENT = [
     week: 3,
     courseFiles: [
       {
-        name: "JS-Node-Animation-ExtLibrary",
-        url: SLIDES_BASE_URL + "JS-Node-Animation-ExtLibrary.pdf",
+        name: "10-JS-Node-Animation-ExtLibrary",
+        url: SLIDES_BASE_URL + "10-JS-Node-Animation-ExtLibrary.pdf",
       },
     ],
     courseVideos: [],
@@ -228,8 +230,8 @@ const COURSE_CONTENT = [
     week: 4,
     courseFiles: [
       {
-        name: "JS-Node-JQuery",
-        url: SLIDES_BASE_URL + "JS-Node-JQuery.pdf",
+        name: "11-JS-Node-JQuery",
+        url: SLIDES_BASE_URL + "11-JS-Node-JQuery.pdf",
       },
     ],
     courseVideos: [],
@@ -250,8 +252,8 @@ const COURSE_CONTENT = [
     week: 4,
     courseFiles: [
       {
-        name: "JS-Node-OrientéObjet",
-        url: SLIDES_BASE_URL + "JS-Node-OrientéObjet.pdf",
+        name: "12-JS-Node-OrientéObjet",
+        url: SLIDES_BASE_URL + "12-JS-Node-OrientéObjet.pdf",
       },
     ],
     courseVideos: [],
@@ -272,8 +274,8 @@ const COURSE_CONTENT = [
     week: 4,
     courseFiles: [
       {
-        name: "JS-Node-Modules",
-        url: SLIDES_BASE_URL + "JS-Node-Modules.pdf",
+        name: "13-JS-Node-Modules",
+        url: SLIDES_BASE_URL + "13-JS-Node-Modules.pdf",
       },
     ],
     courseVideos: [],
@@ -294,8 +296,8 @@ const COURSE_CONTENT = [
     week: 5,
     courseFiles: [
       {
-        name: "JS-Node-CommsClientServeur",
-        url: SLIDES_BASE_URL + "JS-Node-CommsClientServeur.pdf",
+        name: "14-JS-Node-CommsClientServeur",
+        url: SLIDES_BASE_URL + "14-JS-Node-CommsClientServeur.pdf",
       },
     ],
     courseVideos: [],
@@ -309,8 +311,8 @@ const COURSE_CONTENT = [
     week: 5,
     courseFiles: [
       {
-        name: "JS-Node-Node-Modules-Packages",
-        url: SLIDES_BASE_URL + "JS-Node-Node-Modules-Packages.pdf",
+        name: "15-JS-Node-Node-Modules-Packages",
+        url: SLIDES_BASE_URL + "15-JS-Node-Node-Modules-Packages.pdf",
       },
     ],
     courseVideos: [],
@@ -341,8 +343,8 @@ const COURSE_CONTENT = [
     week: 5,
     courseFiles: [
       {
-        name: "JS-Node-Debugging-Node",
-        url: SLIDES_BASE_URL + "JS-Node-Debugging-Node.pdf",
+        name: "16-JS-Node-Debugging-Node",
+        url: SLIDES_BASE_URL + "16-JS-Node-Debugging-Node.pdf",
       },
     ],
     courseVideos: [],
@@ -357,8 +359,8 @@ const COURSE_CONTENT = [
     week: 6,
     courseFiles: [
       {
-        name: "JS-Node-MPA-Express",
-        url: SLIDES_BASE_URL + "JS-Node-MPA-Express.pdf",
+        name: "17-JS-Node-MPA-Express",
+        url: SLIDES_BASE_URL + "17-JS-Node-MPA-Express.pdf",
       },
     ],
     courseVideos: [],
@@ -394,8 +396,8 @@ const COURSE_CONTENT = [
     week: 6,
     courseFiles: [
       {
-        name: "Node-SessionServeur-MVC",
-        url: SLIDES_BASE_URL + "Node-SessionServeur-MVC.pdf",
+        name: "18-JS-Node-SessionServeur-MVC",
+        url: SLIDES_BASE_URL + "18-JS-Node-SessionServeur-MVC.pdf",
       },
     ],
     courseVideos: [],
@@ -421,8 +423,8 @@ const COURSE_CONTENT = [
     week: 7,
     courseFiles: [
       {
-        name: "JS-Node-JSON",
-        url: SLIDES_BASE_URL + "JS-Node-JSON.pdf",
+        name: "19-JS-Node-JSON",
+        url: SLIDES_BASE_URL + "19-JS-Node-JSON.pdf",
       },
     ],
     courseVideos: [],
@@ -448,8 +450,8 @@ const COURSE_CONTENT = [
     week: 7,
     courseFiles: [
       {
-        name: "JS-Node-SPA-RoutingComposants",
-        url: SLIDES_BASE_URL + "JS-Node-SPA-RoutingComposants.pdf",
+        name: "20-JS-Node-SPA-RoutingComposants",
+        url: SLIDES_BASE_URL + "20-JS-Node-SPA-RoutingComposants.pdf",
       },
     ],
     courseVideos: [],
@@ -470,8 +472,8 @@ const COURSE_CONTENT = [
     week: 7,
     courseFiles: [
       {
-        name: "JS-Node-RESTfulAPI",
-        url: SLIDES_BASE_URL + "JS-Node-RESTfulAPI.pdf",
+        name: "21-JS-Node-RESTfulAPI",
+        url: SLIDES_BASE_URL + "21-JS-Node-RESTfulAPI.pdf",
       },
     ],
     courseVideos: [],
@@ -486,8 +488,8 @@ const COURSE_CONTENT = [
     week: 7,
     courseFiles: [
       {
-        name: "JS-Node-SPA-AJAX-API",
-        url: SLIDES_BASE_URL + "JS-Node-SPA-AJAX-API.pdf",
+        name: "22-JS-Node-SPA-AJAX-API",
+        url: SLIDES_BASE_URL + "22-JS-Node-SPA-AJAX-API.pdf",
       },
     ],
     courseVideos: [],
@@ -508,8 +510,8 @@ const COURSE_CONTENT = [
     week: 7,
     courseFiles: [
       {
-        name: "JS-Node-Promesses",
-        url: SLIDES_BASE_URL + "JS-Node-Promesses.pdf",
+        name: "23-JS-Node-Promesses",
+        url: SLIDES_BASE_URL + "23-JS-Node-Promesses.pdf",
       },
     ],
     courseVideos: [],
@@ -530,8 +532,8 @@ const COURSE_CONTENT = [
     week: 8,
     courseFiles: [
       {
-        name: "JS-Node-SessionClient",
-        url: SLIDES_BASE_URL + "JS-Node-SessionClient.pdf",
+        name: "24-JS-Node-SessionClient",
+        url: SLIDES_BASE_URL + "24-JS-Node-SessionClient.pdf",
       },
     ],
     courseVideos: [],
@@ -557,8 +559,8 @@ const COURSE_CONTENT = [
     week: 8,
     courseFiles: [
       {
-        name: "JS-Node-HachageInfo",
-        url: SLIDES_BASE_URL + "JS-Node-HachageInfo.pdf",
+        name: "25-JS-Node-HachageInfo",
+        url: SLIDES_BASE_URL + "25-JS-Node-HachageInfo.pdf",
       },
     ],
     courseVideos: [],
@@ -580,8 +582,8 @@ const COURSE_CONTENT = [
     week: 8,
     courseFiles: [
       {
-        name: "JS-Node-JWT-auths",
-        url: SLIDES_BASE_URL + "JS-Node-JWT-auths.pdf",
+        name: "26-JS-Node-JWT-auths",
+        url: SLIDES_BASE_URL + "26-JS-Node-JWT-auths.pdf",
       },
     ],
     courseVideos: [],
@@ -603,8 +605,8 @@ const COURSE_CONTENT = [
     week: 8,
     courseFiles: [
       {
-        name: "JS-Node-SPABackendIndependant",
-        url: SLIDES_BASE_URL + "JS-Node-SPABackendIndependant.pdf",
+        name: "27-JS-Node-SPABackendIndependant",
+        url: SLIDES_BASE_URL + "27-JS-Node-SPABackendIndependant.pdf",
       },
     ],
     courseVideos: [],
@@ -625,8 +627,8 @@ const COURSE_CONTENT = [
     week: 8,
     courseFiles: [
       {
-        name: "JS-Node-JS-Node-Sécurité",
-        url: SLIDES_BASE_URL + "JS-Node-Sécurité.pdf",
+        name: "28-JS-Node-JS-Node-Sécurité",
+        url: SLIDES_BASE_URL + "28-JS-Node-Sécurité.pdf",
       },
     ],
     courseVideos: [],
@@ -652,8 +654,8 @@ const COURSE_CONTENT = [
     week: 8,
     courseFiles: [
       {
-        name: "JS-Node-Bundler",
-        url: SLIDES_BASE_URL + "JS-Node-Bundler.pdf",
+        name: "29-JS-Node-Bundler",
+        url: SLIDES_BASE_URL + "29-JS-Node-Bundler.pdf",
       },
     ],
     courseVideos: [],
@@ -680,12 +682,12 @@ const COURSE_CONTENT = [
     week: 8,
     courseFiles: [
       {
-        name: "JS-Node-Déploiement",
-        url: SLIDES_BASE_URL + "JS-Node-Déploiement.pdf",
+        name: "30-JS-Node-Déploiement",
+        url: SLIDES_BASE_URL + "30-JS-Node-Déploiement.pdf",
       },
       {
-        name: "JS-Node-ProcédureDéploiementHeroku",
-        url: SLIDES_BASE_URL + "JS-Node-ProcédureDéploiementHeroku.pdf",
+        name: "30-JS-Node-ProcédureDéploiementHeroku",
+        url: OTHERS_BASE_URL + "30-JS-Node-ProcédureDéploiementHeroku.pdf",
       },
     ],
     courseVideos: [],
@@ -700,7 +702,7 @@ const COURSE_CONTENT = [
     courseFiles: [
       {
         name: "JS-Node-Bibliographie",
-        url: SLIDES_BASE_URL + "JS-Node-Bibliographie.pdf",
+        url: OTHERS_BASE_URL + "JS-Node-Bibliographie.pdf",
       },
     ],
     courseVideos: [],
