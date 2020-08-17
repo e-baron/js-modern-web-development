@@ -228,11 +228,11 @@ function useStrict() {
   undeclaredVar = "I am undeclared..."; // Uncaught ReferenceError: undeclaredVar is not defined
   console.log(undeclaredVar);
 }
-useStrict();
+//useStrict();
 
 var timeoutID;
 
-var myVar = setInterval(myTimer, 1000);
+//var myVar = setInterval(myTimer, 1000);
 
 function myTimer() {
   var d = new Date();
@@ -245,3 +245,15 @@ function myStopFunction() {
 }
 
 console.log("end");
+
+const dateTimeNow = new Date();
+let [day, month, year] = dateTimeNow.toLocaleDateString().split("/");
+let [hour, minute, second] = dateTimeNow
+  .toLocaleTimeString()
+  .slice(0, 7)
+  .split(":");
+
+console.log(dateTimeNow);
+
+console.log(dateTimeNow.toLocaleDateString()); // e.g. 17/08/2020
+console.log(dateTimeNow.toLocaleTimeString()); // e.g. 13:26:15

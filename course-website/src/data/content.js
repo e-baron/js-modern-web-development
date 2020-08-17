@@ -1,5 +1,6 @@
+//const CODE_BASE_URL =  "https://github.com/e-baron/js-modern-web-development/tree/master/demo/";
 const CODE_BASE_URL =
-  "https://github.com/e-baron/js-modern-web-development/tree/master/demo/";
+  "https://gitlab.vinci.be/web2/js-modern-web-development/-/tree/master/demo/";
 const SLIDES_BASE_URL = "/course-files/slides/";
 const OTHERS_BASE_URL = "/course-files/others/";
 const INSTRUCTIONS_BASE_URL = "/course-files/instructions/";
@@ -12,11 +13,14 @@ const COURSE_CONTENT = [
     courseFiles: [
       {
         name: "01-JS-Node-InfosGénérales-EtudiantsVinciOnly",
-        url: SLIDES_BASE_URL + "01-JS-Node-InfosGénérales-EtudiantsVinciOnly.pdf",
+        url:
+          SLIDES_BASE_URL + "01-JS-Node-InfosGénérales-EtudiantsVinciOnly.pdf",
       },
       {
         name: "01-JS-Node-InfosGénérales-ParticipantsExternesOnly",
-        url: SLIDES_BASE_URL + "01-JS-Node-InfosGénérales-ParticipantsExternesOnly.pdf",
+        url:
+          SLIDES_BASE_URL +
+          "01-JS-Node-InfosGénérales-ParticipantsExternesOnly.pdf",
       },
     ],
     courseVideos: [],
@@ -67,7 +71,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "js-location/external-script",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 01 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche01.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
   {
@@ -82,7 +91,12 @@ const COURSE_CONTENT = [
     ],
     courseVideos: [],
     courseDemos: [],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 01 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche01.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
   {
@@ -698,7 +712,7 @@ const COURSE_CONTENT = [
 
   {
     contentType: "support",
-    subject: "Bibliographie",    
+    subject: "Bibliographie",
     courseFiles: [
       {
         name: "JS-Node-Bibliographie",
