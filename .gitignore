@@ -4,3 +4,4 @@ node_modules
 users.json
 # ignore the specific VS Code configuration parameters
 .vscode
+push-heroku.bash
