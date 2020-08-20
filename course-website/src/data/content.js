@@ -390,7 +390,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "node/node-modules",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 05 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche05.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
   {
@@ -442,7 +447,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "mpa-express/user-registration",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 06 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche06.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
 
@@ -469,7 +479,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "mpa-express/user-session",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 06 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche06.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
 
@@ -496,7 +511,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "json/json-record",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 07 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche07.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
 
@@ -518,7 +538,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "spa/spa-routing",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 07 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche07.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
 
@@ -534,7 +559,12 @@ const COURSE_CONTENT = [
     ],
     courseVideos: [],
     courseDemos: [],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 07 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche07.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
 
@@ -556,7 +586,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "spa/spa-monolith",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 07 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche07.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
 
@@ -578,7 +613,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "promises",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 07 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche07.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
 
@@ -605,7 +645,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "client-session/session-storage",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 08 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche08.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
 
@@ -627,7 +672,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "hashing",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 08 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche08.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
 
@@ -651,7 +701,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "jwt",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 08 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche08.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
 
@@ -673,7 +728,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "spa/backend-frontend-basic-issue",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 08 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche08.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
 
@@ -700,7 +760,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "spa/backend-frontend-basic-proxy",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 08 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche08.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
 
@@ -728,7 +793,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "bundler/frontend-package-bundler",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 08 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche08.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
 
