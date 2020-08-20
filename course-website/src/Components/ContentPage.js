@@ -31,11 +31,11 @@ const getBootstrapTableFromJSON = (data) => {
         case "courseFiles":
           return `<th scope="col">Documentation de présentation</th>`;
         case "courseVideos":
-          return `<th scope="col">Vidéos de présentation</th>`;
+          return `<th scope="col">Vidéo de présentation</th>`;
         case "courseDemos":
           return `<th scope="col">Code de démonstration</th>`;
         case "exerciceInstructions":
-          return `<th scope="col">Enoncé d'exercice</th>`;
+          return `<th scope="col">Fiche d'exercice</th>`;
         default:
           return `<th scope="col">${header}</th>`;
       }

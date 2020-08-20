@@ -127,7 +127,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "dom-event/callback",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 02 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche02.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
   {
@@ -158,7 +163,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "dom-event/callback",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 02 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche02.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
   {
@@ -180,7 +190,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "validation-constraints",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 02 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche02.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
   {
@@ -195,6 +210,8 @@ const COURSE_CONTENT = [
     ],
     courseVideos: [],
     courseDemos: [],
+    exerciceInstructions: [],
+    exerciceSolutions: [],
   },
   {
     contentType: "presentation",
@@ -214,7 +231,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "canvas",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 03 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche03.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
   {
@@ -235,7 +257,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "animejs",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 03 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche03.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
   {
@@ -256,7 +283,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "jquery",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 04 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche04.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
 
@@ -278,7 +310,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "object-oriented",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 04 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche04.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
 
@@ -300,7 +337,12 @@ const COURSE_CONTENT = [
         url: CODE_BASE_URL + "modules",
       },
     ],
-    exerciceInstructions: [],
+    exerciceInstructions: [
+      {
+        name: "Fiche 04 d'exercices",
+        url: INSTRUCTIONS_BASE_URL + "fiche04.pdf",
+      },
+    ],
     exerciceSolutions: [],
   },
 

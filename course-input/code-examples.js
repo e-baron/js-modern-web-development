@@ -257,3 +257,74 @@ console.log(dateTimeNow);
 
 console.log(dateTimeNow.toLocaleDateString()); // e.g. 17/08/2020
 console.log(dateTimeNow.toLocaleTimeString()); // e.g. 13:26:15
+
+const animationLibraries = [
+  {
+    title: "Anime.js",
+    url: "https://animejs.com/",
+    description: `Anime.js (/ˈæn.ə.meɪ/) is a lightweight JavaScript animation library with a simple, yet powerful API.
+It works with CSS properties, SVG, DOM attributes and JavaScript Objects.`,
+  },
+  {
+    title: "Three.js",
+    url: "https://threejs.org/",
+    description:
+      "Three.js is a cross-browser JavaScript library and application programming interface used to create and display animated 3D computer graphics in a web browser using WebGL.",
+  },
+  {
+    title: "Phaser.io",
+    url: "https://phaser.io/",
+    description:
+      "Phaser is a fast, free, and fun open source HTML5 game framework that offers WebGL and Canvas rendering across desktop and mobile web browsers. ",
+  },
+  {
+    title: "GSAP",
+    url: "https://greensock.com/gsap/",
+    description:
+      "GSAP is a JavaScript library for building high-performance animations that work in every major browser. Animate CSS, SVG, canvas, React, Vue, WebGL, colors, strings, motion paths, generic objects... anything JavaScript can touch!",
+  },
+  {
+    title: "Mo.js",
+    url: "https://mojs.github.io/",
+    description:
+      "mo · js is a javascript motion graphics library that is a fast, retina ready, modular and open source. In comparison to other libraries, it have a different syntax and code animation structure approach. The declarative API provides you a complete control over the animation, making it customizable with ease.",
+  },
+  {
+    title: "Velocity.js",
+    url: "http://velocityjs.org/",
+    description: `Velocity is an animation engine with the same API as jQuery's $.animate(). It works with and without jQuery. It's incredibly fast, and it features color animation, transforms, loops, easings, SVG support, and scrolling. It is the best of jQuery and CSS transitions combined.`,
+  },
+  {
+    title: "AniJS",
+    url: "https://anijs.github.io/",
+    description: "A Library to Raise your Web Design without Coding",
+  },
+  {
+    title: "vivus",
+    url: "https://maxwellito.github.io/vivus/",
+    description:
+      "Vivus is a lightweight JavaScript class (with no dependencies) that allows you to animate SVGs, giving them the appearence of being drawn. There are a variety of different animations available, as well as the option to create a custom script to draw your SVG in whatever way you like.",
+  },
+  {
+    title: "ScrollReveal",
+    url: "https://scrollrevealjs.org/",
+    description:
+      "ScrollReveal is a JavaScript library for easily animating elements as they enter/leave the viewport. It was designed to be robust and flexible, but hopefully you’ll be surprised below at how easy it is to pick up.",
+  },
+  {
+    title: "Typed.js",
+    url: "https://mattboldt.com/demos/typed-js/",
+    description:
+      "Typed.js is a library that types. Enter in any string, and watch it type at the speed you've set, backspace what it's typed, and begin a new sentence for however many strings you've set.",
+  },
+];
+
+const librariesCloud = [
+  "Anime.js",
+  "Three.js",
+  "Phaser.io",
+  "GSAP",
+  "Mo.js",
+  "Velocity",
+  "...",
+];
