@@ -89,7 +89,12 @@ const COURSE_CONTENT = [
         url: SLIDES_BASE_URL + "04-JS-Node-Git.pdf",
       },
     ],
-    courseVideos: [],
+    courseVideos: [
+      {
+        name: "Introduction à Git",
+        url: "https://youtu.be/C6CYLxNNnK4",
+      },
+    ],
     courseDemos: [],
     exerciceInstructions: [
       {
