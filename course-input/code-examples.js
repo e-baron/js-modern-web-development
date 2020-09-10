@@ -185,7 +185,7 @@ sandra.firstname = "Sandra";
 sandra.lastname = "Parisi";
 
 console.log(raphael.firstname, " :", raphael.sayHello()); // Raphael  : Hi everyone !
-console.log(sandra.firstname, ",", sandra.lastname); // Sandra , Parisi
+console.log(sandra["firstname"], ",", sandra["lastname"]); // Sandra , Parisi
 
 function divideXByY(x, y) {
   if (y === 0) throw "Division by 0 ! "; // { name: "Division_Exception", message: "Division by 0 ! " };
