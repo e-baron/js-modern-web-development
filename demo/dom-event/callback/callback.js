@@ -1,6 +1,5 @@
 "use strict";
 let btn1 = document.getElementById("myBtn1");
-const URL = "http://ipv4.download.thinkbroadband.com/10MB.zip";
 const LOOP_ITERATIONS = 1000000000; // 1 billion
 
 const onClickHandlerForBtn1 = () => {
@@ -20,9 +19,8 @@ function runBigLoop(callback) {
   callback(LOOP_ITERATIONS, timeInSec);
 }
 
-function isLooped(iterations,time) {
-  console.log(`duration to loop ${iterations} times : ${time} ms`, );
+function isLooped(iterations, time) {
+  console.log(`duration to loop ${iterations} times : ${time} ms`);
   alert(`duration to loop ${iterations} times : ${time} ms`);
 }
 
-runBigLoop(isLooped);

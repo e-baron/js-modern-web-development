@@ -162,11 +162,6 @@ const COURSE_CONTENT = [
         name: "Génération dynamique d’HTML",
         url: CODE_BASE_URL + "dom-event/dynamic-html",
       },
-      {
-        contentType: "code",
-        name: "Création d’une callback",
-        url: CODE_BASE_URL + "dom-event/callback",
-      },
     ],
     exerciceInstructions: [
       {
