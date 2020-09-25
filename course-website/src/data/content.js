@@ -1,6 +1,8 @@
 //const CODE_BASE_URL =  "https://github.com/e-baron/js-modern-web-development/tree/master/demo/";
 const CODE_BASE_URL =
   "https://gitlab.vinci.be/web2/js-modern-web-development/-/tree/master/demo/";
+  const SOLUTION_CODE_BASE_URL =
+  "https://gitlab.vinci.be/web2/js-modern-web-development/-/tree/master/exercises/";
 const SLIDES_BASE_URL = "/course-files/slides/";
 const OTHERS_BASE_URL = "/course-files/others/";
 const INSTRUCTIONS_BASE_URL = "/course-files/instructions/";
@@ -77,7 +79,13 @@ const COURSE_CONTENT = [
         url: INSTRUCTIONS_BASE_URL + "fiche01.pdf",
       },
     ],
-    exerciceSolutions: [],
+    exerciceSolutions: [
+      {
+        contentType: "code",
+        name: "1er script externe & appel de fonction",
+        url: SOLUTION_CODE_BASE_URL + "fiche-01/script-externe",
+      },
+    ],
   },
   {
     contentType: "presentation",

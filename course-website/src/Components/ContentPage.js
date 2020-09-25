@@ -22,8 +22,7 @@ const getBootstrapTableFromJSON = (data) => {
   content += headers
     .map((header) => {
       switch (header) {
-        case "contentType":
-        case "exerciceSolutions":
+        case "contentType":        
         case "week":
           return "";
         case "subject":
@@ -36,6 +35,8 @@ const getBootstrapTableFromJSON = (data) => {
           return `<th scope="col">Code de démonstration</th>`;
         case "exerciceInstructions":
           return `<th scope="col">Fiche d'exercice</th>`;
+        case "exerciceSolutions":
+          return `<th scope="col">Code des solutions aux exercices</th>`;
         default:
           return `<th scope="col">${header}</th>`;
       }
@@ -61,7 +62,7 @@ const getBootstrapTableFromJSON = (data) => {
         .map((keyValue) => {
           if (
             keyValue[0] == "contentType" ||
-            keyValue[0] == "exerciceSolutions" ||
+            //keyValue[0] == "exerciceSolutions" ||
             keyValue[0] == "week"
           ){
             //console.log("Column to be discarded:", keyValue[0], keyValue[1]);

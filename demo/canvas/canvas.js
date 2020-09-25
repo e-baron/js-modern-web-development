@@ -13,7 +13,6 @@ let pageWidth = page.clientWidth;
 let pageHeight = page.clientHeight;
 myCanvas.width = pageWidth - 20;
 myCanvas.height = pageHeight;
-let isEnlarged = false;
 
 // call the callback to draw our animation when the browser is ready
 requestAnimationFrame(drawOneFrame);
@@ -39,7 +38,7 @@ function drawOneFrame() {
   requestAnimationFrame(drawOneFrame);
 
   // Slow the animation down via setTimeout
-  //requestAnimationFrame(setTimeout(drawOneFrame,1000));
+  //requestAnimationFrame(() => setTimeout(drawOneFrame,1000));
 }
 
 setLayout(HEADER_TITLE, PAGE_TITLE, FOOTER_TEXT);

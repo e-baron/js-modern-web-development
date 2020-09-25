@@ -29,7 +29,7 @@ const onClickHandlerForBtn4 = () => {
   btn3.removeEventListener("click", onClickHandlerForBtnExtra);
 };
 
-btn2.addEventListener("click", onClickHandlerForBtn2);
+btn2.addEventListener("change", onClickHandlerForBtn2);
 btn3.addEventListener("click", onClickHandlerForBtn3);
 btn3.addEventListener("click", onClickHandlerForBtnExtra);
 btn4.addEventListener("click", onClickHandlerForBtn4);
