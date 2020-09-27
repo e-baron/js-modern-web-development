@@ -1,13 +1,20 @@
+import { loginRequest } from "../utils/auths/authConfig.js";
 //import HomePage from "./HomePage.js";
 import AboutPage from "./AboutPage.js";
 import ContentPage from "./ContentPage.js";
 import ErrorPage from "./ErrorPage.js";
+import Login from "./Login.js";
+import Logout from "./Logout.js";
+import ProjectPage from "./ProjectPage.js";
 
 const routes = {
   "/": ContentPage,
   "/contenu": ContentPage, 
   "/about": AboutPage, 
   "/error": ErrorPage,
+  "/login": Login,
+  "/logout": Logout,
+  "/projects": ProjectPage,
 };
 
 let page = document.querySelector("#page");
