@@ -146,7 +146,13 @@ const COURSE_CONTENT = [
         url: INSTRUCTIONS_BASE_URL + "fiche02.pdf",
       },
     ],
-    exerciceSolutions: [],
+    exerciceSolutions: [
+      {
+        contentType: "code",
+        name: "Gestion d'un compteur de clics",
+        url: SOLUTION_CODE_BASE_URL + "fiche-02/dom-event",
+      },
+    ],
   },
   {
     contentType: "presentation",
@@ -177,7 +183,13 @@ const COURSE_CONTENT = [
         url: INSTRUCTIONS_BASE_URL + "fiche02.pdf",
       },
     ],
-    exerciceSolutions: [],
+    exerciceSolutions: [
+      {
+        contentType: "code",
+        name: "Création d'une table sur base d'un formulaire",
+        url: SOLUTION_CODE_BASE_URL + "fiche-02/dynamic-html",
+      },
+    ],
   },
   {
     contentType: "presentation",
