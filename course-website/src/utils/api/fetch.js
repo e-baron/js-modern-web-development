@@ -15,13 +15,17 @@ export default async function callAPI(endpoint, method = "get", token, data) {
   }
 
   if (data) {
-    options.body = data;
+    options.body = JSON.stringify(data);
   }
 
-  if (method.toLowerCase() === "post")
+  if (
+    method.toLowerCase() === "post" ||
+    method.toLowerCase() === "patch" ||
+    method.toLowerCase() === "put"
+  )
     headers.append("Content-Type", "application/json");
   options.headers = headers;
-  //console.log("request made to API at: " + new Date().toString(),"Endpoint:", endpoint, "Options:", options);
+  console.log("request made to API at: " + new Date().toString(),"Endpoint:", endpoint, "Options:", options);
   try {
     const response = await fetch(endpoint, options);
 

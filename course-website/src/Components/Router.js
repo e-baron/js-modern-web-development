@@ -4,17 +4,20 @@ import AboutPage from "./AboutPage.js";
 import ContentPage from "./ContentPage.js";
 import ErrorPage from "./ErrorPage.js";
 import Login from "./Login.js";
+import LoginTempPage from "./LoginTempPage.js";
+import SecureComponent from "./SecureComponent.js";
 import Logout from "./Logout.js";
 import ProjectPage from "./ProjectPage.js";
 
 const routes = {
   "/": ContentPage,
-  "/contenu": ContentPage, 
-  "/about": AboutPage, 
+  "/contenu": ContentPage,
+  "/about": AboutPage,
   "/error": ErrorPage,
   "/login": Login,
+  "/logintemp": LoginTempPage,
   "/logout": Logout,
-  "/projects": ProjectPage,
+  "/projects": SecureComponent(ProjectPage),
 };
 
 let page = document.querySelector("#page");
@@ -29,18 +32,25 @@ const Router = () => {
     componentToRender = routes[window.location.pathname];
     if (!componentToRender)
       return ErrorPage(
-        new Error("The " + window.location.pathname + " ressource does not exist.")
+        new Error(
+          "The " + window.location.pathname + " ressource does not exist."
+        )
       );
     componentToRender();
   });
 
-  /* manage click on the navBar*/
+  /* manage click on any link*/
   const onNavigate = (e) => {
     let uri;
-    if (e.target.tagName === "A") {
+    if (
+      e.target.dataset.uri && e.target.tagName === "A" ||
+      (e.target.dataset.uri && e.target.tagName === "IMG" && e.target.parentElement.tagName === "A")
+    ) {
       e.preventDefault();
       // To get a data attribute through the dataset object, get the property by the part of the attribute name after data- (note that dashes are converted to camelCase).
-      uri = e.target.dataset.uri;
+      if (e.target.tagName === "A") uri = e.target.dataset.uri;
+      // we are having an img embedded in a hyperlink
+      else uri = e.target.parentElement.dataset.uri;
     }
     if (uri) {
       console.log(
@@ -65,7 +75,8 @@ const Router = () => {
     }
   };
 
-  navBar.addEventListener("click", onNavigate);
+  //navBar.addEventListener("click", onNavigate);
+  document.addEventListener("click", onNavigate);
 
   // Display the right component when the user use the browsing history
   window.addEventListener("popstate", () => {
@@ -82,11 +93,8 @@ const RedirectUrl = (uri, data) => {
   // therefore, those components have to be either a function or a class
   componentToRender = routes[uri];
   if (routes[uri]) {
-    if(!data)
-      componentToRender();
-    else
-      componentToRender(data);
-    
+    if (!data) componentToRender();
+    else componentToRender(data);
   } else {
     ErrorPage(new Error("The " + uri + " ressource does not exist"));
   }
