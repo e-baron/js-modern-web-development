@@ -44,7 +44,7 @@ const Router = () => {
     let uri;
     if (
       e.target.dataset.uri && e.target.tagName === "A" ||
-      (e.target.dataset.uri && e.target.tagName === "IMG" && e.target.parentElement.tagName === "A")
+      (e.target.tagName === "IMG" && e.target.parentElement.tagName === "A" && e.target.parentElement.dataset.uri)
     ) {
       e.preventDefault();
       // To get a data attribute through the dataset object, get the property by the part of the attribute name after data- (note that dashes are converted to camelCase).

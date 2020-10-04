@@ -14,7 +14,7 @@ const AboutPage = () => {
   </p>
   <p>Si vous souhaitez participer à la mise à jour du cours, n’hésitez pas à faire part de modifications 
   via des Issues ou des Merge Requests via le web repository du cours : 
-  <a href="https://gitlab.vinci.be/web2/js-modern-web-development.git">
+  <a href="https://gitlab.vinci.be/web2/js-modern-web-development.git" target="_blank">
     Modern web development with JS and Node Repository
   </a>
   <br><br>

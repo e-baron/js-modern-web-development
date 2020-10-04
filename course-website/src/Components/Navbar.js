@@ -26,7 +26,7 @@ const Navbar = () => {
     <div class="navbar-nav">      
       <a class="nav-item nav-link" href="#" data-uri="/contenu">Contenu</a>
       <a class="nav-item nav-link" href="#" data-uri="/about">About</a>
-      <a class="nav-item nav-link" href="#" data-uri="/login"><img src="${Icon}" alt="" width="24" height="24">Login</a>
+      <a class="nav-item nav-link" href="#" data-uri="/login"><img src="${Icon}" alt="" width="24" height="24">Login Vinci Only</a>
     </div>
   </div>
   </nav>`;
