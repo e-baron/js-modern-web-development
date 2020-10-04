@@ -1,5 +1,5 @@
-import callAPI from "../utils/api/fetch.js";
-import { getIdToken, getUserName, getName } from "../utils/auths/authPopup.js";
+import callAPI from "../../utils/api/fetch.js";
+import { getIdToken, getUserName, getName } from "../../utils/auths/authPopup.js";
 import {
   printDynamicHtmlTable,
   getTableOuterHtmlFrom2DArray,
@@ -9,7 +9,7 @@ import {
   updateGenericModal,
   closeGenericModal,
   updateTextToHyperlink,
-} from "../utils/render.js";
+} from "../../utils/render.js";
 
 import {
   addRowAtIndex,
@@ -17,7 +17,7 @@ import {
   transformArrayOfObjectsTo2DArray,
   array2DContains,
   transpose2DArray,
-} from "../utils/array/array.js";
+} from "../../utils/array/array.js";
 
 //import { loadFromSessionStorage } from "../utils/storage/sessionStorage.js";
 

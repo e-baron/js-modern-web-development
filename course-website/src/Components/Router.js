@@ -7,7 +7,7 @@ import Login from "./Login.js";
 import LoginTempPage from "./LoginTempPage.js";
 import SecureComponent from "./SecureComponent.js";
 import Logout from "./Logout.js";
-import ProjectPage from "./ProjectPage.js";
+import ProjectPage from "./Project/ProjectPage.js";
 
 const routes = {
   "/": ContentPage,
