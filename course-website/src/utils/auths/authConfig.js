@@ -24,7 +24,8 @@ else if(window.location.host.includes("myjsproject")){
       clientId: "939900c3-819a-4c5a-a83a-ba24bcdf3af8",
       authority:
         "https://login.microsoftonline.com/f7a15417-57cb-4855-8d36-064f95aada17", //"f7a15417-57cb-4855-8d36-064f95aada17",
-      redirectUri: "https://myjsproject.herokuapp.com/logintemp",
+      redirectUri: "https://myjsproject.herokuapp.com",
+      postLogoutRedirectUri: "https://myjsproject.herokuapp.com/logintemp",
     },
     cache: {
       cacheLocation: "sessionStorage", // This configures where your cache will be stored
@@ -38,7 +39,8 @@ else{
       clientId: "a1f631a6-e2e9-4b10-a338-83e7ce743dcc",
       authority:
         "https://login.microsoftonline.com/f7a15417-57cb-4855-8d36-064f95aada17", //"f7a15417-57cb-4855-8d36-064f95aada17",
-      redirectUri: "https://myjscourse.herokuapp.com/logintemp",
+      redirectUri: "https://myjscourse.herokuapp.com",
+      postLogoutRedirectUri: "https://myjscourse.herokuapp.com/logintemp",
     },
     cache: {
       cacheLocation: "sessionStorage", // This configures where your cache will be stored
