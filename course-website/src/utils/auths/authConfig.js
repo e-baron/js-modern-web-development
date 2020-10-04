@@ -35,10 +35,10 @@ else if(window.location.host.includes("myjsproject")){
 else{
   msalConfig = {
     auth: {
-      clientId: "TBC",
+      clientId: "a1f631a6-e2e9-4b10-a338-83e7ce743dcc",
       authority:
         "https://login.microsoftonline.com/f7a15417-57cb-4855-8d36-064f95aada17", //"f7a15417-57cb-4855-8d36-064f95aada17",
-      redirectUri: "TBC",
+      redirectUri: "https://myjscourse.herokuapp.com/logintemp",
     },
     cache: {
       cacheLocation: "sessionStorage", // This configures where your cache will be stored
