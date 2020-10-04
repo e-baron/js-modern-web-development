@@ -359,13 +359,21 @@ const closeGenericModal = () => {
   const genericModal = document.getElementById("genericModal");
   genericModal.classList.remove("show");
   genericModal.style.display = "none";
+  // deal with the scrolling of the body, not of the modal
+  const body = document.querySelector("body");
+  body.style.overflow = "auto";
 };
 
 const showGenericModal = () => {
-  // display a modal without using JQuery
+  // display a modal without using JQuery  
   const genericModal = document.getElementById("genericModal");
   genericModal.style.display = "block";
   genericModal.classList.add("show");
+  // deal with the scrolling of the modal, not of the body
+  genericModal.style.overflow = "auto";
+  const body = document.querySelector("body");
+  body.style.overflow = "hidden";
+
 };
 
 const updateGenericModal = (title, body) => {
