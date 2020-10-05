@@ -183,7 +183,7 @@ const getTableOuterHtmlFrom2DArray = (
     //for each line, add a <tr> element
     const myLine = document.createElement("tr");
     // deal with column width : add flex support
-    //myLine.classList.add("d-flex");
+    myLine.classList.add("d-flex");
     // for each <tr> element, append it to the <table> element
     myTable.appendChild(myLine);
     //for each cell, add a <td> element, assign to it the given value in the array, and append the <td> element to the <tr> element
@@ -209,7 +209,9 @@ const getTableOuterHtmlFrom2DArray = (
           header.classList.add("d-none");
 
         // deal with column width
-        //header.classList.add("col-3");
+        //header.classList.add("w-15");
+        header.classList.add("col-6");
+        header.classList.add("col-sm-2");
         //header.classList.add("text-break");
         myLine.appendChild(header);
       } else {
@@ -244,18 +246,22 @@ const getTableOuterHtmlFrom2DArray = (
           myCell.classList.add("d-none");
         if (Array.isArray(dataArray[x][y])) {
           myCell.innerHTML =
-            "<ul class='list-group'>" +
+            "<ul class='list-group'>" +            
             dataArray[x][y]
               .map(
                 (subItem) =>
                   `<li class='list-group-item text-break'>${subItem}</td>`
+              
+
               )
               .join("") +
             "</ul>";
         } else if (dataArray[x][y]) myCell.innerHTML = dataArray[x][y];
         else myCell.innerHTML = "";
         // deal with column width
-        //myCell.classList.add("col-3");
+        //myCell.classList.add("w-15");
+        myCell.classList.add("col-6");
+        myCell.classList.add("col-sm-2");
         myLine.appendChild(myCell);
       }
     }
