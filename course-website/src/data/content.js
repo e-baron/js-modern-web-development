@@ -257,7 +257,13 @@ const COURSE_CONTENT = [
         url: INSTRUCTIONS_BASE_URL + "fiche03.pdf",
       },
     ],
-    exerciceSolutions: [],
+    exerciceSolutions: [
+      {
+        contentType: "code",
+        name: "Animation de carrés à l'aide de l'API Canvas",
+        url: SOLUTION_CODE_BASE_URL + "fiche-03/canvas",
+      },
+    ],
   },
   {
     contentType: "presentation",
@@ -283,7 +289,13 @@ const COURSE_CONTENT = [
         url: INSTRUCTIONS_BASE_URL + "fiche03.pdf",
       },
     ],
-    exerciceSolutions: [],
+    exerciceSolutions: [
+      {
+        contentType: "code",
+        name: "Animation d'un nuage de mots à l'aide d'Anime.js",
+        url: SOLUTION_CODE_BASE_URL + "fiche-03/animejs",
+      },
+    ],
   },
   {
     contentType: "presentation",
