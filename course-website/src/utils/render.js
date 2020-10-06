@@ -246,13 +246,11 @@ const getTableOuterHtmlFrom2DArray = (
           myCell.classList.add("d-none");
         if (Array.isArray(dataArray[x][y])) {
           myCell.innerHTML =
-            "<ul class='list-group'>" +            
+            "<ul class='list-group'>" +
             dataArray[x][y]
               .map(
                 (subItem) =>
                   `<li class='list-group-item text-break'>${subItem}</td>`
-              
-
               )
               .join("") +
             "</ul>";
@@ -265,6 +263,146 @@ const getTableOuterHtmlFrom2DArray = (
         myLine.appendChild(myCell);
       }
     }
+  }
+  return myTable.outerHTML;
+};
+
+/**
+ * Provide an outerHtml representation (string) of an Array of Objects.
+ * @param {Array} dataArray : input data - array of objects - to be represented as a table. It shall not contain headers !
+ * @param {Array} columnConfiguration : each object property - in order to become a column -
+ * is to be configured based on a object such as { dataKey: "_id", columnTitle: "Id", hidden: true }.
+ * Render the columns in the order of the objects given in columnConfiguration, when dataKey value is found on an object.
+ * Discard the rendering of dataArray object properties not given in a dataKey of columnConfiguration.
+ * Only display requested columns where hidden is false.
+ * If undefined, display all columns. Get the column header name based on the
+ * @param {Array} hiddenDataAttributeKeys : add data attributes to each table row, except for the header. An index is always added as data-index.
+ * If no hiddenDataAttributeKeys, don't add extra data attributes, else add all values in table row for each column corresponding to a key.
+ * Format of the name for the data-attribute : data-hiddenDataAttributeKeys[i].toLowerCase() & any space is replaced by ""
+ * @param {boolean} headerRowIsHidden : ask to hide all headers
+ * @returns {string} myTable.outerHtml : provides with the outerHtml of the table element
+ * A data attribute data-property-name is added to each cell in order to be able to hide columns based on their headerName
+ */
+const getTableOuterHtmlFromArray = (
+  dataArray,
+  columnConfiguration,
+  hiddenDataAttributeKeys,
+  headerRowIsHidden = false
+) => {
+  // prepare the visibleColumnHeaders array to wear the correct name to be used as dataAttributes
+  /*if (visibleColumnHeaders && visibleColumnHeaders.length > 0)
+    visibleColumnHeaders = visibleColumnHeaders.map((columnHeader) =>
+      columnHeader.toLowerCase().replace(/\s/g, "")
+    );*/
+
+  /*
+  let columnsToAddDataAttributes;
+  if (
+    dataArray &&
+    dataArray.length > 0 &&
+    hiddenDataAttributeKeys &&
+    hiddenDataAttributeKeys.length > 0
+  ) {
+    columnsToAddDataAttributes = hiddenDataAttributeKeys.map((columnHeader) =>
+      dataArray[0].indexOf(columnHeader)
+    );
+  }*/
+
+  const myTable = document.createElement("table");
+  // set the class name of the element to use bootstrap table element
+  myTable.className = "table table-bordered";
+
+  for (let x = -1; x < dataArray.length; x++) {
+    //for each line, add a <tr> element
+    const myLine = document.createElement("tr");
+    // deal with column width : add flex support
+    //myLine.classList.add("d-flex");
+    // for each <tr> element, append it to the <table> element
+    myTable.appendChild(myLine);
+    //for each cell, add a <td> element, assign to it the given value in the array, and append the <td> element to the <tr> element
+
+    // for all the required data attributes
+    let requiredColumns;
+    if (columnConfiguration) requiredColumns = columnConfiguration;
+    else requiredColumns = Object.keys(dataArray[0]);
+    requiredColumns.forEach((column) => {
+      let columnKey;
+      let columnHeader;
+      let columnIsHidden;
+      if (columnConfiguration) {
+        if (!column.dataKey && column.columnTitle)
+          columnKey = column.columnTitle.toLowerCase().replace(/\s/g, "");
+        else columnKey = column.dataKey;
+        if (!column.columnTitle && column.dataKey)
+          columnHeader = column.column.dataKey;
+        else columnHeader = column.columnTitle;
+        if (column.hidden === undefined) columnIsHidden = false;
+        else columnIsHidden = column.hidden;
+      }
+      // default table,
+      else {
+        columnKey = column;
+        columnHeader = column;
+        columnIsHidden = false;
+      }
+
+      if (x === -1) {
+        // deal with the header
+        const header = document.createElement("th");
+        header.innerHTML = columnHeader;
+        // deal with providing the column name in each cell (to hide columns later) with data-columnName attribute
+        header.dataset.columnName = columnKey;
+        // hide the header if all headers shall not be displayed
+        if (headerRowIsHidden) header.classList.add("d-none");
+        // hide the header if requested
+        else if (columnIsHidden) header.classList.add("d-none");
+
+        // deal with column width
+        //header.classList.add("col-6");
+        //header.classList.add("col-sm-2");
+        //header.classList.add("text-break");
+        myLine.appendChild(header);
+      } else {
+        // deal with hidden data
+        // add the data-index attribute
+        myLine.dataset.index = x;
+        if (
+          hiddenDataAttributeKeys &&
+          hiddenDataAttributeKeys.includes(columnKey)
+        ) {
+          /*const dataAttributeName = columnKey
+              .toLowerCase()
+              .replace(/\s/g, "");        */
+          myLine.dataset[columnKey] = dataArray[x][columnKey];
+        }
+        // deal with regular column content
+        const myCell = document.createElement("td");
+        // deal with providing the column name in each cell (to hide columns later) with data-columnName attribute
+        /*const currentColumnName = columnKey
+          .toLowerCase()
+          .replace(/\s/g, "");*/
+        myCell.dataset.columnName = columnKey;
+        // hide the cell if not in visibleColumnHeaders
+        if (columnIsHidden) myCell.classList.add("d-none");
+        if (Array.isArray(dataArray[x][columnKey])) {
+          const ul = document.createElement("ul");
+          ul.classList.add("list-group");
+          dataArray[x][columnKey].forEach((item) => {
+            const li = document.createElement("li");
+            li.textContent = item;
+            li.classList.add("list-group-item");
+            ul.appendChild(li);
+          });
+          myCell.appendChild(ul);
+        } else if (dataArray[x][columnKey])
+          myCell.innerHTML = dataArray[x][columnKey];
+        else myCell.innerHTML = "";
+        // deal with column width
+        //myCell.classList.add("col-6");
+        //myCell.classList.add("col-sm-2");
+        myLine.appendChild(myCell);
+      }
+    });
   }
   return myTable.outerHTML;
 };
@@ -311,7 +449,7 @@ const updateTextToHyperlink = (dataArray, textColumnId, hrefColumnId) => {
     // we need to add the protocol such as http://www.google.com)
     let href;
     let hyperlinkToBeCreated = false;
-    if (row[hrefColumnId] && ! Array.isArray(row[hrefColumnId])) {
+    if (row[hrefColumnId] && !Array.isArray(row[hrefColumnId])) {
       if (row[hrefColumnId].match(/^(http|https)/)) {
         href = row[hrefColumnId];
         hyperlinkToBeCreated = true;
@@ -371,7 +509,7 @@ const closeGenericModal = () => {
 };
 
 const showGenericModal = () => {
-  // display a modal without using JQuery  
+  // display a modal without using JQuery
   const genericModal = document.getElementById("genericModal");
   genericModal.style.display = "block";
   genericModal.classList.add("show");
@@ -379,7 +517,6 @@ const showGenericModal = () => {
   genericModal.style.overflow = "auto";
   const body = document.querySelector("body");
   body.style.overflow = "hidden";
-
 };
 
 const updateGenericModal = (title, body) => {
@@ -394,6 +531,7 @@ export {
   setLayout,
   //getTableInnerHtmlFromArrayOfObjects,
   getTableOuterHtmlFrom2DArray,
+  getTableOuterHtmlFromArray,
   deleteColumnsFromTable,
   updateTextToHyperlink,
   //printDynamicHtmlTableWithInnerHtml,

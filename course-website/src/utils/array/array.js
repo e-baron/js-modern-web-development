@@ -72,6 +72,31 @@ const addColumnRightFromGivenIndex = (
 };
 
 /**
+ * Add a property to an array of objects with an optional value for all cells
+ * @param {Array} arrayOfObjects : array of objects where a property is to be added to all objects
+ * @param {String} propertyName : add the column next to this column index
+ * @param {String} valueForallObjects : optional data to be allocated to all objects' new property
+ * @param {Function} getItemValueFromObject : optional function that will be applied on each object to determine the value of each object new property
+ * */
+const addPropertyWithDataToAllObjects = (arrayOfObjects, propertyName, valueForallObjects,
+  getItemValueFromObject) => {
+    arrayOfObjects.forEach((element) => {
+      // only add value if the check returns true
+      let currentValueForObjectNewProperty;
+      if (!valueForallObjects) {
+        currentValueForObjectNewProperty = "";
+        if (getItemValueFromObject)
+          currentValueForObjectNewProperty = getItemValueFromObject(element);
+      } else {
+        currentValueForObjectNewProperty = valueForallObjects;
+      }  
+      //const safePropertyName = propertyName.toLowerCase().replace(/\s/g, "");   
+      element[propertyName] = currentValueForObjectNewProperty;
+    });
+  }
+
+
+/**
  * Check if a 2D array contains a given value in a given column
  * @param {Array of Array} array2D
  * @param {Number} columnIndex
@@ -105,4 +130,5 @@ export {
   addColumnRightFromGivenIndex,
   array2DContains,
   transpose2DArray,
+  addPropertyWithDataToAllObjects
 };
