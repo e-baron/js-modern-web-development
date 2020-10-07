@@ -36,7 +36,7 @@ var serverHTTP = http.createServer(function (request, response) {
       // the MIME type is an html file
       console.log("err:", err.toString());
       response.writeHead(404, {
-        "Content-Type": "text/html; charset=utf-8",
+        "Content-Type": "text/html",
         "Content-Language": "fr",
       });
       //response.write(err.toString());
@@ -47,32 +47,17 @@ var serverHTTP = http.createServer(function (request, response) {
         the MIME type is text/html / application/javascript / text/css / image/jpeg ....
       */
 
+      // get the MIME type thanks to the mime package
       let mimeType = mime.getType(localPath);
-      /*let mimeType;
-      switch (fileExtension) {
-        case ".js":
-          mimeType = "application/javascript";
-          break;
-        case ".css":
-          mimeType = "text/css";
-        case ".jpeg":
-        case "jpg":
-          mimeType = "image/jpeg";
-          break;
-
-        default:
-          mimeType = "text/html";
-          break;
-      }*/
+     
 
       console.log(" - fileExtension:", fileExtension, "MIME type :",mimeType);
 
       response.writeHead(200, {
-        "Content-Type": "" + mimeType + ";charset=utf-8", //"text/html; charset=utf-8",
+        "Content-Type": mimeType,
         "Content-Language": "fr",
       });
       //Write the content of the file in the response to be sent back to the client
-      //response.write(data.toString());
       // end the response
       response.end(data.toString());
     }

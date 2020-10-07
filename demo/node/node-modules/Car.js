@@ -1,10 +1,12 @@
 // installed package
 const shortid = require('shortid');
+
 class Car {
   constructor(brand, model) {
     this.brand = brand;
     this.model = model;
-    this._id = shortid.generate(); ////Math.random();
+    // generate an ID with shortid package;
+    this._id = shortid.generate();
   }
   get id() {
     return this._id;
