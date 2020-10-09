@@ -440,7 +440,12 @@ const COURSE_CONTENT = [
         url: SLIDES_BASE_URL + "16-JS-Node-Debugging-Node.pdf",
       },
     ],
-    courseVideos: [],
+    courseVideos: [
+      {
+        name: "Debugging d'une application Node.js via VS Code",
+        url: "https://youtu.be/KTdJXe_BZXo",
+      },
+    ],
     courseDemos: [],
     exerciceInstructions: [],
     exerciceSolutions: [],
