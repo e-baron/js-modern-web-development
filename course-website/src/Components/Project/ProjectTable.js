@@ -1,6 +1,9 @@
 import callAPI from "../../utils/api/fetch.js";
 import { getIdToken } from "../../utils/auths/authPopup.js";
-import { getTableOuterHtmlFrom2DArray , getTableOuterHtmlFromArray} from "../../utils/render.js";
+import {
+  getTableOuterHtmlFrom2DArray,
+  getTableOuterHtmlFromArray,
+} from "../../utils/render.js";
 
 import {
   addRowAtIndex,
@@ -79,7 +82,7 @@ const renderProjectTable = async (admin, userName) => {
     }
 
     const columnConfiguration = [
-      { dataKey: "_id", columnTitle: "Id", hidden: true },
+      //{ dataKey: "_id", columnTitle: "Id", hidden: true },
       { dataKey: "name", columnTitle: "Nom", hidden: false },
       { dataKey: "description", columnTitle: "projectMembers", hidden: false },
       {
@@ -96,6 +99,12 @@ const renderProjectTable = async (admin, userName) => {
       { columnTitle: "Effacer", hidden: true },
     ];
 
+    const rowConfiguration = {
+      hiddenDataAttributes: ["_id"],
+      isHeaderRowHidden: false,
+    };
+
+    /*
     let headerRow = [
       "Id",
       "Nom",
@@ -105,15 +114,16 @@ const renderProjectTable = async (admin, userName) => {
       "Joindre",
       "Quitter",
       "Voir",
-    ];
+    ];*/
 
     if (admin) {
-      headerRow.push("Effacer");
+      //headerRow.push("Effacer");
       columnConfiguration.find(
         (conf) => conf.columnTitle === "Effacer"
       ).hidden = false;
     }
 
+    /*
     const dataPropertiesNeeded = [
       "_id",
       "name",
@@ -129,9 +139,9 @@ const renderProjectTable = async (admin, userName) => {
       "Joindre",
       "Quitter",
       "Voir",
-    ];
+    ];*/
 
-    if (admin) visibleHeaderRow.push("Effacer");
+    //if (admin) visibleHeaderRow.push("Effacer");
 
     /*
     tableDiv.innerHTML = projectTableOuterHtml(
@@ -146,6 +156,7 @@ const renderProjectTable = async (admin, userName) => {
     tableDiv.innerHTML = projectTableOuterHtml(
       projectData,
       columnConfiguration,
+      rowConfiguration,
       admin,
       userName
     );
@@ -175,6 +186,7 @@ const renderProjectTable = async (admin, userName) => {
 const projectTableOuterHtml = (
   dataArray,
   columnConfiguration,
+  rowConfiguration,
   admin,
   userName
 ) => {
@@ -282,7 +294,11 @@ const projectTableOuterHtml = (
 
   //addRowAtIndex(data2DArray, headerArray, 0);
   //return getTableOuterHtmlFrom2DArray(data2DArray, visibleHeaderRow, ["Id"]);
-  return getTableOuterHtmlFromArray(dataArrayCloned, columnConfiguration, ["_id"]);
+  return getTableOuterHtmlFromArray(
+    dataArrayCloned,
+    columnConfiguration,
+    rowConfiguration
+  );
 };
 
 /*
