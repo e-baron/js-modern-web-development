@@ -1,135 +1,141 @@
 import { RedirectUrl } from "./Router.js";
 import COURSE_CONTENT from "../data/content.js";
-
+import {
+  addPropertyWithDataToAllObjects,
+  updatePropertyWithDataToAllObjects,
+} from "../utils/array/array.js";
+import { getTableOuterHtmlFromArray } from "../utils/render.js";
 let page = document.querySelector("#page");
+const TABLE_ID = "contentTable";
 
 const ContentPage = () => {
-  let contentPage = `<h5>Contenu du cours</h5>`;
-  contentPage += getBootstrapTableFromJSON(COURSE_CONTENT);
+  let contentPage = `<h5>Contenu du cours</h5>
+  <div id="${TABLE_ID}" class="table-responsive"></div>
+`;
   page.innerHTML = contentPage;
+  renderTable();
 };
 
-const getBootstrapTableFromJSON = (data) => {
-  if (!data || data.length === 0) return "";
-  // deal with table definition
-  let content = `<div class="table-responsive"><table class="table">`;
-  // deal with table header
-  content += `<thead>
-  <tr>
-  <th scope="col">Partie</th>`;
-  // Object.keys creates an array that contains the properties of an object
-  const headers = Object.keys(data[0]);
-  content += headers
-    .map((header) => {
-      switch (header) {
-        case "contentType":        
-        case "week":
-          return "";
-        case "subject":
-          return `<th scope="col">Sujet</th>`;
-        case "courseFiles":
-          return `<th scope="col">Documentation de présentation</th>`;
-        case "courseVideos":
-          return `<th scope="col">Vidéo de présentation</th>`;
-        case "courseDemos":
-          return `<th scope="col">Code de démonstration</th>`;
-        case "exerciceInstructions":
-          return `<th scope="col">Fiche d'exercice</th>`;
-        case "exerciceSolutions":
-          return `<th scope="col">Code des solutions aux exercices</th>`;
-        default:
-          return `<th scope="col">${header}</th>`;
-      }
-    })
-    .join("");
-  content += `</tr>
-</thead>`;
+const renderTable = async () => {
+  try {
+    const tableDiv = document.getElementById(TABLE_ID);
 
-  // deal with table body
-  // deal with header
-  content += `<tbody>`;
-  let rowIndex = 0;
-  // loop throug all data items to create rows
-  content += data
-    .map((contentItem) => {
-      let tableRow = `<tr>`;
-      // Add an id to each row based on the index of the data item. Here the id is specific to the "Partie" column
-      ++rowIndex;
-      tableRow += `<td>${rowIndex}</td>`;
-      // Object.entries creates an array of arrays. Each inner array has two item. The first item is the property; the second item is the value.
-      const keysAndValuesArray = Object.entries(contentItem);
-      tableRow += keysAndValuesArray
-        .map((keyValue) => {
-          if (
-            keyValue[0] == "contentType" ||
-            //keyValue[0] == "exerciceSolutions" ||
-            keyValue[0] == "week"
-          ){
-            //console.log("Column to be discarded:", keyValue[0], keyValue[1]);
-            return "";
-          }
-          // if there is no value
-          if (!keyValue[1]) {
-           //console.log("No Value:", keyValue[0], keyValue[1]);
-            return "<td></td>";
-          }
-          // if there is an array
-          if (Array.isArray(keyValue[1])) {
-            // loop through the array of objects
-            if (keyValue[1].length === 0) {
-              //console.log("Empty Array:", keyValue[0], keyValue[1]);
-              return "<td></td>"};
-            let tableCell = `<td><ul class="list-group">`;
-            tableCell += keyValue[1]
-              .map((item) => {
-                // deal with specific treatments
-                // if there is an URL property and a name property, create a link
-                if (item["url"])
-                  return `<a href="${item["url"]}" target="_blank" class="list-group-item">${item["name"]}</a>`;
-                else return `<li class="list-group-item">${item["name"]}</li>`;
-                // this should never be called
-                return `<li>${JSON.stringify(item)}</li>`;
-              })
-              .join("");
-            tableCell += `</ul></td>`;
-            return tableCell;
-          }
-          // if it is a primitive
-          if (
-            typeof keyValue[1] === "string" ||
-            typeof keyValue[1] === "number"
-          ) {
-            //console.log("Primitive value:", keyValue[0], keyValue[1]);
-            return `<td>${keyValue[1]}</td>`;
-          }
+    const columnConfiguration = [
+      // part shall be generated later
+      { dataKey: "part", columnTitle: "Partie", hidden: false },
+      {
+        dataKey: "subject",
+        columnTitle: "Sujet",
+        hidden: false,
+      },
+      {
+        dataKey: "courseFiles",
+        columnTitle: "Documentation de présentation",
+        hidden: false,
+      },
 
-          // this is an object (but not an array)
-          // there are currently no such properties
-          return `<td>${JSON.stringify(keyValue[1])}</td>`;
-        })
-        .join("");
-      tableRow += `</tr>`;
-      return tableRow;
-    })
-    .join("");
+      {
+        dataKey: "courseVideos",
+        columnTitle: "Vidéo de présentation",
+        hidden: false,
+      },
+      {
+        dataKey: "courseDemos",
+        columnTitle: "Code de démonstration",
+        hidden: false,
+      },
+      {
+        dataKey: "exerciceInstructions",
+        columnTitle: "Fiche d'exercices",
+        hidden: false,
+      },
+      {
+        dataKey: "exerciceSolutions",
+        columnTitle: "Code des solutions aux exercices",
+        hidden: false,
+      },
+    ];
 
-  content += `</tbody>`;
+    const rowConfiguration = {
+      isHeaderRowHidden: false,
+    };
 
-  content += `
-  </table>
-</div>`;
-  return content;
+    let dataArrayCloned = JSON.parse(JSON.stringify(COURSE_CONTENT));
+
+    // deal with a new part property to be added to all objects
+    addPropertyWithDataToAllObjects(
+      dataArrayCloned,
+      "part",
+      undefined,
+      (object, index) => index + 1
+    );
+
+    // deal with courseFiles property
+    updatePropertyWithDataToAllObjects(
+      dataArrayCloned,
+      "courseFiles",
+      setLinkPropertyValueFromObject,
+    );
+
+     // deal with courseVideos property
+     updatePropertyWithDataToAllObjects(
+      dataArrayCloned,
+      "courseVideos",
+      setLinkPropertyValueFromObject,
+    );
+
+    // deal with courseDemos property
+    updatePropertyWithDataToAllObjects(
+      dataArrayCloned,
+      "courseDemos",
+      setLinkPropertyValueFromObject,
+    );
+
+    // deal with exerciceInstructions property
+    updatePropertyWithDataToAllObjects(
+      dataArrayCloned,
+      "exerciceInstructions",
+      setLinkPropertyValueFromObject,
+    );
+
+    // deal with exerciceSolutions property
+    updatePropertyWithDataToAllObjects(
+      dataArrayCloned,
+      "exerciceSolutions",
+      setLinkPropertyValueFromObject,
+    );
+
+    
+
+    const tableElement = getTableOuterHtmlFromArray(
+      dataArrayCloned,
+      columnConfiguration,
+      rowConfiguration
+    );
+
+    tableDiv.innerHTML = "";
+    tableDiv.appendChild(tableElement);
+
+  } catch (err) {
+    console.error("ContentPage::Error:", err);
+  }
 };
 
-const onError = (err) => {
-  console.error("UserListPage::onError:", err);
-  let errorMessage;
-  if (err.message) {
-    errorMessage = err.message;
-  } else errorMessage = err;
-  if (errorMessage.includes("jwt expired"))
-    errorMessage += "<br> Please logout first, then login.";
-  RedirectUrl("/error", errorMessage);
+const setLinkPropertyValueFromObject = (propertyName, element) => {
+  // create absolute links (www.google.com is not absolute,
+  // we need to add the protocol such as http://www.google.com)
+  let href;
+
+  if (
+    element &&
+    element[propertyName] &&
+    Array.isArray(element[propertyName]) && 
+    element[propertyName].length > 0)
+   {
+    element[propertyName] = element[propertyName].map(
+      (file) => `<a href="${file.url}" target="_blank">${file.name}</a>`
+    );
+  }
 };
 
 export default ContentPage;

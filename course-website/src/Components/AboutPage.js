@@ -1,7 +1,7 @@
 let page = document.querySelector("#page");
 
 const AboutPage = () => {    
-  let aboutPage = `<h6 class="mt-3">Bienvenue sur le site du cours de JS et de Node.js.</h6>
+  let aboutPage = `<h5 class="mt-3">Bienvenue sur le site du cours de JS et de Node.js.</h5>
   <p class="mt-4">Le but de ce cours est :
   <ul>
     <li>d’apprendre et de mettre en œuvre des technologies et des techniques modernes de développement d'applications web ;</li>
@@ -14,7 +14,7 @@ const AboutPage = () => {
   </p>
   <p>Si vous souhaitez participer à la mise à jour du cours, n’hésitez pas à faire part de modifications 
   via des Issues ou des Merge Requests via le web repository du cours : 
-  <a href="https://gitlab.vinci.be/web2/js-modern-web-development.git">
+  <a href="https://gitlab.vinci.be/web2/js-modern-web-development.git" target="_blank">
     Modern web development with JS and Node Repository
   </a>
   <br><br>

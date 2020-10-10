@@ -8,13 +8,14 @@ a {
 }
 
 /* CSS to deal with constraint validation styles */
+/*
 input:invalid {
   border: 2px dashed red;
 }
 
 input:valid {
   border: 2px solid green;
-}
+}*/
 
 /* "back to top button" thanks to https://www.w3schools.com/howto/howto_js_scroll_to_top.asp */
 #backToTopButton {
@@ -35,4 +36,91 @@ input:valid {
 
 #backToTopButton:hover {
   background-color: #555; /* Add a dark-grey background on hover */
+}
+
+.table{
+  table-layout: fixed;
+}
+
+/*Style for the table of ProjectTable */
+
+.name{
+  width:8rem;
+  
+}
+
+.description{
+  width: 15rem;
+}
+
+.projectMembers{
+  width: 10rem;
+  word-wrap: break-word;
+}
+
+.quitter{
+  width:6rem;
+}
+
+.joindre{
+  width:6rem;
+}
+
+.voir{
+  width:5rem;
+}
+
+.effacer{
+  width:6rem;
+}
+
+/*Style for ProjectView table*/
+.property{
+  width:40%;
+}
+
+.value{
+  width:60%;
+  word-wrap: break-word;
+}
+
+/*Style for the table of ContentPage */
+
+.part{
+  width:4rem;
+  
+}
+
+.subject{
+  width: 10rem;
+}
+
+.courseFiles{
+  width: 15rem;
+  word-wrap: break-word;
+}
+
+.courseVideos{
+  width: 15rem;
+  word-wrap: break-word;
+}
+
+.courseDemos{
+  width: 15rem;
+  word-wrap: break-word;
+}
+
+.courseFiles{
+  width: 15rem;
+  word-wrap: break-word;
+}
+
+.exerciceInstructions{
+  width: 15rem;
+  word-wrap: break-word;
+}
+
+.exerciceSolutions{
+  width: 15rem;
+  word-wrap: break-word;
 }
