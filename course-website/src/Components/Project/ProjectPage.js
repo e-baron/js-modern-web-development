@@ -64,7 +64,7 @@ const onAddClick = (admin, userName) => async () => {
       undefined
     );
 
-    ProjectTable(admin, userName);
+    //ProjectTable(admin, userName);
   } catch (err) {
     console.error("onAddClick::error", err);
   }
