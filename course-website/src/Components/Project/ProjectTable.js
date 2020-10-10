@@ -1,17 +1,8 @@
 import callAPI from "../../utils/api/fetch.js";
 import { getIdToken } from "../../utils/auths/authPopup.js";
-import {
-  getTableOuterHtmlFrom2DArray,
-  getTableOuterHtmlFromArray,
-} from "../../utils/render.js";
+import { getTableOuterHtmlFromArray } from "../../utils/render.js";
 
-import {
-  addRowAtIndex,
-  addColumnRightFromGivenIndex,
-  transformArrayOfObjectsTo2DArray,
-  array2DContains,
-  addPropertyWithDataToAllObjects,
-} from "../../utils/array/array.js";
+import { addPropertyWithDataToAllObjects } from "../../utils/array/array.js";
 
 import ProjectView from "./ProjectView.js";
 
@@ -82,9 +73,12 @@ const renderProjectTable = async (admin, userName) => {
     }
 
     const columnConfiguration = [
-      //{ dataKey: "_id", columnTitle: "Id", hidden: true },
       { dataKey: "name", columnTitle: "Nom", hidden: false },
-      { dataKey: "description", columnTitle: "projectMembers", hidden: false },
+      {
+        dataKey: "description",
+        columnTitle: "Description",
+        hidden: false,
+      },
       {
         dataKey: "projectMembers",
         columnTitle: "Membres du projet",
@@ -104,62 +98,31 @@ const renderProjectTable = async (admin, userName) => {
       isHeaderRowHidden: false,
     };
 
-    /*
-    let headerRow = [
-      "Id",
-      "Nom",
-      "Description",
-      "Membres du projet",
-      "Statut",
-      "Joindre",
-      "Quitter",
-      "Voir",
-    ];*/
-
     if (admin) {
-      //headerRow.push("Effacer");
       columnConfiguration.find(
         (conf) => conf.columnTitle === "Effacer"
       ).hidden = false;
     }
 
+    
     /*
-    const dataPropertiesNeeded = [
-      "_id",
-      "name",
-      "description",
-      "projectMembers",
-      "status",
-    ];
-
-    let visibleHeaderRow = [
-      "Nom",
-      "Description",
-      "Membres du projet",
-      "Joindre",
-      "Quitter",
-      "Voir",
-    ];*/
-
-    //if (admin) visibleHeaderRow.push("Effacer");
-
-    /*
-    tableDiv.innerHTML = projectTableOuterHtml(
-      projectData,
-      headerRow,
-      dataPropertiesNeeded,
-      visibleHeaderRow,
-      admin,
-      userName
-    );*/
-
     tableDiv.innerHTML = projectTableOuterHtml(
       projectData,
       columnConfiguration,
       rowConfiguration,
       admin,
       userName
+    );*/
+    const tableHtmlElement = projectTableOuterHtml(
+      projectData,
+      columnConfiguration,
+      rowConfiguration,
+      admin,
+      userName
     );
+    
+    tableDiv.innerHTML = "";
+    tableDiv.appendChild(tableHtmlElement);
 
     // attach button click handlers
     let joinBtns = document.querySelectorAll(".join");
@@ -192,11 +155,6 @@ const projectTableOuterHtml = (
 ) => {
   // make a deep clone of the dataArray
   let dataArrayCloned = JSON.parse(JSON.stringify(dataArray));
-  /*// transform objects to arrays for the dataPropertiesNeeded
-  let data2DArray = transformArrayOfObjectsTo2DArray(
-    dataArrayCloned,
-    dataPropertiesNeeded
-  );*/
 
   const deleteButtonOuterHtml = `<a class="delete btn btn-dark"
                                 >Effacer</a>`;
@@ -204,27 +162,17 @@ const projectTableOuterHtml = (
                                 >Voir</a>`;
 
   // Join shall only be visible if the userName has not already joined a project.
-  //if (userName && data2DArray && array2DContains(data2DArray, 3, userName)) {
   if (
     userName &&
     dataArrayCloned &&
     dataArrayCloned.find((project) => project.projectMembers.includes(userName))
   ) {
-    //visibleHeaderRow.splice(visibleHeaderRow.indexOf("Joindre"), 1);
     columnConfiguration.find(
       (conf) => conf.columnTitle === "Joindre"
     ).hidden = true;
-    // add an empty column in the data2DArray (column will be hidden after render of table)
-    //addColumnRightFromGivenIndex(data2DArray, headerArray.indexOf("Joindre"));
     // add a new property for all the object in the array, with an empty value
     addPropertyWithDataToAllObjects(dataArrayCloned, "joindre");
   } else {
-    /*addColumnRightFromGivenIndex(
-      data2DArray,
-      headerArray.indexOf("Joindre"),
-      undefined,
-      getJoinColumnCellValueFromRowData
-    );*/
     // add a property to all object in the array, with a value based on passed callback
     addPropertyWithDataToAllObjects(
       dataArrayCloned,
@@ -235,7 +183,6 @@ const projectTableOuterHtml = (
   }
 
   // quit column shall only be visible if the userName has join a project
-  //if (userName && data2DArray && !array2DContains(data2DArray, 3, userName)) {
   if (
     userName &&
     dataArrayCloned &&
@@ -245,22 +192,13 @@ const projectTableOuterHtml = (
   ) {
     //if the user has not joined a project, remove the column from the visibleHeader
     // the column will be hidden after render of the table;
-    //visibleHeaderRow.splice(visibleHeaderRow.indexOf("Quitter"), 1);
     columnConfiguration.find(
       (conf) => conf.columnTitle === "Quitter"
     ).hidden = true;
-    // add an empty column in the data2DArray (column will be hidden after render of table)
-    //addColumnRightFromGivenIndex(data2DArray, headerArray.indexOf("Quitter"));
     // add a new property for all the object in the array, with an empty value
     addPropertyWithDataToAllObjects(dataArrayCloned, "quitter");
   } else {
     // add a column with Quit button only where the userName is Project Member
-    /*addColumnRightFromGivenIndex(
-      data2DArray,
-      headerArray.indexOf("Quitter"),
-      undefined,
-      getQuitColumnCellValueFromRowData(userName)
-    );*/
     // add a property to all object in the array, with a value based on passed callback
     addPropertyWithDataToAllObjects(
       dataArrayCloned,
@@ -270,21 +208,10 @@ const projectTableOuterHtml = (
     );
   }
 
-  /*
-  addColumnRightFromGivenIndex(
-    data2DArray,
-    headerArray.indexOf("Voir"),
-    viewButtonOuterHtml
-  );*/
   // add a property to all object in the array, with given value for all objects
   addPropertyWithDataToAllObjects(dataArrayCloned, "voir", viewButtonOuterHtml);
 
   if (admin)
-    /*addColumnRightFromGivenIndex(
-      data2DArray,
-      headerArray.indexOf("Effacer"),
-      deleteButtonOuterHtml
-    );*/
     // add a property to all object in the array, with given value for all objects
     addPropertyWithDataToAllObjects(
       dataArrayCloned,
@@ -292,94 +219,12 @@ const projectTableOuterHtml = (
       deleteButtonOuterHtml
     );
 
-  //addRowAtIndex(data2DArray, headerArray, 0);
-  //return getTableOuterHtmlFrom2DArray(data2DArray, visibleHeaderRow, ["Id"]);
   return getTableOuterHtmlFromArray(
     dataArrayCloned,
     columnConfiguration,
     rowConfiguration
   );
 };
-
-/*
-const projectTableOuterHtml = (
-  dataArray,
-  headerArray,
-  dataPropertiesNeeded,
-  visibleHeaderRow,
-  admin,
-  userName
-) => {
-  // make a deep clone of the dataArray
-  let dataArrayCloned = JSON.parse(JSON.stringify(dataArray));
-  // transform objects to arrays for the dataPropertiesNeeded
-  let data2DArray = transformArrayOfObjectsTo2DArray(
-    dataArrayCloned,
-    dataPropertiesNeeded
-  );
-
-  const deleteButtonOuterHtml = `<a class="delete btn btn-dark"
-                                >Effacer</a>`;
-  const viewButtonOuterHtml = `<a class="view btn btn-dark"
-                                >Voir</a>`;
-
-  // Join shall only be visible if the userName has not already joined a project.
-  if (userName && data2DArray && array2DContains(data2DArray, 3, userName)) {
-    visibleHeaderRow.splice(visibleHeaderRow.indexOf("Joindre"), 1);
-    // add an empty column in the data2DArray (column will be hidden after render of table)
-    addColumnRightFromGivenIndex(data2DArray, headerArray.indexOf("Joindre"));
-  } else {
-    addColumnRightFromGivenIndex(
-      data2DArray,
-      headerArray.indexOf("Joindre"),
-      undefined,
-      getJoinColumnCellValueFromRowData
-    );
-  }
-
-  // quit column shall only be visible if the userName has join a project
-  if (userName && data2DArray && !array2DContains(data2DArray, 3, userName)) {
-    //if the user has not joined a project, remove the column from the visibleHeader
-    // the column will be hidden after render of the table;
-    visibleHeaderRow.splice(visibleHeaderRow.indexOf("Quitter"), 1);
-    // add an empty column in the data2DArray (column will be hidden after render of table)
-    addColumnRightFromGivenIndex(data2DArray, headerArray.indexOf("Quitter"));
-  } else {
-    // add a column with Quit button only where the userName is Project Member
-    addColumnRightFromGivenIndex(
-      data2DArray,
-      headerArray.indexOf("Quitter"),
-      undefined,
-      getQuitColumnCellValueFromRowData(userName)
-    );
-  }
-  
-  addColumnRightFromGivenIndex(
-    data2DArray,
-    headerArray.indexOf("Voir"),
-    viewButtonOuterHtml
-  );
-  if (admin)
-    addColumnRightFromGivenIndex(
-      data2DArray,
-      headerArray.indexOf("Effacer"),
-      deleteButtonOuterHtml
-    );
-
-  addRowAtIndex(data2DArray, headerArray, 0);
-  return getTableOuterHtmlFrom2DArray(data2DArray, visibleHeaderRow, ["Id"]);
-};
-*/
-
-/*
-const getJoinColumnCellValueFromRowData = (dataRow) => {
-  const joinButtonOuterHtml = `<a class="join btn btn-dark"
-                                >Joindre</a>`;
-  const projectMemberCount = dataRow[3].length;
-  if (projectMemberCount >= MAX_PROJ_MEMBERS) return "";
-  //if (userName && dataRow[3].includes(userName)) return "";
-  return joinButtonOuterHtml;
-};*/
 
 const getJoinItemPropertyValueFromObject = (element) => {
   const joinButtonOuterHtml = `<a class="join btn btn-dark"
@@ -390,14 +235,6 @@ const getJoinItemPropertyValueFromObject = (element) => {
   return joinButtonOuterHtml;
 };
 
-/*const getQuitColumnCellValueFromRowData = (userName) => (dataRow) => {
-  const quitButtonOuterHtml = `<a class="quit btn btn-dark"
-                                >Quitter</a>`;
-
-  if (userName && dataRow[3].includes(userName)) return quitButtonOuterHtml;
-  return "";
-};*/
-
 const getQuitItemPropertyValueFromObject = (userName) => (element) => {
   const quitButtonOuterHtml = `<a class="quit btn btn-dark"
                                 >Quitter</a>`;
@@ -406,15 +243,6 @@ const getQuitItemPropertyValueFromObject = (userName) => (element) => {
     return quitButtonOuterHtml;
   return "";
 };
-
-/*
-const getQuitColumnCellValueFromRowData = (userName) => (dataRow) => {
-  const quitButtonOuterHtml = `<a class="quit btn btn-dark"
-                                >Quitter</a>`;
-
-  if (userName && dataRow[3].includes(userName)) return quitButtonOuterHtml;
-  return "";
-};*/
 
 const onJoinClick = (admin, userName) => async (e) => {
   // the projectId is given in the current table row under data-id attribute

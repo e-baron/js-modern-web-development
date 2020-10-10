@@ -72,29 +72,51 @@ const addColumnRightFromGivenIndex = (
 };
 
 /**
- * Add a property to an array of objects with an optional value for all cells
+ * Add a property to an array of objects with an optional value for all objects
  * @param {Array} arrayOfObjects : array of objects where a property is to be added to all objects
- * @param {String} propertyName : add the column next to this column index
+ * @param {String} propertyName : add a new property with the given name
  * @param {String} valueForallObjects : optional data to be allocated to all objects' new property
  * @param {Function} getItemValueFromObject : optional function that will be applied on each object to determine the value of each object new property
  * */
-const addPropertyWithDataToAllObjects = (arrayOfObjects, propertyName, valueForallObjects,
-  getItemValueFromObject) => {
-    arrayOfObjects.forEach((element) => {
-      // only add value if the check returns true
-      let currentValueForObjectNewProperty;
-      if (!valueForallObjects) {
-        currentValueForObjectNewProperty = "";
-        if (getItemValueFromObject)
-          currentValueForObjectNewProperty = getItemValueFromObject(element);
-      } else {
-        currentValueForObjectNewProperty = valueForallObjects;
-      }  
-      //const safePropertyName = propertyName.toLowerCase().replace(/\s/g, "");   
-      element[propertyName] = currentValueForObjectNewProperty;
-    });
-  }
+const addPropertyWithDataToAllObjects = (
+  arrayOfObjects,
+  propertyName,
+  valueForallObjects,
+  getItemValueFromObject
+) => {
+  arrayOfObjects.forEach((element,index) => {
+    // only add value if the check returns true
+    let currentValueForObjectNewProperty;
+    if (!valueForallObjects) {
+      currentValueForObjectNewProperty = "";
+      if (getItemValueFromObject)
+        currentValueForObjectNewProperty = getItemValueFromObject(element, index);
+    } else {
+      currentValueForObjectNewProperty = valueForallObjects;
+    }
+    //const safePropertyName = propertyName.toLowerCase().replace(/\s/g, "");
+    element[propertyName] = currentValueForObjectNewProperty;
+  });
+};
 
+/**
+ * Update a property for all objects of an array based on the application of the getItemValueFromObject() function
+ * @param {Array} arrayOfObjects : array of objects where a property is to be modified for all objects
+ * @param {String} propertyName : update the property of the objects called propertyName
+ * @param {Function} setItemValueFromObject : function that will be applied on each object to set the value of each object property
+ * */
+const updatePropertyWithDataToAllObjects = (
+  arrayOfObjects,
+  propertyName,
+  setItemValueFromObject
+) => {
+  if (!setItemValueFromObject)
+    // nothing to be done
+    return arrayOfObjects;
+  arrayOfObjects.forEach((element) => {
+    setItemValueFromObject(propertyName, element);
+  });
+};
 
 /**
  * Check if a 2D array contains a given value in a given column
@@ -123,6 +145,56 @@ const transpose2DArray = (arrayToTranspose) => {
   return transposed;
 };
 
+/**
+ * This functions transpose an array of values, represented by the rowConfiguration.verticalHeaders, to an array of objects
+ * Each property given in the rowConfiguration.verticalHeaders will be used to create an array of objects containing one property.
+ * For each object passed to the function, one property will be added to each object.
+ * @param {Array} columnConfiguration : each object property - in order to become a column -
+ * is to be configured based on a object such as { dataKey: "_id", columnTitle: "Id", hidden: true }.
+ * Render the columns in the order of the objects given in columnConfiguration, when dataKey value is found on an object.
+ * Discard the rendering of dataArray object properties not given in a dataKey of columnConfiguration.
+ * Only display requested columns where hidden is false.
+ * If undefined, display all columns. Get the column header name based on the columnTitle. If no columnTitle, the columnTitle is
+ * considered as being the dataKey.
+ * @param {Array} rowConfiguration : rowConfiguration.hiddenDataAttributes : add data attributes to each table row, except for the header. An index is always added as data-index.
+ * If no rowConfiguration.hiddenDataAttributes , don't add extra data attributes, else add all values in table row for each column corresponding to a key.
+ * Format of the name for the data-attribute : data-hiddenDataAttributes[i].
+ * rowConfiguration.isHeaderRowHidden : deal if the header row shall be hidden
+ * rowConfiguration.verticalHeaders : an array to describe all the expected vertical headers
+ * @param  {...any} objects : each object that you pass will add a property to all the objects in the array.
+ * Therefore, the object will be transposed from an object to multiple properties to the array made by the vertical header
+ */
+const createArrayOfObjects = (
+  rowConfiguration,
+  columnConfiguration,
+  ...objects
+) => {
+  if (
+    !rowConfiguration ||
+    !rowConfiguration.verticalHeaders ||
+    rowConfiguration.verticalHeaders.length === 0 ||
+    !columnConfiguration ||
+    columnConfiguration.length === 0
+  )
+    return;
+  const newArray = [];
+  rowConfiguration.verticalHeaders.forEach((rowConf) => {
+    const newObject = {};
+
+    objects.forEach((object, index) => {
+      // deal with the vertical header
+      let oldObjectKey = rowConf.dataKey;
+      let newObjectKey = columnConfiguration[index].dataKey;
+      if (index === 0) newObject[newObjectKey] = rowConf.rowTitle;
+      // deal with the other vertical values
+      newObjectKey = columnConfiguration[index + 1].dataKey;
+      newObject[newObjectKey] = object[oldObjectKey];
+    });
+    newArray.push(newObject);
+  });
+  return newArray;
+};
+
 export {
   addRowAtIndex,
   deleteColumnFrom2DArray,
@@ -130,5 +202,7 @@ export {
   addColumnRightFromGivenIndex,
   array2DContains,
   transpose2DArray,
-  addPropertyWithDataToAllObjects
+  addPropertyWithDataToAllObjects,
+  createArrayOfObjects,
+  updatePropertyWithDataToAllObjects,
 };

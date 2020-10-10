@@ -6,7 +6,7 @@ const ProjectPage = async () => {
   try {
     const TABLE_ID = "projectTable";
     let page = document.querySelector("#page");
-    let admin = false;    
+    let admin = false;
     const userName = getUserName();
 
     let projectPage = `<h5>Projets 2020</h5>
@@ -21,7 +21,12 @@ const ProjectPage = async () => {
     );
 
     console.log("user role:", userRole);
-    if (userRole && userRole.role && userRole.role === "admin") admin = true;
+    if (
+      userRole &&
+      userRole.role &&
+      (userRole.role === "admin" || userRole.role === "manager")
+    )
+      admin = true;
     else admin = false;
 
     // show the Add Project button if admin
@@ -31,7 +36,7 @@ const ProjectPage = async () => {
           Add Project
         </button>
         <div id="projectModal"></div>`;
-    
+
     // always add a container to later contain a modal
     projectPage += `      
         <div id="projectModal"></div>`;

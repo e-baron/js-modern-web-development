@@ -1,19 +1,14 @@
 import {
-  getTableOuterHtmlFrom2DArray,
-  getVerticalHeaderTableOuterHtmlFromArray,
   getTableOuterHtmlFromArray,
   genericModalOuterHtml,
   genericModalOnClose,
   showGenericModal,
   updateGenericModal,
-  closeGenericModal,
-  updateTextToHyperlink,
 } from "../../utils/render.js";
 
 import {
-  addRowAtIndex,
-  transformArrayOfObjectsTo2DArray,
-  transpose2DArray,
+  createArrayOfObjects,
+  updatePropertyWithDataToAllObjects,
 } from "../../utils/array/array.js";
 
 import ProjectUpdate from "./ProjectUpdate";
@@ -28,13 +23,12 @@ const ProjectView = async (projectId, index, projectData, admin, userName) => {
     genericModalOnClose();
 
     const columnConfiguration = [
-      //{ dataKey: "_id", columnTitle: "Id", hidden: true },
       { dataKey: "property", columnTitle: "Propriété", hidden: false },
-      { dataKey: "value", columnTitle: "Valeur", hidden: false },      
+      { dataKey: "value", columnTitle: "Valeur", hidden: false },
     ];
 
     const rowConfiguration = {
-      isHeaderRowHidden: false,
+      isHeaderRowHidden: true,
       verticalHeaders: [
         { rowTitle: "<b>Identifiant du projet</b>", dataKey: "_id" },
         { rowTitle: "<b>Nom du projet</b>", dataKey: "nom" },
@@ -62,102 +56,48 @@ const ProjectView = async (projectId, index, projectData, admin, userName) => {
           dataKey: "frontendProductionUrl",
         },
         {
-          rowTitle: "<b>backendProductionUrl</b>",
+          rowTitle: "<b>Url du backend déployé</b>",
           dataKey: "frontendProductionUrl",
+        },
+        {
+          rowTitle: "<b>Nom du groupe de projets associés</b>",
+          dataKey: "projectGroupName",
+        },
+        {
+          rowTitle: "<b>Projet public ?</b>",
+          dataKey: "isPublic",
+        },
+        {
+          rowTitle: "<b>Nom du projet pour le public</b>",
+          dataKey: "publicName",
+        },
+        {
+          rowTitle: "<b>Description pour le public</b>",
+          dataKey: "publicDescription",
+        },
+        {
+          rowTitle: "<b>Description des auteurs pour le public</b>",
+          dataKey: "publicDescription",
         },
       ],
     };
 
-    /*let firstColumnData = [
-      "<b>Identifiant du projet</b>",
-      "<b>Nom du projet</b>",
-      "<b>Description du projet</b>",
-      "<b>Membres du projet</b>",
-      "<b>Statut du projet</b>",
-      "<b>Date de création du projet</b>",
-      "<b>Url du repository pour le frontend</b>",
-      "<b>Url du repository pour le backend</b>",
-      "<b>Url de la vidéo de présentation du projet</b>",
-      "<b>Url du frontend déployé</b>",
-      "<b>Url du backend déployé</b>",
-    ];*/
-
-    /*
-    let propertyData = [
-      "<b>Identifiant du projet</b>",
-      "<b>Nom du projet</b>",
-      "<b>Description du projet</b>",
-      "<b>Membres du projet</b>",
-      "<b>Statut du projet</b>",
-      "<b>Date de création du projet</b>",
-      "<b>Url du repository pour le frontend</b>",
-      "<b>Url du repository pour le backend</b>",
-      "<b>Url de la vidéo de présentation du projet</b>",
-      "<b>Url du frontend déployé</b>",
-      "<b>Url du backend déployé</b>",
-    ];*/
-
     let dataArrayCloned = JSON.parse(JSON.stringify(projectData));
     let valueObject = dataArrayCloned[index];
-
-    const createArrayOfObjects = (
-      rowConfiguration,
-      columnConfiguration,
-      ...objects
-    ) => {
-      if (
-        !rowConfiguration ||
-        !rowConfiguration.verticalHeaders ||
-        rowConfiguration.verticalHeaders.length === 0 ||
-        !columnConfiguration ||
-        columnConfiguration.length === 0
-      )
-        return;
-      const newArray = [];
-      rowConfiguration.verticalHeaders.forEach((rowConf) => {
-        const newObject = {};
-
-        objects.forEach((object, index) => {
-          // deal with the vertical header
-          let oldObjectKey = rowConf.dataKey;
-          let newObjectKey = columnConfiguration[index].dataKey;
-          if (index === 0) newObject[newObjectKey] = rowConf.rowTitle;
-          // deal with the other vertical values
-          newObjectKey = columnConfiguration[index+1].dataKey;
-          newObject[newObjectKey] = object[oldObjectKey];
-        });
-        newArray.push(newObject);
-      });
-      return newArray;
-    };
 
     const dataArrayToDisplay = createArrayOfObjects(
       rowConfiguration,
       columnConfiguration,
-      valueObject,
+      valueObject
     );
-    //let arrayOfObjects;
-    //transposeArrayToArrayOfObjects(propertyData);
 
-    /*
-    let data2DArray = transformArrayOfObjectsTo2DArray(dataArrayCloned);
-    let secondColumnData = data2DArray[index];*/
+    updatePropertyWithDataToAllObjects(
+      dataArrayToDisplay,
+      "value",
+      setValueItemPropertyValueFromObject
+    );
 
-    //let arrayToDisplay = [firstColumnData, secondColumnData];
-    // switch rows to columns
-    //arrayToDisplay = transpose2DArray(arrayToDisplay);
-    // add hyperlinks where needed
-    //updateTextToHyperlink(arrayToDisplay, 1, 1);
-    // add the headers
-    //addRowAtIndex(arrayToDisplay, ["Propriétés", "Valeurs"], 0);
-    /*const tableOuterHtmlgetTable = getTableOuterHtmlFrom2DArray(
-      arrayToDisplay,
-      undefined,
-      undefined,
-      true
-    );*/
-
-    const tableOuterHtmlgetTable = getTableOuterHtmlFromArray(
+    const tableElement = getTableOuterHtmlFromArray(
       dataArrayToDisplay,
       columnConfiguration,
       rowConfiguration
@@ -165,7 +105,7 @@ const ProjectView = async (projectId, index, projectData, admin, userName) => {
 
     let modalBody = `
       <div class="table-responsive">            
-          ${tableOuterHtmlgetTable}               
+          ${tableElement.outerHTML}               
       </div>            
     `;
 
@@ -191,6 +131,32 @@ const onUpdateClick = (projectId) => async (e) => {
   // get the last version of the data when it is asked to update this project
   // deal with a modal
   ProjectUpdate(projectId);
+};
+
+const setValueItemPropertyValueFromObject = (propertyName, element) => {
+  // create absolute links (www.google.com is not absolute,
+  // we need to add the protocol such as http://www.google.com)
+  let href;
+  let hyperlinkToBeCreated = false;
+  if (
+    element &&
+    element[propertyName] &&
+    !Array.isArray(element[propertyName])
+  ) {
+    if (element[propertyName].match(/^(http|https)/)) {
+      href = element[propertyName];
+      hyperlinkToBeCreated = true;
+    } else if (element[propertyName].match(/^(www\.)/)) {
+      href = "http://" + element[propertyName];
+      hyperlinkToBeCreated = true;
+    }
+
+    if (hyperlinkToBeCreated) {
+      element[
+        propertyName
+      ] = `<a href="${href}" target="_blank">${element[propertyName]}</a>`;
+    }
+  }
 };
 
 export default ProjectView;
