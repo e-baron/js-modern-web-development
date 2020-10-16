@@ -375,7 +375,13 @@ const COURSE_CONTENT = [
         url: INSTRUCTIONS_BASE_URL + "fiche04.pdf",
       },
     ],
-    exerciceSolutions: [],
+    exerciceSolutions: [
+      {
+        contentType: "code",
+        name: "Gestion locale d'une collection de films",
+        url: SOLUTION_CODE_BASE_URL + "fiche-04/class-module",
+      },
+    ],
   },
 
   {
