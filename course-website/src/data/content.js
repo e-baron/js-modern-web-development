@@ -467,7 +467,12 @@ const COURSE_CONTENT = [
         url: SLIDES_BASE_URL + "17-JS-Node-MPA-Express.pdf",
       },
     ],
-    courseVideos: [],
+    courseVideos: [
+      {
+        name: "Création de Multi-Page Applications sous Express",
+        url: "https://youtu.be/Lp_egDHNT_k",
+      },
+    ],
     courseDemos: [
       {
         contentType: "code",
@@ -509,7 +514,12 @@ const COURSE_CONTENT = [
         url: SLIDES_BASE_URL + "18-JS-Node-SessionServeur-MVC.pdf",
       },
     ],
-    courseVideos: [],
+    courseVideos: [
+      {
+        name: "Gestion des sessions côté serveur & pattern MVC pour une MPA",
+        url: "https://youtu.be/CwWEcHGF5VM",
+      },
+    ],
     courseDemos: [
       {
         contentType: "code",

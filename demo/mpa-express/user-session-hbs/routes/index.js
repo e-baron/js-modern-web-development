@@ -15,8 +15,7 @@ router.get("/", function (req, res, next) {
     pageTitle: "Demo : MPA with Express & MVC",
     footerText: "Happy learning : )",
     user: req.session.user,
-    isAuthenticated: req.session.isAuthenticated,
-    message:"Welcome to this amazing site which allows users to register with an email and a password.",
+    isAuthenticated: req.session.isAuthenticated,    
   });
 });
 

@@ -1,5 +1,3 @@
-"strict mode";
-
 class User {
   constructor(username, email, password) {
     this.username = username;
