@@ -31,7 +31,7 @@ const ProjectView = async (projectId, index, projectData, admin, userName) => {
       isHeaderRowHidden: true,
       verticalHeaders: [
         { rowTitle: "<b>Identifiant du projet</b>", dataKey: "_id" },
-        { rowTitle: "<b>Nom du projet</b>", dataKey: "nom" },
+        { rowTitle: "<b>Nom du projet</b>", dataKey: "name" },
         { rowTitle: "<b>Description du projet</b>", dataKey: "description" },
         { rowTitle: "<b>Membres du projet</b>", dataKey: "projectMembers" },
         { rowTitle: "<b>Statut du projet</b>", dataKey: "status" },
