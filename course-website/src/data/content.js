@@ -1,7 +1,7 @@
 //const CODE_BASE_URL =  "https://github.com/e-baron/js-modern-web-development/tree/master/demo/";
 const CODE_BASE_URL =
   "https://gitlab.vinci.be/web2/js-modern-web-development/-/tree/master/demo/";
-  const SOLUTION_CODE_BASE_URL =
+const SOLUTION_CODE_BASE_URL =
   "https://gitlab.vinci.be/web2/js-modern-web-development/-/tree/master/exercises/";
 const SLIDES_BASE_URL = "/course-files/slides/";
 const OTHERS_BASE_URL = "/course-files/others/";
@@ -434,7 +434,18 @@ const COURSE_CONTENT = [
         url: INSTRUCTIONS_BASE_URL + "fiche05.pdf",
       },
     ],
-    exerciceSolutions: [],
+    exerciceSolutions: [
+      {
+        contentType: "code",
+        name: "Liste de fichiers dans la console via Node",
+        url: SOLUTION_CODE_BASE_URL + "fiche-05/node",
+      },
+      {
+        contentType: "code",
+        name: "Liste de fichiers partagés par le serveur et renvoyés au client",
+        url: SOLUTION_CODE_BASE_URL + "fiche-05/node-module",
+      },
+    ],
   },
   {
     contentType: "presentation",
