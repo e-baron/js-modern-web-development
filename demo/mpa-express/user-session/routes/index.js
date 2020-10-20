@@ -125,9 +125,9 @@ router.get("/logout", function (req, res, next) {
     req.session.destroy(function (err) {
       // cannot access session here
       if (err) return console.error("Error in session destroy:", err);
-      return res.redirect("/login");
     });
   }
+  return res.redirect("/login");
 });
 
 module.exports = router;
