@@ -1,4 +1,4 @@
-"strict mode";
+"use strict";
 const FILE_PATH = __dirname + "/users.json";
 
 class User {
