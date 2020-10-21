@@ -45,7 +45,7 @@ router.get("/logout", function (req, res, next) {
   if (req.session.isAuthenticated) {
     req.session.destroy(function (err) {
       // cannot access session here
-      if (err) return console.error("Error in session destroy:", err);
+      if (err) console.error("Error in session destroy:", err);
     });    
   }
   return res.status(200).end();
