@@ -46,9 +46,9 @@ router.get("/logout", function (req, res, next) {
     req.session.destroy(function (err) {
       // cannot access session here
       if (err) return console.error("Error in session destroy:", err);
-      return res.status(200).end();
-    });
+    });    
   }
+  return res.status(200).end();
 });
 
 /* GET user object from username */
