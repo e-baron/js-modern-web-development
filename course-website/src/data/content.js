@@ -512,7 +512,13 @@ const COURSE_CONTENT = [
         url: INSTRUCTIONS_BASE_URL + "fiche06.pdf",
       },
     ],
-    exerciceSolutions: [],
+    exerciceSolutions: [
+      {
+        contentType: "code",
+        name: "MPA de base gérant des films",
+        url: SOLUTION_CODE_BASE_URL + "fiche-06/mpa-basics",
+      },
+    ],
   },
 
   {
@@ -549,7 +555,13 @@ const COURSE_CONTENT = [
         url: INSTRUCTIONS_BASE_URL + "fiche06.pdf",
       },
     ],
-    exerciceSolutions: [],
+    exerciceSolutions: [
+      {
+        contentType: "code",
+        name: "MPA gérant l'authentification et appliquant le pattern MVC",
+        url: SOLUTION_CODE_BASE_URL + "fiche-06/mpa-mvc-server-session",
+      },
+    ],
   },
 
   {
