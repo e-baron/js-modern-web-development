@@ -16,11 +16,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 // not found in static files, so default to index.html
-/*app.use((req, res, next) => {
+app.use((req, res, next) => {
   if (!req.path.startsWith("/api/"))
     return res.sendFile(`${__dirname}/public/index.html`);
   next();
-});*/
+});
 
 // use the express-session middleware
 // NB : the middleware shall be prior to the router

@@ -562,7 +562,12 @@ const COURSE_CONTENT = [
         url: SLIDES_BASE_URL + "19-JS-Node-JSON.pdf",
       },
     ],
-    courseVideos: [],
+    courseVideos: [
+      {
+        name: "Intro à JSON",
+        url: "https://youtu.be/XNfl1XNSTM4",
+      },
+    ],
     courseDemos: [
       {
         contentType: "code",
@@ -594,7 +599,12 @@ const COURSE_CONTENT = [
         url: SLIDES_BASE_URL + "20-JS-Node-SPA-RoutingComposants.pdf",
       },
     ],
-    courseVideos: [],
+    courseVideos: [
+      {
+        name: "SPA et le routage des composants",
+        url: "https://youtu.be/uThz9iie-9o",
+      },
+    ],
     courseDemos: [
       {
         contentType: "code",
@@ -621,7 +631,12 @@ const COURSE_CONTENT = [
         url: SLIDES_BASE_URL + "21-JS-Node-RESTfulAPI.pdf",
       },
     ],
-    courseVideos: [],
+    courseVideos: [
+      {
+        name: "RESTful API",
+        url: "https://youtu.be/a_B4oKEw2kY",
+      },
+    ],
     courseDemos: [],
     exerciceInstructions: [
       {
@@ -642,7 +657,12 @@ const COURSE_CONTENT = [
         url: SLIDES_BASE_URL + "22-JS-Node-SPA-AJAX-API.pdf",
       },
     ],
-    courseVideos: [],
+    courseVideos: [
+      {
+        name: "Communications AJAX avec des RESTful API",
+        url: "https://youtu.be/4YCAUlJxjRw",
+      },
+    ],
     courseDemos: [
       {
         contentType: "code",
@@ -669,7 +689,12 @@ const COURSE_CONTENT = [
         url: SLIDES_BASE_URL + "23-JS-Node-Promesses.pdf",
       },
     ],
-    courseVideos: [],
+    courseVideos: [
+      {
+        name: "Les promesses en JS",
+        url: "https://youtu.be/UdsHWdhH7v4",
+      },
+    ],
     courseDemos: [
       {
         contentType: "code",
