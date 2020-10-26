@@ -29,6 +29,8 @@ router.get("/register", function (req, res, next) {
       user: req.session.user,
       isAuthenticated: req.session.isAuthenticated,
     });
+  } else {
+    return res.redirect("/list");
   }
 });
 
@@ -93,6 +95,8 @@ router.get("/login", function (req, res, next) {
       isAuthenticated: req.session.isAuthenticated,
       isLogin: true,
     });
+  } else {
+    return res.redirect("/list");
   }
 });
 
