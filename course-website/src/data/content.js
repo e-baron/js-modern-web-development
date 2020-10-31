@@ -733,7 +733,12 @@ const COURSE_CONTENT = [
         url: SLIDES_BASE_URL + "24-JS-Node-SessionClient.pdf",
       },
     ],
-    courseVideos: [],
+    courseVideos: [
+      {
+        name: "Gestion de sessions côté client via Express : les cookies et le web storage",
+        url: "https://youtu.be/xAMMfTrbhm8",
+      },
+    ],
     courseDemos: [
       {
         contentType: "code",
@@ -765,7 +770,12 @@ const COURSE_CONTENT = [
         url: SLIDES_BASE_URL + "25-JS-Node-HachageInfo.pdf",
       },
     ],
-    courseVideos: [],
+    courseVideos: [
+      {
+        name: "Hachage d'information sous Node.js",
+        url: "https://youtu.be/YTbpqwOZhqE",
+      },
+    ],
     courseDemos: [
       {
         contentType: "code",
@@ -793,7 +803,12 @@ const COURSE_CONTENT = [
         url: SLIDES_BASE_URL + "26-JS-Node-JWT-auths.pdf",
       },
     ],
-    courseVideos: [],
+    courseVideos: [
+      {
+        name: "Authentification et autorisation d'utilisateurs via JWT et Express",
+        url: "https://youtu.be/dJOIONuN4A4",
+      },
+    ],
     courseDemos: [
       {
         contentType: "code",
@@ -821,7 +836,12 @@ const COURSE_CONTENT = [
         url: SLIDES_BASE_URL + "27-JS-Node-SPABackendIndependant.pdf",
       },
     ],
-    courseVideos: [],
+    courseVideos: [
+      {
+        name: "SPA avec backend indépendant du frontend",
+        url: "https://youtu.be/prxouJERhc8",
+      },
+    ],
     courseDemos: [
       {
         contentType: "code",
@@ -848,7 +868,12 @@ const COURSE_CONTENT = [
         url: SLIDES_BASE_URL + "28-JS-Node-Sécurité.pdf",
       },
     ],
-    courseVideos: [],
+    courseVideos: [
+      {
+        name: "Gestion de la sécurité du browser : CORS ou proxy",
+        url: "https://youtu.be/4xp2al5P6k4",
+      },
+    ],
     courseDemos: [
       {
         contentType: "code",
@@ -880,7 +905,12 @@ const COURSE_CONTENT = [
         url: SLIDES_BASE_URL + "29-JS-Node-Bundler.pdf",
       },
     ],
-    courseVideos: [],
+    courseVideos: [
+      {
+        name: "Module bundler : webpack pour gérer les dépendances d'un frontend",
+        url: "https://youtu.be/KOoCBOYApAc",
+      },
+    ],
     courseDemos: [
       {
         contentType: "code",
@@ -917,7 +947,12 @@ const COURSE_CONTENT = [
         url: OTHERS_BASE_URL + "30-JS-Node-ProcédureDéploiementHeroku.pdf",
       },
     ],
-    courseVideos: [],
+    courseVideos: [
+      {
+        name: "Déploiement d'applications web",
+        url: "https://youtu.be/RaJwFI2LX5U",
+      },
+    ],
     courseDemos: [],
     exerciceInstructions: [],
     exerciceSolutions: [],
