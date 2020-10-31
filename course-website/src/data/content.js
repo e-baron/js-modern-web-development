@@ -729,7 +729,7 @@ const COURSE_CONTENT = [
     exerciceSolutions: [
       {
         contentType: "code",
-        name: "Promesses pour monitorer des clicks et afficher des alertes",
+        name: "Promesses pour monitorer des clics et afficher des alertes",
         url: SOLUTION_CODE_BASE_URL + "fiche-07/promise",
       },
     ],
