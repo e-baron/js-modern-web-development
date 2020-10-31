@@ -688,7 +688,13 @@ const COURSE_CONTENT = [
         url: INSTRUCTIONS_BASE_URL + "fiche07.pdf",
       },
     ],
-    exerciceSolutions: [],
+    exerciceSolutions: [
+      {
+        contentType: "code",
+        name: "SPA gérant des films & persistance des données via JSON",
+        url: SOLUTION_CODE_BASE_URL + "fiche-07/spa-monolith",
+      },
+    ],
   },
 
   {
@@ -720,7 +726,13 @@ const COURSE_CONTENT = [
         url: INSTRUCTIONS_BASE_URL + "fiche07.pdf",
       },
     ],
-    exerciceSolutions: [],
+    exerciceSolutions: [
+      {
+        contentType: "code",
+        name: "Promesses pour monitorer des clicks et afficher des alertes",
+        url: SOLUTION_CODE_BASE_URL + "fiche-07/promise",
+      },
+    ],
   },
 
   {
