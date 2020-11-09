@@ -747,7 +747,8 @@ const COURSE_CONTENT = [
     ],
     courseVideos: [
       {
-        name: "Gestion de sessions côté client via Express : les cookies et le web storage",
+        name:
+          "Gestion de sessions côté client via Express : les cookies et le web storage",
         url: "https://youtu.be/xAMMfTrbhm8",
       },
     ],
@@ -817,7 +818,8 @@ const COURSE_CONTENT = [
     ],
     courseVideos: [
       {
-        name: "Authentification et autorisation d'utilisateurs via JWT et Express",
+        name:
+          "Authentification et autorisation d'utilisateurs via JWT et Express",
         url: "https://youtu.be/dJOIONuN4A4",
       },
     ],
@@ -919,7 +921,8 @@ const COURSE_CONTENT = [
     ],
     courseVideos: [
       {
-        name: "Module bundler : webpack pour gérer les dépendances d'un frontend",
+        name:
+          "Module bundler : webpack pour gérer les dépendances d'un frontend",
         url: "https://youtu.be/KOoCBOYApAc",
       },
     ],
@@ -966,6 +969,23 @@ const COURSE_CONTENT = [
       },
     ],
     courseDemos: [],
+    exerciceInstructions: [],
+    exerciceSolutions: [],
+  },
+
+  {
+    contentType: "support",
+    subject: "Phaser3",
+    week: 8,
+    courseFiles: [],
+    courseVideos: [],
+    courseDemos: [
+      {
+        contentType: "code",
+        name: "Phaser3, Webpack & du code moderne",
+        url: CODE_BASE_URL + "modern-phaser3",
+      },
+    ],
     exerciceInstructions: [],
     exerciceSolutions: [],
   },
