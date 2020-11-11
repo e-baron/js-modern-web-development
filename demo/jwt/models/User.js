@@ -27,7 +27,7 @@ class User {
 
   /* return a promise with classic promise syntax*/
   checkCredentials(email, password) {
-    if (!email || !password) return false;
+    if (!email || !password) return Promise.resolve(false);
     let userFound = User.getUserFromList(email);
     console.log("User::checkCredentials:", userFound, " password:", password);
     if (!userFound) return Promise.resolve(false);

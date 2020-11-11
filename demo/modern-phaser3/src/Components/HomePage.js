@@ -2,7 +2,7 @@
 import { setLayout } from "../utils/render.js";
 let homePage = `<p>This frontend provides a configuration that enables Phaser 3 through Webpack.
 The base of the webpack configuration comes from <a href="https://github.com/photonstorm/phaser3-project-template">
-Phaser 3 Wabepack Project Template
+Phaser 3 Webpack Project Template
 </a>.  
 </p>
 <p>The game presented has been developped based on the <a href="https://blog.ourcade.co/posts/2020/make-first-phaser-3-game-modern-javascript-part1/">
