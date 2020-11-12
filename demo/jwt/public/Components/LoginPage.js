@@ -33,8 +33,6 @@ const LoginPage = () => {
 
 const onLogin = (e) => {
   e.preventDefault();
-  let email = document.getElementById("email");
-  let password = document.getElementById("password");
 
   let user = {
     email: document.getElementById("email").value,
