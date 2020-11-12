@@ -182,7 +182,7 @@ const projectTableOuterHtml = (
       dataArrayCloned,
       "joindre",
       undefined,
-      getJoinItemPropertyValueFromObject
+      getJoinItemPropertyValueFromObject(projectGroup)
     );
   }
 
@@ -235,7 +235,7 @@ const projectTableOuterHtml = (
   );
 };
 
-const getJoinItemPropertyValueFromObject = (element) => {
+const getJoinItemPropertyValueFromObject = (projectGroup) => (element) => {
   const joinButtonOuterHtml = `<a class="join btn btn-dark"
                                 >Joindre</a>`;
   const projectMemberCount = element.projectMembers.length;
