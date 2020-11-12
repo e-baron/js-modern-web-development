@@ -26,7 +26,7 @@ const LoginPage = () => {
   const user = getUserSessionData();
   if (user) {
     // re-render the navbar for the authenticated user
-    Navbar(user.username);
+    Navbar(user);
     RedirectUrl("/list");
   } else loginForm.addEventListener("submit", onLogin);
 };
@@ -62,7 +62,7 @@ const onUserLogin = (userData) => {
   const user = { ...userData, isAutenticated: true };  
   setUserSessionData(user);
   // re-render the navbar for the authenticated user
-  Navbar();
+  Navbar(userData);
   RedirectUrl("/list");
 };
 
