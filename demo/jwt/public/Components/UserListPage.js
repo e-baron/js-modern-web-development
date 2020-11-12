@@ -39,7 +39,6 @@ const onUserList = (data) => {
   console.log("onUserList");
   let userListPage = `<h5>List of MyCMS users</h5>
 <ul class="list-group list-group-horizontal-lg">`;
-  let userList = document.querySelector("ul");
   // Neat way to loop through all data in the array, create a new array of string elements (HTML li tags)
   // with map(), and create one string from the resulting array with join(''). '' means that the separator is a void string.
   userListPage += data
