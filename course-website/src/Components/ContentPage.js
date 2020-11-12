@@ -1,4 +1,4 @@
-import { RedirectUrl } from "./Router.js";
+import { setLayout } from "../utils/render.js";
 import COURSE_CONTENT from "../data/content.js";
 import {
   addPropertyWithDataToAllObjects,
@@ -9,7 +9,8 @@ let page = document.querySelector("#page");
 const TABLE_ID = "contentTable";
 
 const ContentPage = () => {
-  let contentPage = `<h5>Contenu du cours</h5>
+  setLayout("Contenu du cours");
+  let contentPage = `
   <div id="${TABLE_ID}" class="table-responsive"></div>
 `;
   page.innerHTML = contentPage;
@@ -74,38 +75,36 @@ const renderTable = async () => {
     updatePropertyWithDataToAllObjects(
       dataArrayCloned,
       "courseFiles",
-      setLinkPropertyValueFromObject,
+      setLinkPropertyValueFromObject
     );
 
-     // deal with courseVideos property
-     updatePropertyWithDataToAllObjects(
+    // deal with courseVideos property
+    updatePropertyWithDataToAllObjects(
       dataArrayCloned,
       "courseVideos",
-      setLinkPropertyValueFromObject,
+      setLinkPropertyValueFromObject
     );
 
     // deal with courseDemos property
     updatePropertyWithDataToAllObjects(
       dataArrayCloned,
       "courseDemos",
-      setLinkPropertyValueFromObject,
+      setLinkPropertyValueFromObject
     );
 
     // deal with exerciceInstructions property
     updatePropertyWithDataToAllObjects(
       dataArrayCloned,
       "exerciceInstructions",
-      setLinkPropertyValueFromObject,
+      setLinkPropertyValueFromObject
     );
 
     // deal with exerciceSolutions property
     updatePropertyWithDataToAllObjects(
       dataArrayCloned,
       "exerciceSolutions",
-      setLinkPropertyValueFromObject,
+      setLinkPropertyValueFromObject
     );
-
-    
 
     const tableElement = getTableOuterHtmlFromArray(
       dataArrayCloned,
@@ -115,7 +114,6 @@ const renderTable = async () => {
 
     tableDiv.innerHTML = "";
     tableDiv.appendChild(tableElement);
-
   } catch (err) {
     console.error("ContentPage::Error:", err);
   }
@@ -129,9 +127,9 @@ const setLinkPropertyValueFromObject = (propertyName, element) => {
   if (
     element &&
     element[propertyName] &&
-    Array.isArray(element[propertyName]) && 
-    element[propertyName].length > 0)
-   {
+    Array.isArray(element[propertyName]) &&
+    element[propertyName].length > 0
+  ) {
     element[propertyName] = element[propertyName].map(
       (file) => `<a href="${file.url}" target="_blank">${file.name}</a>`
     );

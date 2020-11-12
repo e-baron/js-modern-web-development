@@ -2,7 +2,10 @@ import callAPI from "../../utils/api/fetch.js";
 import { getIdToken } from "../../utils/auths/authPopup.js";
 import {
   updateGenericModal,
+  updateGenericModal2,
   closeGenericModal,
+  getFormOuterHtmlFromObject,
+  getFormDataOnSubmit,
 } from "../../utils/render.js";
 
 const ProjectUpdate = async (projectId) => {
@@ -13,21 +16,111 @@ const ProjectUpdate = async (projectId) => {
     const projectFound = await callAPI(
       "/api/projects/" + projectId,
       "GET",
-      getIdToken(),
-    );      
-  
-  const modalBody = `
-    <form>
-            <div class="form-group">
-              <label for="title">Nom du projet</label>
-              <input
-                class="form-control"
-                type="text"
-                name="name"
-                id="name"
-                value="${projectFound.name}"
-                required                
-              />
+      getIdToken()
+    );
+
+    if (!projectFound) return;
+
+    /* textearea is considered if rows exists and is bigger than 1 */
+    const configuration = [
+      {
+        title: "Identifiant du projet",
+        dataKey: "_id",
+        type: "text",
+        hidden: true,
+      },
+      { title: "Nom du projet", dataKey: "name", type: "text", hidden: true },
+      {
+        title: "Description du projet",
+        dataKey: "description",        
+        rows:4,
+        hidden: false,
+      },
+      { title: "Membres du projet", 
+      dataKey: "projectMembers", 
+      type:"text",
+      hidden: true },
+      { title: "Statut du projet", 
+      dataKey: "status", 
+      type:"text",
+      hidden: true },
+      {
+        title: "Date de création du projet",
+        dataKey: "creationDate",
+        type:"time",
+        hidden: true,
+      },
+      {
+        title: "Url du repository pour le frontend",
+        dataKey: "frontendRepo",
+        type:"url",
+        hidden: false,
+      },
+      {
+        title: "Url du repository pour le backend",
+        dataKey: "backendRepo",
+        type:"url",
+        hidden: false,
+      },
+      {
+        title: "Url de la vidéo de présentation du projet",
+        dataKey: "presentationUrl",
+        type:"url",
+        hidden: false,
+      },
+      {
+        title: "Url du frontend déployé",
+        dataKey: "frontendProductionUrl",
+        type:"url",
+        hidden: false,
+      },
+      {
+        title: "Url du backend déployé",
+        dataKey: "frontendProductionUrl",
+        type:"url",
+        hidden: false,
+      },
+      {
+        title: "Nom du groupe de projets associés",
+        dataKey: "projectGroupName",
+        type:"text",
+        hidden: true,
+      },
+      {
+        title: "Projet public ?",
+        dataKey: "isPublic",
+        type:"text",
+        hidden: true,
+      },
+      {
+        title: "Nom du projet pour le public",
+        dataKey: "publicName",
+        type:"text",
+        hidden: true,
+      },
+      {
+        title: "Description pour le public",
+        dataKey: "publicDescription",
+        type:"text",
+        hidden: true,
+      },
+      {
+        title: "Description des auteurs pour le public",
+        dataKey: "publicAuthors",
+        type:"text",
+        hidden: true,
+      },
+      {
+        title: "Sauver",        
+        type:"submit", 
+        id:"sauverBtn",       
+      },
+    ];
+
+    const modalForm = getFormOuterHtmlFromObject(projectFound, configuration);
+
+    const modalBody = `
+    <form>            
             </div>
             <div class="form-group">
               <label for="description">Description du projet</label>
@@ -47,9 +140,7 @@ const ProjectUpdate = async (projectId) => {
                 name="frontendRepo"
                 id="frontendRepo"   
                 value="${
-                  projectFound.frontendRepo
-                    ? projectFound.frontendRepo
-                    : ""
+                  projectFound.frontendRepo ? projectFound.frontendRepo : ""
                 }"             
               />
             </div>
@@ -61,9 +152,7 @@ const ProjectUpdate = async (projectId) => {
                 name="backendRepo"
                 id="backendRepo"    
                 value="${
-                  projectFound.backendRepo
-                    ? projectFound.backendRepo
-                    : ""
+                  projectFound.backendRepo ? projectFound.backendRepo : ""
                 }"            
               />
             </div>
@@ -112,25 +201,24 @@ const ProjectUpdate = async (projectId) => {
             <input type="submit" class="btn btn-primary" value="Sauver" id="sauverBtn" />
           </form>   
   `;
-  updateGenericModal("Vue du projet", modalBody);
-  //showGenericModal();
+   updateGenericModal2("Vue du projet", modalForm);
+    //updateGenericModal("Vue du projet", modalBody);
+    //showGenericModal();
 
-  document
-    .querySelector("form")
-    .addEventListener("submit", onSaveClick(projectId));
-
+    document
+      .querySelector("form")
+      .addEventListener("submit", onSaveClick(projectId, configuration));
   } catch (err) {
     console.error("Project update :: error", err);
   }
 };
 
-
-const onSaveClick = (projectId) => async (e) => {
+const onSaveClick = (projectId, configuration) => async (e) => {
   // send the new data to the api
-  e.preventDefault();
+  e.preventDefault();  
 
-  let name = document.getElementById("name").value;
-  let description = document.getElementById("description").value;
+  //let name = document.getElementById("name").value;
+  /*let description = document.getElementById("description").value;
   let frontendRepo = document.getElementById("frontendRepo").value;
   let backendRepo = document.getElementById("backendRepo").value;
   let presentationUrl = document.getElementById("presentationUrl").value;
@@ -140,14 +228,16 @@ const onSaveClick = (projectId) => async (e) => {
     .value;
 
   let data = {
-    name: name ? name : "",
+    //name: name ? name : "",
     description: description ? description : "",
     frontendRepo: frontendRepo ? frontendRepo : "",
     backendRepo: backendRepo ? backendRepo : "",
     presentationUrl: presentationUrl ? presentationUrl : "",
     frontendProductionUrl: frontendProductionUrl ? frontendProductionUrl : "",
     backendProductionUrl: backendProductionUrl ? backendProductionUrl : "",
-  };
+  };*/
+
+  const data = getFormDataOnSubmit(configuration);
 
   try {
     const updatedProject = await callAPI(
@@ -156,7 +246,7 @@ const onSaveClick = (projectId) => async (e) => {
       getIdToken(),
       data
     );
-    closeGenericModal();    
+    closeGenericModal();
   } catch (err) {
     console.error("onUpdateClick::fetch", err);
   }

@@ -1,15 +1,26 @@
 import callAPI from "../../utils/api/fetch.js";
 import { getIdToken, getUserName } from "../../utils/auths/authPopup.js";
 import ProjectTable from "./ProjectTable.js";
+import { setLayout } from "../../utils/render.js";
+
+const CURRENT_PROJECT_GROUP = "Web2 2020";
 
 const ProjectPage = async () => {
   try {
+    const projectGroup = await callAPI(
+      "/api/projectgroups/" + CURRENT_PROJECT_GROUP,
+      "get",
+      getIdToken(),
+      undefined
+    );
+
+    setLayout("Projets du groupe : " + projectGroup._id);
     const TABLE_ID = "projectTable";
     let page = document.querySelector("#page");
     let admin = false;
     const userName = getUserName();
 
-    let projectPage = `<h5>Projets 2020</h5>
+    let projectPage = `
         <div id="${TABLE_ID}" class="table-responsive"></div>
     `;
 
@@ -20,7 +31,7 @@ const ProjectPage = async () => {
       undefined
     );
 
-    console.log("user role:", userRole);
+    
     if (
       userRole &&
       userRole.role &&
@@ -49,7 +60,7 @@ const ProjectPage = async () => {
     }
 
     // render the project table for the first time
-    ProjectTable(admin, userName);
+    ProjectTable(admin, userName, projectGroup);
   } catch (err) {
     console.error("Project Page::Error:", err);
   }

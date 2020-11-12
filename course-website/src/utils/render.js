@@ -1,22 +1,20 @@
+let backToTopButton;
+
 /**
  * setLayout allows to display specific information in an HTML template
  * containing those paramters as id to text elements (h4, h5, title)
- * @param {headerTitle} headerTitle
  * @param {pageTitle} pageTitle
+ * @param {headerTitle} headerTitle
  * @param {footerText} footerText
  */
-
-let backToTopButton;
-
-function setLayout(headerTitle, pageTitle, footerText) {
-  document.querySelector("#headerTitle").innerText = headerTitle;
-  document.querySelector("title").innerText = pageTitle;
-  document.querySelector("#pageTitle").innerText = pageTitle;
-  document.querySelector("#footerText").innerText = footerText;
-  // deal with the back to the top button
-  backToTopButton = document.getElementById("backToTopButton");
-  backToTopButton.addEventListener("click", onClick);
-  window.addEventListener("scroll", onScroll);
+function setLayout(pageTitle, headerTitle, footerText) {
+  if (headerTitle)
+    document.querySelector("#headerTitle").innerText = headerTitle;
+  if (pageTitle) {
+    document.querySelector("title").innerText = pageTitle;
+    document.querySelector("#pageTitle").innerText = pageTitle;
+  }
+  if (footerText) document.querySelector("#footerText").innerText = footerText;
 }
 
 // deal with the back to the top button. Inspired from https://www.w3schools.com/howto/howto_js_scroll_to_top.asp
@@ -299,20 +297,19 @@ const getTableOuterHtmlFromArray = (
   const myTable = document.createElement("table");
   // set the class name of the element to use bootstrap table element
   myTable.className = "table table-bordered";
-  
 
   for (let x = -1; x < dataArray.length; x++) {
     let isHiddenValueAdded = false;
     const myLine = document.createElement("tr");
     //myLine.classList.add("row");
     // deal with column width : add flex support
-  /*if (
+    /*if (
     columnConfiguration &&
     columnConfiguration[0].class &&
     columnConfiguration[0].class.includes("col")
   )
     myLine.classList.add("d-flex");*/
-    
+
     // for each <tr> element, append it to the <table> element
     myTable.appendChild(myLine);
     //for each cell, add a <td> element, assign to it the given value in the array, and append the <td> element to the <tr> element
@@ -335,10 +332,7 @@ const getTableOuterHtmlFromArray = (
         else columnHeader = column.columnTitle;
         if (column.hidden === undefined) columnIsHidden = false;
         else columnIsHidden = column.hidden;
-        if(column.class && column.class)
-        columnClass = column.class;
-        
-
+        if (column.class && column.class) columnClass = column.class;
       }
       // default table,
       else {
@@ -360,7 +354,7 @@ const getTableOuterHtmlFromArray = (
         if (isHeaderRowHidden) myLine.classList.add("d-none");
         // hide the header if requested
         else if (columnIsHidden) header.classList.add("d-none");
-        // deal with column width        
+        // deal with column width
         //header.className = columnClass;
         //header.classList.add("col-sm-2");
         //header.classList.add("text-break");
@@ -384,7 +378,7 @@ const getTableOuterHtmlFromArray = (
         }
         // deal with regular column content
         const myCell = document.createElement("td");
-        // deal with providing the column name in each cell (to hide columns later) with data-columnName attribut        
+        // deal with providing the column name in each cell (to hide columns later) with data-columnName attribut
         myCell.dataset.columnName = columnKey;
         myCell.classList.add(columnKey);
         // hide the cell if not in visibleColumnHeaders
@@ -402,11 +396,11 @@ const getTableOuterHtmlFromArray = (
         } else if (dataArray[x][columnKey])
           myCell.innerHTML = dataArray[x][columnKey];
         else myCell.innerHTML = "";
-        // deal with column width     
+        // deal with column width
         //myCell.className = columnClass;
         //myCell.classList.add("col-6");
         //myCell.classList.add("col-sm-2");
-        myLine.appendChild(myCell);        
+        myLine.appendChild(myCell);
       }
     });
   }
@@ -532,7 +526,81 @@ const updateGenericModal = (title, body) => {
   genericModalBody.innerHTML = body;
 };
 
+const updateGenericModal2 = (title, htmlForm) => {
+  const genericModalTitle = document.querySelector(".modal-title");
+  genericModalTitle.textContent = title;
+  const genericModalBody = document.querySelector(".modal-body");
+  genericModalBody.innerHTML = "";
+  genericModalBody.appendChild(htmlForm);
+};
 
+/**
+ * Provides an HTML form based on object properties and configuration data
+ * @param {Object} object
+ * @param {Array} configuration
+ * @returns {HTMLFormElement}
+ */
+const getFormOuterHtmlFromObject = (object, configuration) => {
+  if (!object || !configuration) return;
+
+  const form = document.createElement("form");
+  configuration.forEach((element) => {
+    if (!element.hidden) {
+      const div = document.createElement("div");
+      if (element.type !== "submit") {
+        div.classList.add("form-group");
+        const label = document.createElement("label");
+        label.innerHTML = element.title;
+        label.for = element.dataKey;
+        div.appendChild(label);
+        let input;
+        
+
+        if (element.rows && element.rows > 1) {
+          input = document.createElement("textarea");
+          input.rows = element.rows;
+          input.innerText = object[element.dataKey];
+        } else {
+          input = document.createElement("input");
+          input.type = element.type;
+          input.value = object[element.dataKey];          
+        }        
+        input.classList.add("form-control");        
+        input.name = element.dataKey;
+        input.id = element.dataKey;
+        div.appendChild(input);
+        form.appendChild(div);
+      }
+      //deal with submit button / input
+      else {
+        const submit = document.createElement("input");
+        submit.type = "submit";
+        submit.className = "btn btn-primary";
+        submit.value = element.title;
+        submit.id = element.id;
+        form.appendChild(submit);
+      }
+    }
+  });
+  return form;
+};
+
+/**
+ * Return an object that contains each input name (key) and input value (value) 
+ * @param {Array} configuration 
+ * @returns {Object} data on Submit
+ */
+const getFormDataOnSubmit = (configuration) =>{
+  let data={};
+  configuration.forEach(element => {
+    if(!element.hidden && element.type !=="submit"){
+      
+      const inputValue = document.getElementById(element.dataKey).value;
+      data[element.dataKey] = inputValue;
+    }
+  });
+  return data;
+}
 
 // named export
 export {
@@ -545,11 +613,11 @@ export {
   //printDynamicHtmlTableWithInnerHtml,
   printDynamicHtmlTable,
   genericModalOuterHtml,
+  updateGenericModal2,
   genericModalOnClose,
   showGenericModal,
   updateGenericModal,
   closeGenericModal,
+  getFormOuterHtmlFromObject,
+  getFormDataOnSubmit,
 };
-
-// named export
-//export { setLayout, printDynamicHtmlTableWithInnerHtml, printDynamicHtmlTable };

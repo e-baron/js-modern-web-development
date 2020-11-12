@@ -10,11 +10,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
 
 const HEADER_TITLE = "JavaScript & Node.js full course";
-const PAGE_TITLE = "";
 const FOOTER_TEXT = "Happy learning : )";
 
 Navbar();
 
 Router();
 
-setLayout(HEADER_TITLE, PAGE_TITLE, FOOTER_TEXT);
+setLayout(undefined, HEADER_TITLE, FOOTER_TEXT);

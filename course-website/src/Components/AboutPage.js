@@ -1,7 +1,9 @@
+import { setLayout } from "../utils/render.js";
 let page = document.querySelector("#page");
 
-const AboutPage = () => {    
-  let aboutPage = `<h5 class="mt-3">Bienvenue sur le site du cours de JS et de Node.js.</h5>
+const AboutPage = () => {  
+  setLayout("Bienvenue sur le site du cours de JS et de Node.js.");  
+  let aboutPage = `
   <p class="mt-4">Le but de ce cours est :
   <ul>
     <li>d’apprendre et de mettre en œuvre des technologies et des techniques modernes de développement d'applications web ;</li>

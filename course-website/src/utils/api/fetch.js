@@ -10,8 +10,7 @@ export default async function callAPI(endpoint, method = "get", token, data) {
 
   if (token) {
     const bearer = `Bearer ${token}`;
-    headers.append("Authorization", bearer);
-    //console.log("token:",token);
+    headers.append("Authorization", bearer);   
   }
 
   if (data) {
@@ -25,7 +24,7 @@ export default async function callAPI(endpoint, method = "get", token, data) {
   )
     headers.append("Content-Type", "application/json");
   options.headers = headers;
-  console.log("request made to API at: " + new Date().toString(),"Endpoint:", endpoint, "Options:", options);
+  //console.log("request made to API at: " + new Date().toString(),"Endpoint:", endpoint, "Options:", options);
   try {
     const response = await fetch(endpoint, options);
 
