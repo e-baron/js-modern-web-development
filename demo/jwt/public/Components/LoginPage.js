@@ -26,7 +26,7 @@ const LoginPage = () => {
   const user = getUserSessionData();
   if (user) {
     // re-render the navbar for the authenticated user
-    Navbar();
+    Navbar(user.username);
     RedirectUrl("/list");
   } else loginForm.addEventListener("submit", onLogin);
 };

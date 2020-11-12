@@ -53,7 +53,7 @@ const onUserRegistration = (userData) => {
   const user = {...userData, isAutenticated:true};
   setUserSessionData(user);
   // re-render the navbar for the authenticated user
-  Navbar();
+  Navbar(userData);
   RedirectUrl("/list");
 };
 
