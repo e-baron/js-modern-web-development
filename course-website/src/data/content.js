@@ -837,7 +837,13 @@ const COURSE_CONTENT = [
         url: INSTRUCTIONS_BASE_URL + "fiche08.pdf",
       },
     ],
-    exerciceSolutions: [],
+    exerciceSolutions: [
+      {
+        contentType: "code",
+        name: "Gestion CRUD de films avec JWT auths",
+        url: SOLUTION_CODE_BASE_URL + "fiche-08/spa-jwt-bcrypt",
+      },
+    ],
   },
 
   {
@@ -945,7 +951,13 @@ const COURSE_CONTENT = [
         url: INSTRUCTIONS_BASE_URL + "fiche08.pdf",
       },
     ],
-    exerciceSolutions: [],
+    exerciceSolutions: [
+      {
+        contentType: "code",
+        name: "Gestion CRUD de films avec frontend sous Webpack & RESTFul API indépendante",
+        url: SOLUTION_CODE_BASE_URL + "fiche-08/bundler-localstorage-independant-api",
+      },
+    ],
   },
 
   {
