@@ -3,12 +3,12 @@ import { getIdToken, getUserName } from "../../utils/auths/authPopup.js";
 import ProjectTable from "./ProjectTable.js";
 import { setLayout } from "../../utils/render.js";
 
-const CURRENT_PROJECT_GROUP = "Web2 2020";
+//const CURRENT_PROJECT_GROUP = "Web2 2020";
 
 const ProjectPage = async () => {
   try {
     const projectGroup = await callAPI(
-      "/api/projectgroups/" + CURRENT_PROJECT_GROUP,
+      "/api/projectgroups/default" , //+ CURRENT_PROJECT_GROUP,
       "get",
       getIdToken(),
       undefined

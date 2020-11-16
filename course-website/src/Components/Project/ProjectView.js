@@ -119,18 +119,18 @@ const ProjectView = async (projectId, index, projectData, admin, userName) => {
     showGenericModal();
     if (userHasSufficientPrivilege) {
       const btn = document.getElementById("updateProjectBtn");
-      btn.addEventListener("click", onUpdateClick(projectId));
+      btn.addEventListener("click", onUpdateClick(projectId, admin));
     }
   } catch (err) {
     console.error("Project Page::Error:", err);
   }
 };
 
-const onUpdateClick = (projectId) => async (e) => {
+const onUpdateClick = (projectId, admin) => async (e) => {
   // because the projectData row could be refreshed, ensure that you
   // get the last version of the data when it is asked to update this project
   // deal with a modal
-  ProjectUpdate(projectId);
+  ProjectUpdate(projectId, admin);
 };
 
 const setValueItemPropertyValueFromObject = (propertyName, element) => {

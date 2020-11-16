@@ -58,7 +58,7 @@ const onPageDivMutation = (periodicCallRef) => (mutationList, observer) => {
 const renderProjectTable = async (admin, userName, projectGroup) => {
   try {
     let projectData = await callAPI(
-      "/api/projects",
+      "/api/projects/projectgroups/" + projectGroup._id,
       "get",
       getIdToken(),
       undefined

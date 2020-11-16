@@ -519,6 +519,11 @@ const showGenericModal = () => {
   body.style.overflow = "hidden";
 };
 
+/**
+ * Update a modal based on a String representation of HTML elements
+ * @param {string} title 
+ * @param {string} body 
+ */
 const updateGenericModal = (title, body) => {
   const genericModalTitle = document.querySelector(".modal-title");
   genericModalTitle.textContent = title;
@@ -526,6 +531,11 @@ const updateGenericModal = (title, body) => {
   genericModalBody.innerHTML = body;
 };
 
+/**
+ * Update a modal based on a given HTMLFormElement
+ * @param {string} title 
+ * @param {HTMLFormElement} htmlForm 
+ */
 const updateGenericModal2 = (title, htmlForm) => {
   const genericModalTitle = document.querySelector(".modal-title");
   genericModalTitle.textContent = title;
