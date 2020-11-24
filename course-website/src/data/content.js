@@ -1004,6 +1004,85 @@ const COURSE_CONTENT = [
 
   {
     contentType: "support",
+    subject: "Tutoriels vidéos sur les concepts importants du cours",
+    week: 10,
+    courseFiles: [],
+    courseVideos: [
+      {
+        name: "À l'essentiel dans l'exercice 2 de la fiche 8 (Playlist Youtube)",
+        url: "https://www.youtube.com/playlist?list=PLsMCoH8gRlIddwSDXSTD-mdYn1xfsQt9U",
+      },
+    ],
+    courseDemos: [],
+    exerciceInstructions: [],
+    exerciceSolutions: [],
+  },
+
+  {
+    contentType: "support",
+    subject: "Revue en 2h des concepts importants pour développer un projet web moderne",
+    week: 10,
+    courseFiles: [
+      {
+        name: "Agenda de la séance de remédiation",
+        url: OTHERS_BASE_URL + "Remédiation01.pdf",
+      },
+    ],
+    courseVideos: [
+      {
+        name: "Live review des concepts importants pour développer un frontend et un backend moderne sous JS & Node",
+        url: "https://youtu.be/Bw-VVBlvPOo",
+      },
+    ],
+    courseDemos: [
+      {
+        contentType: "code",
+        name: "Step 0 Frontend: Frontend classique HTML / CSS / JS",
+        url: CODE_BASE_URL + "bundler/webpack-basics/step0",
+      },
+      {
+        contentType: "code",
+        name: "Step1 Frontend : Migrer votre frontend classique (step 0) vers Webpack sans fichier de configuration de Webpack",
+        url: CODE_BASE_URL + "bundler/webpack-basics/step1",
+      },
+      {
+        contentType: "code",
+        name: "Step2 Frontend : Configurer Webpack pour démarrer l'application via un serveur de développement et pour charger les assets de façon moderne",
+        url: CODE_BASE_URL + "bundler/webpack-basics/step2",
+      },
+      {
+        contentType: "code",
+        name: "Step3 Frontend : Ajouter un package à son frontend sur base d'un boilerplate",
+        url: CODE_BASE_URL + "bundler/webpack-basics/step3",
+      },
+      {
+        contentType: "code",
+        name: "Step1 Backend : Création basique d'une API indépendante d'un frontend à partir du générateur Express",
+        url: CODE_BASE_URL + "spa/backend-basics/step1",
+      },
+      {
+        contentType: "code",
+        name: "Step2 Backend : Sécurisation très légère d'une API à l'aide de l'authentification et l'autorisation via un simple système de token",
+        url: CODE_BASE_URL + "spa/backend-basics/step2",
+      },
+      {
+        contentType: "code",
+        name: "Step3 Backend : Sécurisation d'une API à l'aide de l'authentification et l'autorisation via JWT",
+        url: CODE_BASE_URL + "spa/backend-basics/step3",
+      },
+      {
+        contentType: "code",
+        name: "Step4 Frontend : Consommer une RESTFul API",
+        url: CODE_BASE_URL + "bundler/webpack-basics/step4",
+      },
+
+    ],
+    exerciceInstructions: [],
+    exerciceSolutions: [],
+  },
+
+  {
+    contentType: "support",
     subject: "Bibliographie",
     courseFiles: [
       {
