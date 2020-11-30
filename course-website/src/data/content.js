@@ -1009,6 +1009,10 @@ const COURSE_CONTENT = [
     courseFiles: [],
     courseVideos: [
       {
+        name: "À l'essentiel dans l'exercice 1 de la fiche 8 (Playlist Youtube)",
+        url: "https://www.youtube.com/playlist?list=PLsMCoH8gRlIeMMBoiBvK-tk2XBj0kg8xx",
+      },
+      {
         name: "À l'essentiel dans l'exercice 2 de la fiche 8 (Playlist Youtube)",
         url: "https://www.youtube.com/playlist?list=PLsMCoH8gRlIddwSDXSTD-mdYn1xfsQt9U",
       },
