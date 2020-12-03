@@ -1,4 +1,5 @@
 import Quote from "./Quote.js";
+import {RedirectUrl} from "./Router.js";
 
 let page = document.querySelector("#page");
 

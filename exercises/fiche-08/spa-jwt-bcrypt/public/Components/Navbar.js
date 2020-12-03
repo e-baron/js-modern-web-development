@@ -45,7 +45,7 @@ const Navbar = () => {
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" href="#" data-uri="/">Home</a>
+      <a class="nav-item nav-link" href="#" data-uri="/chocolat">Home</a>
       <a class="nav-item nav-link" href="#" data-uri="/register">Register</a>
       <a class="nav-item nav-link" href="#" data-uri="/login">Login</a> 
     </div>
