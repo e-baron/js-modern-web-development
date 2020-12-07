@@ -1,10 +1,17 @@
 body {
-  height: 100vh;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /* modern solution with flex to provide a sticky footer with no overlap with page div*/
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+.main {
+  /* modern solution with flex to provide a sticky footer with no overlap with page div*/
+  flex: 1;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }
 
 /* CSS to deal with constraint validation styles */
@@ -26,7 +33,7 @@ input:valid {
   z-index: 99; /* Make sure it does not overlap */
   border: none; /* Remove borders */
   outline: none; /* Remove outline */
-  background-color:cornflowerblue; /* Set a background color */
+  background-color: cornflowerblue; /* Set a background color */
   color: white; /* Text color */
   cursor: pointer; /* Add a mouse pointer on hover */
   padding: 15px; /* Some padding */
@@ -38,89 +45,197 @@ input:valid {
   background-color: #555; /* Add a dark-grey background on hover */
 }
 
-.table{
+.table {
   table-layout: fixed;
 }
 
 /*Style for the table of ProjectTable */
 
-.name{
-  width:8rem;
-  
+.name {
+  width: 8rem;
 }
 
-.description{
+.description {
   width: 15rem;
 }
 
-.projectMembers{
+.projectMembers {
   width: 10rem;
   word-wrap: break-word;
 }
 
-.quitter{
-  width:6rem;
+.quitter {
+  width: 6rem;
 }
 
-.joindre{
-  width:6rem;
+.joindre {
+  width: 6rem;
 }
 
-.voir{
-  width:5rem;
+.voir {
+  width: 5rem;
 }
 
-.effacer{
-  width:6rem;
+.effacer {
+  width: 6rem;
 }
 
 /*Style for ProjectView table*/
-.property{
-  width:40%;
+.property {
+  width: 40%;
 }
 
-.value{
-  width:60%;
+.value {
+  width: 60%;
   word-wrap: break-word;
 }
 
 /*Style for the table of ContentPage */
 
-.part{
-  width:4rem;
-  
+.part {
+  width: 4rem;
 }
 
-.subject{
+.subject {
   width: 10rem;
 }
 
-.courseFiles{
+.courseFiles {
   width: 15rem;
   word-wrap: break-word;
 }
 
-.courseVideos{
+.courseVideos {
   width: 15rem;
   word-wrap: break-word;
 }
 
-.courseDemos{
+.courseDemos {
   width: 15rem;
   word-wrap: break-word;
 }
 
-.courseFiles{
+.courseFiles {
   width: 15rem;
   word-wrap: break-word;
 }
 
-.exerciceInstructions{
+.exerciceInstructions {
   width: 15rem;
   word-wrap: break-word;
 }
 
-.exerciceSolutions{
+.exerciceSolutions {
   width: 15rem;
   word-wrap: break-word;
+}
+
+.my-review-summary {
+  border-style: solid;
+  border-width: thin;
+  border-color: lightgray;
+  padding: 0.6rem;
+}
+
+.review-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.liked-review {
+  color: crimson;
+  font-weight: bold;
+  /*stroke: darkred;
+  stroke-width: 1rem;*/
+}
+
+/*
+.fa-comment{
+  color:yellow;
+  
+}*/
+
+.expected-review {
+  color: darkorange;
+  font-weight: bold;
+  /*stroke: gold;
+  stroke-width: 1rem;*/
+}
+
+.performed-review {
+  color: limegreen;
+  font-weight: bold;
+  /*stroke: darkolivegreen;
+  stroke-width: 1rem;*/
+}
+
+.my-reviews {
+  margin-top: 1rem;
+}
+
+.my-reviews-table,
+.all-reviews-table {
+  margin-top: 1rem;
+}
+
+.presentationUrl {
+  width: 10rem;
+  word-wrap: break-word;
+}
+
+.frontendRepo {
+  width: 10rem;
+  word-wrap: break-word;
+}
+
+.backendRepo {
+  width: 10rem;
+  word-wrap: break-word;
+}
+
+.frontendProductionUrl {
+  width: 10rem;
+  word-wrap: break-word;
+}
+
+.arevoir,
+.revue\? {
+  width: 5rem;
+}
+
+.short-description {
+  width: 10rem;
+}
+
+.table-responsive {
+  /*margin-bottom: 2rem;*/
+  /*overflow-x:scroll;*/
+}
+
+.perform-review {
+  cursor: pointer;
+}
+
+.print-error {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  color: whitesmoke;
+  font-size: large;
+  background-color: brown;
+}
+
+.countLiked {
+  width: 5rem;
+}
+
+.countReviews {
+  width: 5rem;
+}
+
+.potential-review {
+  cursor: pointer;
+  color: rgb(50, 53, 205);
+  font-weight: bold;
 }

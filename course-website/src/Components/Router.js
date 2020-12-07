@@ -1,4 +1,5 @@
 import { loginRequest } from "../utils/auths/authConfig.js";
+
 //import HomePage from "./HomePage.js";
 import AboutPage from "./AboutPage.js";
 import ContentPage from "./ContentPage.js";
@@ -8,6 +9,9 @@ import LoginTempPage from "./LoginTempPage.js";
 import SecureComponent from "./SecureComponent.js";
 import Logout from "./Logout.js";
 import ProjectPage from "./Project/ProjectPage.js";
+import ReadMyReviewsPage from "./Review/MyReviews/ReadMyReviewsPage.js";
+import ReadAllReviewsPage from "./Review/AllReviews/ReadAllReviewsPage.js";
+import { GenericFunctionalComponent } from "../utils/render.js";
 
 const routes = {
   "/": ContentPage,
@@ -18,10 +22,10 @@ const routes = {
   "/logintemp": LoginTempPage,
   "/logout": Logout,
   "/projects": SecureComponent(ProjectPage),
+  "/my-reviews": ReadMyReviewsPage,
+  "/all-reviews": ReadAllReviewsPage,
 };
 
-let page = document.querySelector("#page");
-let navBar = document.querySelector("#navBar");
 let componentToRender;
 
 // dictionnary of routes
@@ -36,6 +40,8 @@ const Router = () => {
           "The " + window.location.pathname + " ressource does not exist."
         )
       );
+    const page = document.getElementById("page");
+    page.innerHTML = "";    
     componentToRender();
   });
 
@@ -43,8 +49,10 @@ const Router = () => {
   const onNavigate = (e) => {
     let uri;
     if (
-      e.target.dataset.uri && e.target.tagName === "A" ||
-      (e.target.tagName === "IMG" && e.target.parentElement.tagName === "A" && e.target.parentElement.dataset.uri)
+      (e.target.dataset.uri && e.target.tagName === "A") ||
+      (e.target.tagName === "IMG" &&
+        e.target.parentElement.tagName === "A" &&
+        e.target.parentElement.dataset.uri)
     ) {
       e.preventDefault();
       // To get a data attribute through the dataset object, get the property by the part of the attribute name after data- (note that dashes are converted to camelCase).
@@ -68,6 +76,8 @@ const Router = () => {
       // therefore, those components have to be either a function or a class
       componentToRender = routes[uri];
       if (routes[uri]) {
+        const page = document.getElementById("page");
+        page.innerHTML = "";
         componentToRender();
       } else {
         ErrorPage(new Error("The " + uri + " ressource does not exist"));
@@ -81,6 +91,8 @@ const Router = () => {
   // Display the right component when the user use the browsing history
   window.addEventListener("popstate", () => {
     componentToRender = routes[window.location.pathname];
+    const page = document.getElementById("page");
+    page.innerHTML = "";
     componentToRender();
   });
 };
@@ -93,6 +105,8 @@ const RedirectUrl = (uri, data) => {
   // therefore, those components have to be either a function or a class
   componentToRender = routes[uri];
   if (routes[uri]) {
+    const page = document.getElementById("page");
+    page.innerHTML = "";
     if (!data) componentToRender();
     else componentToRender(data);
   } else {
