@@ -1,7 +1,14 @@
+/**
+ * import (require()) / export modules (module.exports or exports) : Some extra codes to understand how to manage module.exports or exports within modules
+ * CommonJS import / export (server side)
+ * Equivalent of a default import, we can give any variable name
+ *  */
+const menu = require("../data/pizza.js");
+
 var express = require("express");
 var router = express.Router();
 const jwt = require("jsonwebtoken");
-const menu = [
+/*const menu = [
   {
     id: 1,
     title: "4 fromages",
@@ -27,7 +34,7 @@ const menu = [
     title: "Diable",
     content: "Tomates, Mozarella, Chorizo piquant, Jalapenos",
   },
-];
+];*/
 const jwtSecret = "ilovemypizza!";
 /* GET /pizzas : list all the pizzas from the MENU */
 router.get("/", function (req, res, next) {

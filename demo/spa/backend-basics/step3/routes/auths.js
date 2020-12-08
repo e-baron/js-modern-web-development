@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const jwtSecret = "ilovemypizza!";
 const LIFETIME_JWT = 24 * 60 * 60 * 1000; // in seconds // 24 * 60 * 60 * 1000 = 24h
 const { users, authorize } = require("../utils/auths");
+
 /*
 const users = [
   { username: "pizzaadmin", password: "Pizzaadmin" },

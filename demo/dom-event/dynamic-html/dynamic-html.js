@@ -15,7 +15,7 @@ const LIBRARIES = [
 ];
 
 const onClickHandler = (e) => {
-  alert("Clicking here has indeed some effects!");
+  alert("Clicking here has indeed some effects! " + e.target.innerText);
 };
 // Get reference to the parent element
 let page = document.getElementById("page");
@@ -52,6 +52,15 @@ htmlText += "</ul>";
 
 // setting the html content of the p#page element to add the two list groups prepared
 page.innerHTML = htmlText;
+
+// setting event listeners on the <ul> can only be done after that the 
+// ul have been rendered (when page.innerHTML)
+const uls = document.querySelectorAll("ul");
+uls.forEach((ul) => {
+  ul.addEventListener("click", () => {
+    alert("you click on me !");
+  });
+});
 
 // Same thing by working directly with DOM elements
 let listTitle = document.createElement("h6");
