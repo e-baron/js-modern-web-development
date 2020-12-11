@@ -200,7 +200,8 @@ input:valid {
 }
 
 .youtube-picture{
-  width: 15rem;
+  width: 15rem;  
+  display:block;
 }
 
 .frontendRepo {
