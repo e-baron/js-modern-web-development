@@ -26,24 +26,19 @@
 
   <!-- Viewport height of 100% -->
   <body>
+    <!-- Header row : dark background, white text -->
+    <header class="bg-dark py-2 text-center text-white font-weight-bold">
+      <h4 id="headerTitle"></h4>
+    </header>
     <!-- Use of bootstrap to get a responsive design : container-fluid for a full width
     h-100 for a full height element  
     d-flex to create a flexbox container and transform direct children elements into flex items 
     flex-column to set a vertical direction-->
-    <div class="container-fluid h-100 d-flex flex-column">
-      <!-- Header row : dark background, white text -->
-      <div class="row bg-dark py-2">
-        <div class="col">
-          <header class="text-center text-white font-weight-bold">
-            <h4 id="headerTitle"></h4>
-          </header>
-        </div>
-      </div>
-
+     <div class="container-fluid main h-100 d-flex flex-column">
       <!-- Page content row. 
         flex-grow-1: Fill available space 
-        mb-5 : to ensure that we see all of the content of the page row -->
-      <div class="row flex-grow-1 mb-5">
+      -->
+      <div class="row flex-grow-1"> 
         <div class="d-none d-md-block col-md bg-dark"></div>
         <div class="col col-md-10 mt-2">
           <div id="navBar"></div>       
@@ -53,16 +48,12 @@
           <div id="page"></div>
         </div>
         <div class="d-none d-md-block col-md bg-dark"></div>
-      </div>
-      <!-- Footer row -->
-      <div class="row bg-dark fixed-bottom">
-        <div class="col">
-          <footer class="py-2 text-center text-white font-weight-bold">
-            <h5 id="footerText"></h5>
-          </footer>
-        </div>
-      </div>
+      </div>     
     </div>
+    <!-- Footer row -->
+    <footer class="py-2 bg-dark text-center text-white font-weight-bold"> <!-- fixed-bottom"> -->
+      <h5 id="footerText"></h5>
+    </footer>
 
     <button id="backToTopButton" title="Go to top">
       <!-- Embedded icon from https://icons.getbootstrap.com/ -->

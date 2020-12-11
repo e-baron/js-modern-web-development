@@ -1,7 +1,6 @@
 import callAPI from "../../utils/api/fetch.js";
 import { getIdToken } from "../../utils/auths/authPopup.js";
-import {
-  updateGenericModal,
+import {  
   updateGenericModal2,
   closeGenericModal,
   getFormOuterHtmlFromObject,

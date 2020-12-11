@@ -1,8 +1,11 @@
 import callAPI from "../../utils/api/fetch.js";
 import { getIdToken } from "../../utils/auths/authPopup.js";
 import { getTableOuterHtmlFromArray } from "../../utils/render.js";
-
-import { addPropertyWithDataToAllObjects } from "../../utils/array/array.js";
+import {
+  addPropertyWithDataToAllObjects,
+  updatePropertyWithDataToAllObjects,
+} from "../../utils/array/array.js";
+import { getNamesFromEmail } from "../../utils/string/string.js";
 
 import ProjectView from "./ProjectView.js";
 
@@ -227,6 +230,18 @@ const projectTableOuterHtml = (
       "effacer",
       deleteButtonOuterHtml
     );
+
+  // update the projectMembers property from an array to a string of names
+  updatePropertyWithDataToAllObjects(
+    dataArrayCloned,
+    "projectMembers",
+    (key, element) => {
+      if (element[key].length > 0) {
+        element[key] = element[key].map((member) => getNamesFromEmail(member));
+        element[key] = element[key].join(", ");
+      } else element[key] = "";
+    }
+  );
 
   return getTableOuterHtmlFromArray(
     dataArrayCloned,

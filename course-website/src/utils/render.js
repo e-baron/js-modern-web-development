@@ -65,8 +65,6 @@ const printDynamicHtmlTable = (containerId, headerArray, arrayToDisplay) => {
   // set the class name of the element to use bootstrap table element
   myTable.className = "table table-bordered text-nowrap";
 
-  console.log("array", arrayToDisplay);
-
   const dataColumns = Object.keys(arrayToDisplay[0]);
 
   // Deal with the header line
@@ -89,7 +87,6 @@ const printDynamicHtmlTable = (containerId, headerArray, arrayToDisplay) => {
       const myCell = document.createElement("td");
       if (y < dataColumns.length) {
         if (Array.isArray(arrayToDisplay[x][dataColumns[y]])) {
-          console.log("column ", y);
           myCell.innerHTML =
             "<ul class='list-group'>" +
             arrayToDisplay[x][dataColumns[y]]
@@ -332,7 +329,8 @@ const getTableOuterHtmlFromArray = (
         else columnHeader = column.columnTitle;
         if (column.hidden === undefined) columnIsHidden = false;
         else columnIsHidden = column.hidden;
-        if (column.class && column.class) columnClass = column.class;
+        if (column.class) columnClass = column.class;
+        if (column.className) columnClass = column.className;
       }
       // default table,
       else {
@@ -348,7 +346,9 @@ const getTableOuterHtmlFromArray = (
         header.innerHTML = columnHeader;
         // deal with providing the column name in each cell (to hide columns later) with data-columnName attribute
         header.dataset.columnName = columnKey;
+        if (columnClass) header.className;
         header.classList.add(columnKey);
+
         //header.style.width = "100px";
         // hide the header if all headers shall not be displayed
         if (isHeaderRowHidden) myLine.classList.add("d-none");
@@ -380,6 +380,7 @@ const getTableOuterHtmlFromArray = (
         const myCell = document.createElement("td");
         // deal with providing the column name in each cell (to hide columns later) with data-columnName attribut
         myCell.dataset.columnName = columnKey;
+        if (columnClass) myCell.className = columnClass;
         myCell.classList.add(columnKey);
         // hide the cell if not in visibleColumnHeaders
         if (columnIsHidden) myCell.classList.add("d-none");
@@ -521,8 +522,8 @@ const showGenericModal = () => {
 
 /**
  * Update a modal based on a String representation of HTML elements
- * @param {string} title 
- * @param {string} body 
+ * @param {string} title
+ * @param {string} body
  */
 const updateGenericModal = (title, body) => {
   const genericModalTitle = document.querySelector(".modal-title");
@@ -533,8 +534,8 @@ const updateGenericModal = (title, body) => {
 
 /**
  * Update a modal based on a given HTMLFormElement
- * @param {string} title 
- * @param {HTMLFormElement} htmlForm 
+ * @param {string} title
+ * @param {HTMLFormElement} htmlForm
  */
 const updateGenericModal2 = (title, htmlForm) => {
   const genericModalTitle = document.querySelector(".modal-title");
@@ -551,7 +552,7 @@ const updateGenericModal2 = (title, htmlForm) => {
  * @returns {HTMLFormElement}
  */
 const getFormOuterHtmlFromObject = (object, configuration) => {
-  if (!object || !configuration) return;
+  if (!configuration) return;
 
   const form = document.createElement("form");
   configuration.forEach((element) => {
@@ -564,20 +565,23 @@ const getFormOuterHtmlFromObject = (object, configuration) => {
         label.for = element.dataKey;
         div.appendChild(label);
         let input;
-        
 
         if (element.rows && element.rows > 1) {
           input = document.createElement("textarea");
           input.rows = element.rows;
-          input.innerText = object[element.dataKey];
+          if (object && object[element.dataKey] !== undefined)
+            input.innerHTML = object[element.dataKey];
         } else {
           input = document.createElement("input");
           input.type = element.type;
-          input.value = object[element.dataKey];          
-        }        
-        input.classList.add("form-control");        
+          if (object && object[element.dataKey] !== undefined)
+            input.value = object[element.dataKey];
+        }
+        input.classList.add("form-control");
         input.name = element.dataKey;
         input.id = element.dataKey;
+        if (element.disabled) input.disabled = true;
+        if (element.required) input.required = true;
         div.appendChild(input);
         form.appendChild(div);
       }
@@ -596,21 +600,187 @@ const getFormOuterHtmlFromObject = (object, configuration) => {
 };
 
 /**
- * Return an object that contains each input name (key) and input value (value) 
- * @param {Array} configuration 
+ * Return an object that contains each input name (key) and input value (value)
+ * @param {Array} configuration
  * @returns {Object} data on Submit
  */
-const getFormDataOnSubmit = (configuration) =>{
-  let data={};
-  configuration.forEach(element => {
-    if(!element.hidden && element.type !=="submit"){
-      
-      const inputValue = document.getElementById(element.dataKey).value;
-      data[element.dataKey] = inputValue;
+const getFormDataOnSubmit = (configuration) => {
+  let data = {};
+  configuration.forEach((element) => {
+    if (!element.hidden && !element.disabled && element.type !== "submit") {
+      if (element.type === "checkbox")
+        data[element.dataKey] = document.getElementById(
+          element.dataKey
+        ).checked;
+      else {
+        const inputValue = document.getElementById(element.dataKey).value;
+        data[element.dataKey] = inputValue;
+      }
     }
   });
   return data;
-}
+};
+
+/**
+ *
+ * @param {*} props *
+ */
+const createOrUpdateBasicElement = (props) => {
+  if (!props || (props && !props.componentName))
+    throw new Error(
+      "Please add a componentName property in the 1sts argument of your functional element."
+    );
+  if (!props.tagName) props.tagName = "div";
+
+  const elementToBeUpdated = getElementToBeUpdated(props);
+  if (elementToBeUpdated) {
+    // Update the HTML Element within the DOM
+    updateBasicElement(props, elementToBeUpdated);
+    return elementToBeUpdated;
+  }
+  // An HTML element cannot be created & added to the DOM if there is no given parentHtmlElement
+  if (!props || (props && !props.parentHtmlElement))
+    throw new Error(
+      "Please add a parentHtmlElement property in the 1sts argument of your functional element."
+    );
+
+  // create html Element and deals with generic props
+  const htmlElement = createBasicElement(props);
+  return htmlElement;
+};
+
+/**
+ *
+ * @param {*} props
+ * @returns {HTMLElement}
+ */
+const getElementToBeUpdated = (props) => {
+  let id;
+  //const { id =undefined } = props;
+  if (props && props["id"]) id = props["id"];
+  let element;
+  element = queryExistingElement(id, props.componentName);
+  if (!element) return;
+  // Check if there is a real id
+  if (element.id !== undefined && element.id.length !== 0) {
+    if (element.id === id) return element;
+    else return;
+  } else return element;
+};
+
+/**
+ * Update a basic HTML element based on given props.
+ * All valid properties for the given tagName are allocated to the htmlElementToUpdate.
+ * @param {Object} props
+ * @param {String} htmlElementToUpdate
+ */
+const updateBasicElement = (props, htmlElementToUpdate) => {
+  // deal with generic props, with all provided properties linked to an html attribute
+  if (props) props.isUpdated = true;
+  for (const property in props) {
+    // if the key is a valid attribute of the given htmlElement
+    if (htmlElementToUpdate[property] !== undefined && property !== "tagName") {
+      htmlElementToUpdate[property] = props[property]; // allocate the value for the given key in props
+    }
+  }
+  return htmlElementToUpdate;
+};
+
+/**
+ * Create, most of the time render, & return a basic HTML element based on given props.
+ * All valid properties for the given tagName are allocated to the returne HTML element.
+ * @param {Object} props
+ * @returns {HTMLElement}
+ */
+const createBasicElement = (props) => {
+  // deal with generic props, with all provided properties linked to an html attribute
+  // An HTML element cannot be created & added to the DOM if there is no given parentHtmlElement
+  if (!props || (props && !props.tagName))
+    throw new Error(
+      "Please add a tagName property in the 1sts argument of your functional element."
+    );
+
+  const htmlElement = document.createElement(props.tagName);
+
+  for (const property in props) {
+    // if the key is a valid attribute of the given htmlElement
+    if (htmlElement[property] !== undefined && property !== "tagName")
+      htmlElement[property] = props[property]; // allocate the value for the given key in props
+  }
+
+  if (!props || (props && !props.componentName))
+    throw new Error(
+      "Please add a componentName property in the 1sts argument of your functional element."
+    );
+  // hide the component name
+  htmlElement.dataset.componentName = props.componentName;
+  // add the component name as a class name (hyphens, words hyphenated) for CSS use
+  // first force the first letter to be lowerCase
+  let cssName =
+    props.componentName[0].toLowerCase() + props.componentName.slice(1);
+
+  cssName = cssName.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`);
+  htmlElement.classList.add(cssName);
+  if (props) {
+    props.isUpdated = false;
+    // render the basic component if required
+    if (props.parentHtmlElement && !props.renderDelayed)
+      props.parentHtmlElement.appendChild(htmlElement);
+  }
+
+  return htmlElement;
+};
+
+/**
+ *
+ * @param {*} id
+ * @param {*} componentName
+ */
+const queryExistingElement = (id, componentName) => {
+  // hide the caller (generally a functional component) within a data attribute
+  let existingElement;
+  if (!id) {
+    existingElement = queryElement(componentName);
+    return existingElement;
+  }
+  existingElement = document.getElementById(id);
+  return existingElement;
+};
+
+/**
+ * Returns an HTML Element based on the name of a functional Component
+ * NB : usually, it is createBasicElement that hide the name of a funcional Component in an HTMLelement
+ * @param {String} componentName
+ * @returns {HTMLElement}
+ */
+const queryElement = (componentName) => {
+  const cssSelector = `[data-component-name="${componentName}"]`;
+  return document.querySelector(cssSelector);
+};
+
+/**
+ *
+ * @param {*} component
+ */
+const GenericFunctionalComponent = (component) => {
+  const pageDiv = document.getElementById("page");
+  const defaultProps = {
+    parentHtmlElement: pageDiv,
+    tagName: "div",
+    componentName: component.name,
+  };
+
+  return (props) => {
+    if (!props) props = { ...defaultProps };
+    else props = { ...defaultProps, ...props };
+    if (!props.state) {
+      props.state = {};
+    }
+    const currentHtmlElement = createOrUpdateBasicElement(props);
+    props = { ...props, currentHtmlElement: currentHtmlElement };
+    return component(props);
+  };
+};
 
 // named export
 export {
@@ -630,4 +800,6 @@ export {
   closeGenericModal,
   getFormOuterHtmlFromObject,
   getFormDataOnSubmit,
+  createOrUpdateBasicElement,
+  GenericFunctionalComponent,
 };

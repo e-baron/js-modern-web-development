@@ -33,6 +33,8 @@ const Navbar = () => {
   }
   else{
     // authenticated user
+    // If the project group status is 
+
     navbar = `<nav class="navbar navbar-expand-lg navbar-light bg-light mb-2" id="navBar">
   <a class="navbar-brand" href="/" data-uri="/">myJScourse</a
   ><button
@@ -51,6 +53,15 @@ const Navbar = () => {
       <a class="nav-item nav-link" href="#" data-uri="/contenu">Contenu</a>
       <a class="nav-item nav-link" href="#" data-uri="/about">About</a>
       <a class="nav-item nav-link" href="#" data-uri="/projects">Projets</a>
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Revues de projets
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#" data-uri="/my-reviews">Mes revues</a>
+          <a class="dropdown-item" href="#" data-uri="/all-reviews">Résultats des revues</a>          
+        </div>
+      </div>      
       <a class="nav-item nav-link" href="#" data-uri="/logout">Logout</a>
     </div>
   </div>
@@ -58,7 +69,7 @@ const Navbar = () => {
 
   }
 
-  return (navBar.innerHTML = navbar);
+   navBar.innerHTML = navbar;
 };
 
 export default Navbar;
