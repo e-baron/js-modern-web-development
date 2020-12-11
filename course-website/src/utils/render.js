@@ -65,8 +65,6 @@ const printDynamicHtmlTable = (containerId, headerArray, arrayToDisplay) => {
   // set the class name of the element to use bootstrap table element
   myTable.className = "table table-bordered text-nowrap";
 
-  console.log("array", arrayToDisplay);
-
   const dataColumns = Object.keys(arrayToDisplay[0]);
 
   // Deal with the header line
@@ -89,7 +87,6 @@ const printDynamicHtmlTable = (containerId, headerArray, arrayToDisplay) => {
       const myCell = document.createElement("td");
       if (y < dataColumns.length) {
         if (Array.isArray(arrayToDisplay[x][dataColumns[y]])) {
-          console.log("column ", y);
           myCell.innerHTML =
             "<ul class='list-group'>" +
             arrayToDisplay[x][dataColumns[y]]
@@ -555,7 +552,7 @@ const updateGenericModal2 = (title, htmlForm) => {
  * @returns {HTMLFormElement}
  */
 const getFormOuterHtmlFromObject = (object, configuration) => {
-  if (!object || !configuration) return;
+  if (!configuration) return;
 
   const form = document.createElement("form");
   configuration.forEach((element) => {
@@ -572,11 +569,13 @@ const getFormOuterHtmlFromObject = (object, configuration) => {
         if (element.rows && element.rows > 1) {
           input = document.createElement("textarea");
           input.rows = element.rows;
-          input.innerHTML = object[element.dataKey];
+          if (object && object[element.dataKey] !== undefined)
+            input.innerHTML = object[element.dataKey];
         } else {
           input = document.createElement("input");
           input.type = element.type;
-          input.value = object[element.dataKey];
+          if (object && object[element.dataKey] !== undefined)
+            input.value = object[element.dataKey];
         }
         input.classList.add("form-control");
         input.name = element.dataKey;
@@ -719,7 +718,7 @@ const createBasicElement = (props) => {
   // first force the first letter to be lowerCase
   let cssName =
     props.componentName[0].toLowerCase() + props.componentName.slice(1);
-  console.log("css Name:", cssName);
+
   cssName = cssName.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`);
   htmlElement.classList.add(cssName);
   if (props) {
@@ -774,9 +773,9 @@ const GenericFunctionalComponent = (component) => {
   return (props) => {
     if (!props) props = { ...defaultProps };
     else props = { ...defaultProps, ...props };
-    if(!props.state){
-      props.state = {};     
-      }
+    if (!props.state) {
+      props.state = {};
+    }
     const currentHtmlElement = createOrUpdateBasicElement(props);
     props = { ...props, currentHtmlElement: currentHtmlElement };
     return component(props);

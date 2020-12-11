@@ -11,7 +11,8 @@ import Logout from "./Logout.js";
 import ProjectPage from "./Project/ProjectPage.js";
 import ReadMyReviewsPage from "./Review/MyReviews/ReadMyReviewsPage.js";
 import ReadAllReviewsPage from "./Review/AllReviews/ReadAllReviewsPage.js";
-import { GenericFunctionalComponent } from "../utils/render.js";
+import DetailedReviewPage from "./Review/DetailedReview/ReadReviewPage.js";
+
 
 const routes = {
   "/": ContentPage,
@@ -24,6 +25,7 @@ const routes = {
   "/projects": SecureComponent(ProjectPage),
   "/my-reviews": ReadMyReviewsPage,
   "/all-reviews": ReadAllReviewsPage,
+  "/detailed-review": DetailedReviewPage,
 };
 
 let componentToRender;
@@ -32,7 +34,7 @@ let componentToRender;
 const Router = () => {
   /* manage to route the right component when the page is loaded */
   window.addEventListener("load", (e) => {
-    console.log("onload page:", [window.location.pathname]);
+    //console.log("onload page:", [window.location.pathname]);
     componentToRender = routes[window.location.pathname];
     if (!componentToRender)
       return ErrorPage(
@@ -41,8 +43,12 @@ const Router = () => {
         )
       );
     const page = document.getElementById("page");
-    page.innerHTML = "";    
-    componentToRender();
+    page.innerHTML = "";
+    //console.log("state:", history.state);
+    if (history.state) {     
+      return componentToRender(history.state);
+    }
+    componentToRender();    
   });
 
   /* manage click on any link*/
@@ -61,14 +67,14 @@ const Router = () => {
       else uri = e.target.parentElement.dataset.uri;
     }
     if (uri) {
-      console.log(
+      /*console.log(
         "onNavigate() uri:",
         uri,
         " location:",
         window.location.pathname,
         " origin :",
         window.location.origin
-      );
+      );*/
       // use Web History API to add current page URL to the user's navigation history & set right URL in the browser (instead of "#")
       window.history.pushState({}, uri, window.location.origin + uri);
       // render the requested component
@@ -89,17 +95,21 @@ const Router = () => {
   document.addEventListener("click", onNavigate);
 
   // Display the right component when the user use the browsing history
-  window.addEventListener("popstate", () => {
+  window.addEventListener("popstate", (e) => {
     componentToRender = routes[window.location.pathname];
     const page = document.getElementById("page");
     page.innerHTML = "";
+    if (e.state) {     
+      return componentToRender(e.state);
+    }
     componentToRender();
   });
 };
 
-const RedirectUrl = (uri, data) => {
+const RedirectUrl = (uri, data = {}) => {
   // use Web History API to add current page URL to the user's navigation history & set right URL in the browser (instead of "#")
-  window.history.pushState({}, uri, window.location.origin + uri);
+  // push the data in the state if those are given
+  window.history.pushState(data, uri, window.location.origin + uri);
   // render the requested component
   // for the components that include JS, we want to assure that the JS included is not runned when the JS file is charged by the browser
   // therefore, those components have to be either a function or a class

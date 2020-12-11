@@ -55,7 +55,7 @@ const Navbar = () => {
       <a class="nav-item nav-link" href="#" data-uri="/projects">Projets</a>
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Revues de projet
+          Revues de projets
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="#" data-uri="/my-reviews">Mes revues</a>

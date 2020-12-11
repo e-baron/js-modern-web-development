@@ -39,15 +39,22 @@ const ReadMyReviewsPage = async (props) => {
       // don't allow reviews if the project group status is not or was not yet in "review"
       if (projectGroup.status === "init" || projectGroup.status === "dev") {
         // set the page template, the review summary
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
+        let startingDate = new Date(projectGroup.reviewStartingDate);
+        startingDate = startingDate.toLocaleDateString("fr-FR", options);
         PrintError({
           innerText: `La saison de revues des projets n'a pas encore été ouverte.
       Nous nous réjouissons de vous revoir tout bientôt pour évaluer les projets de vos collègues.
-      Une annonce sera faite une fois la saison ouverte ; )`,
+      Une annonce sera faite une fois la saison ouverte ; )
+      Date d'ouverture estimée : ${startingDate}`,
         });
         return;
       }
-
-      
     }
 
     // set the page template, the review summary
@@ -62,16 +69,16 @@ const ReadMyReviewsPage = async (props) => {
       state: props.state,
     });
 
-        /* MyReviewsTable is set into a div that has to be responsive*/
+    /* MyReviewsTable is set into a div that has to be responsive*/
     await MyReviewsTable({
       state: props.state,
       parentHtmlElement: props.currentHtmlElement,
       renderDelayed: true,
       className: "table-responsive",
-    });    
+    });
 
-    // initialisation of the Error component    
-    PrintError();    
+    // initialisation of the Error component
+    PrintError();
   } catch (err) {
     console.error("ReadMyReviewsPage::Error:", err);
     if (err.message) PrintError({ innerText: err.message });

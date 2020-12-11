@@ -12,6 +12,7 @@ import {
 } from "../../utils/array/array.js";
 
 import ProjectUpdate from "./ProjectUpdate";
+import { getNamesFromEmail } from "../../utils/string/string.js";
 
 const ProjectView = async (projectId, index, projectData, admin, userName) => {
   try {
@@ -83,7 +84,18 @@ const ProjectView = async (projectId, index, projectData, admin, userName) => {
     };
 
     let dataArrayCloned = JSON.parse(JSON.stringify(projectData));
+
     let valueObject = dataArrayCloned[index];
+
+    // update info regarding the project members, from an Array to a String
+    let projectMembers;
+    if (valueObject.projectMembers.length > 0) {
+      projectMembers = valueObject.projectMembers.map((member) =>
+        getNamesFromEmail(member)
+      );
+      projectMembers = projectMembers.join(", ");
+      valueObject.projectMembers = projectMembers;
+    } else valueObject.projectMembers = "";
 
     const dataArrayToDisplay = createArrayOfObjects(
       rowConfiguration,

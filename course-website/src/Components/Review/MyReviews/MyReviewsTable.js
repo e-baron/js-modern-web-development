@@ -21,7 +21,6 @@ const MyReviewsTable = async (props) => {
       undefined
     );
 
-    console.log(myReviews);
     // add the reviews to the state if necessary
     if (myReviews.length > 0) props.state.myReviews = myReviews;
 
@@ -44,6 +43,12 @@ const MyReviewsTable = async (props) => {
       {
         dataKey: "frontendProductionUrl",
         columnTitle: "URL du site",
+        hidden: false,
+      },
+      { dataKey: "praise", columnTitle: "Point fort", hidden: false },
+      {
+        dataKey: "notImpressed",
+        columnTitle: "Point d'amélioration",
         hidden: false,
       },
     ];
@@ -78,7 +83,7 @@ const MyReviewsTable = async (props) => {
           if (match && match[2].length == 11) {
             //print a thumbnail
             element[key] = `<a href="${element[key]}" target="_blank">
-            <img src="https://img.youtube.com/vi/${match[2]}/default.jpg">
+            <img src="https://img.youtube.com/vi/${match[2]}/hqdefault.jpg" class="img-fluid">
             ${element[key]}</a>`;
           } else {
             //error just print a link
@@ -105,7 +110,46 @@ const MyReviewsTable = async (props) => {
       (item) =>
         item.endOfReviewDate
           ? `<div class="performed-review"><i class="fas fa-check-circle fa-lg"></i></div>`
-          : `<div class="perform-review"><i class="fas fa-comment fa-lg expected-review"></i></div>`
+          : `<div class="perform-review">
+          <i class="fas fa-plus expected-review"></i>
+          <i class="fas fa-comment fa-lg expected-review"></i>
+          </div>`
+    );
+
+    //deal with data associated to the frontend repo, backend repo, and the deployed frontend URL
+    updatePropertyWithDataToAllObjects(
+      myReviewsCloned,
+      "frontendRepo",
+      (key, element) => {
+        if (!element[key]) return;
+        //print a hyperlink (input is of type "url", so the link is good)
+        element[
+          key
+        ] = `<a href="${element[key]}" target="_blank">${element[key]}</a>`;
+      }
+    );
+    updatePropertyWithDataToAllObjects(
+      myReviewsCloned,
+      "backendRepo",
+      (key, element) => {
+        if (!element[key]) return;
+        //print a hyperlink (input is of type "url", so the link is good)
+        element[
+          key
+        ] = `<a href="${element[key]}" target="_blank">${element[key]}</a>`;
+      }
+    );
+
+    updatePropertyWithDataToAllObjects(
+      myReviewsCloned,
+      "frontendProductionUrl",
+      (key, element) => {
+        if (!element[key]) return;
+        //print a hyperlink (input is of type "url", so the link is good)
+        element[
+          key
+        ] = `<a href="${element[key]}" target="_blank">${element[key]}</a>`;
+      }
     );
 
     const table = getTableOuterHtmlFromArray(
@@ -124,8 +168,6 @@ const MyReviewsTable = async (props) => {
     performReviews.forEach((cellIcon) =>
       cellIcon.addEventListener("click", onPerformReview(props))
     );
-
-    //return myReviewSummary;
   } catch (err) {
     console.error("MyReviewsTable::Error:", err);
     if (err.message) PrintError({ innerText: err.message });
@@ -135,8 +177,18 @@ const MyReviewsTable = async (props) => {
 
 const onPerformReview = (props) => (e) => {
   // the id is given in the current table row under data-id attribute
-  props.state._id =
-    e.target.parentElement.parentElement.parentElement.parentElement.dataset._id;
+  //props.state._id =
+  //e.target.parentElement.parentElement.parentElement.parentElement.dataset._id;
+  if (e.target.parentElement.parentElement.dataset._id)
+    props.state._id = e.target.parentElement.parentElement.dataset._id;
+  else if (e.target.parentElement.parentElement.parentElement.dataset._id)
+    props.state._id =
+      e.target.parentElement.parentElement.parentElement.dataset._id;
+  else if (
+    e.target.parentElement.parentElement.parentElement.parentElement.dataset._id
+  )
+    props.state._id =
+      e.target.parentElement.parentElement.parentElement.parentElement.dataset._id;
   MyReviewForm({
     parentHtmlElement: props.currentHtmlElement,
     state: props.state,

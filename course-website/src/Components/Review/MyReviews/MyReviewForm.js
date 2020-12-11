@@ -13,6 +13,9 @@ import {
   createOrUpdateBasicElement,
   getFormDataOnSubmit,
 } from "../../../utils/render.js";
+//import AllReviewsTable from "../AllReviews/AllReviewsTable.js";
+import ReadAllReviewsPage from "../AllReviews/ReadAllReviewsPage.js";
+import ReadReviewPage from "../DetailedReview/ReadReviewPage.js";
 
 const MAX_CHAR = 125;
 
@@ -76,6 +79,7 @@ const MyReviewForm = async (props) => {
         title: "Coup de coeur",
         dataKey: "like",
         type: "checkbox",
+        disabled: props.state.myReviewSummary.availableLike > 0 ? false : true,
       },
       {
         title: "Sauver",
@@ -89,18 +93,43 @@ const MyReviewForm = async (props) => {
       const review = props.state.myReviews.find(
         (item) => item._id === props.state._id
       );
-
       const form = getFormOuterHtmlFromObject(review, configuration);
+
+      // add a label to the form checkbox
+      //const checkbox = form.querySelector("input[type='checkbox']");
+      const checkbox = form.querySelector("#like"); // easier than previous css path
+      const label = checkbox.previousElementSibling; // the previous element to the input (checkbox) is the label      label.htmlFor = "like";
+      label.htmlFor = "like";
+      label.innerText = "❤";
+      // swap the label and checkbox input
+      checkbox.parentElement.insertBefore(checkbox, label);
+
       form.addEventListener("submit", onSaveClick(props, configuration));
-      updateGenericModal2("Votre revue du projet", form);
+      updateGenericModal2("Votre revue attribuée du projet", form);
+      showGenericModal();
+    } else if (props.state.projectId) {
+      // we are to deal with creation of a review
+      const project = props.state.allReviews.find(
+        (item) => item._id === props.state.projectId
+      );
+      const form = getFormOuterHtmlFromObject(project, configuration);
+
+      // add a label to the form checkbox
+      //const checkbox = form.querySelector("input[type='checkbox']");
+      const checkbox = form.querySelector("#like"); // easier than previous css path
+      const label = checkbox.previousElementSibling; // the previous element to the input (checkbox) is the label      label.htmlFor = "like";
+      label.htmlFor = "like";
+      label.innerText = "❤";
+      // swap the label and checkbox input
+      checkbox.parentElement.insertBefore(checkbox, label);
+
+      form.addEventListener("submit", onSaveClick(props, configuration));
+      updateGenericModal2("Votre revue volontaire du projet", form);
       showGenericModal();
     }
-    // we are to deal with creation of a review
 
     // props.renderDelayed => auto render was disabled
     //props.parentHtmlElement.appendChild(props.currentHtmlElement);
-
-    //return myReviewSummary;
   } catch (err) {
     console.error("MyReviewForm::Error:", err);
     if (err.message) PrintError({ innerText: err.message });
@@ -115,12 +144,22 @@ const onSaveClick = (props, configuration) => async (e) => {
   const data = getFormDataOnSubmit(configuration);
 
   try {
-    const element = await callAPI(
-      "/api/reviews/" + props.state._id,
-      "PATCH",
-      props.state.user.token,
-      data
-    );
+    let element;
+    if (props.state._id) {
+      // deal with the modification of a generated expected review
+      element = await callAPI(
+        "/api/reviews/" + props.state._id,
+        "PATCH",
+        props.state.user.token,
+        data
+      );
+    } else if (props.state.projectId) {
+      // deal with the creation of a free review
+      element = await callAPI("/api/reviews/", "POST", props.state.user.token, {
+        ...data,
+        projectId: props.state.projectId,
+      });
+    }
 
     closeGenericModal();
 
@@ -130,8 +169,13 @@ const onSaveClick = (props, configuration) => async (e) => {
     else PrintError({ innerText: "" });
 
     // update the complete ReadMyReviewsPage : both the summary and the table shall be updated
-    ReadMyReviewsPage({ state: props.state });
+    if (props.state._id) ReadMyReviewsPage({ state: props.state });
+    else if (props.state.projectId)
+      if (!props.state.isDetailedReview)
+        ReadAllReviewsPage({ state: props.state });
+      else ReadReviewPage({ state: props.state });
   } catch (err) {
+    closeGenericModal();
     if (err.message) PrintError({ innerText: err.message });
     else PrintError({ innerText: err.toString() });
     // update the complete ReadMyReviewsPage : both the summary and the table shall be updated

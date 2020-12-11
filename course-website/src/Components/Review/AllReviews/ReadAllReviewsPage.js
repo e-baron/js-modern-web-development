@@ -8,6 +8,7 @@ import PrintError from "../../PrintError.js";
 import { getIdToken, getUserName } from "../../../utils/auths/authPopup.js";
 import callAPI from "../../../utils/api/fetch.js";
 import AllReviewsTable from "./AllReviewsTable.js";
+import AllReviewsSummary from "./AllReviewsSummary.js";
 
 const ReadAllReviewsPage = async (props) => {
   // template initialisation : MyReviewSummary is rendered at the top of the page div
@@ -39,18 +40,44 @@ const ReadAllReviewsPage = async (props) => {
       // don't allow reviews if the project group status is not or was not yet in "review"
       if (projectGroup.status === "init" || projectGroup.status === "dev") {
         // set the page template, the review summary
+        // get the starting date to a string (parse it as it is seen as a string the date from the API / MongoDB)
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
+        let startingDate = new Date(projectGroup.reviewStartingDate);
+        startingDate = startingDate.toLocaleDateString("fr-FR", options);
         PrintError({
           innerText: `La saison de revues des projets n'a pas encore été ouverte.
       Nous nous réjouissons de vous revoir tout bientôt pour évaluer les projets de vos collègues.
-      Une annonce sera faite une fois la saison ouverte ; )`,
+      Une annonce sera faite une fois la saison ouverte ; )
+      Date d'ouverture estimée : ${startingDate}`,
         });
         return;
       }
+    }
 
-     // set the page template, the review summary
+    // get the data that shall be used for both AllReviewsSummary & AllReviewTable
+    const allReviews = await callAPI(
+      `/api/reviews/projectgroups/${props.state.projectGroup._id}/summary`, //+ CURRENT_PROJECT_GROUP,
+      "get",
+      props.state.user.token,
+      undefined
+    );
+    // add the reviews to the state if necessary
+    if (allReviews.length > 0) props.state.allReviews = allReviews;
+
+    // set the page template, the review summary
     const reviewHeader = createOrUpdateBasicElement({
       parentHtmlElement: props.currentHtmlElement,
       componentName: "ReviewHeader",
+    });
+
+    await AllReviewsSummary({
+      parentHtmlElement: reviewHeader,
+      state: props.state,
     });
 
     await MyReviewSummary({
@@ -59,19 +86,16 @@ const ReadAllReviewsPage = async (props) => {
       state: props.state,
     });
 
-        /* ReadAllReviewsTable is set into a div that has to be responsive*/
+    /* ReadAllReviewsTable is set into a div that has to be responsive*/
     await AllReviewsTable({
       state: props.state,
       parentHtmlElement: props.currentHtmlElement,
       renderDelayed: true,
       className: "table-responsive",
-    }); 
+    });
 
-    // initialisation of the Error component    
-    PrintError();   
-
-
-    }
+    // initialisation of the Error component
+    PrintError();
   } catch (err) {
     console.error("ReadAllReviewsPage::Error:", err);
     if (err.message) PrintError({ innerText: err.message });
