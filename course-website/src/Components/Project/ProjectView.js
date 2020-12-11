@@ -30,18 +30,11 @@ const ProjectView = async (projectId, index, projectData, admin, userName) => {
 
     const rowConfiguration = {
       isHeaderRowHidden: true,
-      verticalHeaders: [ 
-        {
-          rowTitle: "<b>Nom du groupe de projets associés</b>",
-          dataKey: "projectGroupName",
-        },       
+      verticalHeaders: [           
         { rowTitle: "<b>Nom du projet</b>", dataKey: "name" },
         { rowTitle: "<b>Description du projet</b>", dataKey: "description" },
-        { rowTitle: "<b>Membres du projet</b>", dataKey: "projectMembers" },        
-        {
-          rowTitle: "<b>Date de création du projet</b>",
-          dataKey: "creationDate",
-        },
+        { rowTitle: "<b>Membres du projet</b>", dataKey: "projectMembers" },  
+      
         {
           rowTitle: "<b>Url du repository pour le frontend</b>",
           dataKey: "frontendRepo",
