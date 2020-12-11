@@ -57,6 +57,26 @@ const ReadAllReviewsPage = async (props) => {
         });
         return;
       }
+
+    // check that the user is either a projectMember on any project of the project group
+      // OR an admin (admin or manager)
+
+      const myReviewSummary = await callAPI(
+        `/api/reviews/users/${props.state.user.userName}/projectgroups/${props.state.projectGroup._id}/count`, //+ CURRENT_PROJECT_GROUP,
+        "get",
+        props.state.user.token,
+        undefined
+      );
+      console.log("summary:", myReviewSummary);
+      if (!myReviewSummary) return;
+      props.state.myReviewSummary = myReviewSummary;
+
+      if (!myReviewSummary.isAdmin && !myReviewSummary.isProjectMember) {
+        PrintError({
+          innerText: `Vous devez être membre d'un projet pour pouvoir accéder à ce contenu.`,
+        });
+        return;
+      }
     }
 
     // get the data that shall be used for both AllReviewsSummary & AllReviewTable

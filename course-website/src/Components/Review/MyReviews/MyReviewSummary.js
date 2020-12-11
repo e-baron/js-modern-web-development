@@ -15,7 +15,8 @@ const MyReviewSummary = async (props) => {
       props.state.projectGroup.status === "dev"
     )
       return;
-      
+
+    /*
     const myReviewSummary = await callAPI(
       `/api/reviews/users/${props.state.user.userName}/projectgroups/${props.state.projectGroup._id}/count`, //+ CURRENT_PROJECT_GROUP,
       "get",
@@ -25,6 +26,9 @@ const MyReviewSummary = async (props) => {
     if (!myReviewSummary) return;
     props.state.myReviewSummary = myReviewSummary;
 
+    */
+    const myReviewSummary = props.state.myReviewSummary;
+    if (!myReviewSummary) return;
     // deal with title
     const title = document.createElement("h6");
     title.innerText = "Résumé des mes revues";
