@@ -30,12 +30,14 @@ const ProjectView = async (projectId, index, projectData, admin, userName) => {
 
     const rowConfiguration = {
       isHeaderRowHidden: true,
-      verticalHeaders: [
-        { rowTitle: "<b>Identifiant du projet</b>", dataKey: "_id" },
+      verticalHeaders: [ 
+        {
+          rowTitle: "<b>Nom du groupe de projets associés</b>",
+          dataKey: "projectGroupName",
+        },       
         { rowTitle: "<b>Nom du projet</b>", dataKey: "name" },
         { rowTitle: "<b>Description du projet</b>", dataKey: "description" },
-        { rowTitle: "<b>Membres du projet</b>", dataKey: "projectMembers" },
-        { rowTitle: "<b>Statut du projet</b>", dataKey: "status" },
+        { rowTitle: "<b>Membres du projet</b>", dataKey: "projectMembers" },        
         {
           rowTitle: "<b>Date de création du projet</b>",
           dataKey: "creationDate",
@@ -59,11 +61,7 @@ const ProjectView = async (projectId, index, projectData, admin, userName) => {
         {
           rowTitle: "<b>Url du backend déployé</b>",
           dataKey: "frontendProductionUrl",
-        },
-        {
-          rowTitle: "<b>Nom du groupe de projets associés</b>",
-          dataKey: "projectGroupName",
-        },
+        },        
         {
           rowTitle: "<b>Projet public ?</b>",
           dataKey: "isPublic",
@@ -96,6 +94,26 @@ const ProjectView = async (projectId, index, projectData, admin, userName) => {
       projectMembers = projectMembers.join(", ");
       valueObject.projectMembers = projectMembers;
     } else valueObject.projectMembers = "";
+
+    // update info in regards to the presentation video
+    if (!valueObject.presentationUrl)
+    valueObject.presentationUrl = "";
+    else if (valueObject.presentationUrl.includes("youtu")) {
+      // get the youtube id
+      const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      const match = valueObject.presentationUrl.match(regExp);
+      if (match && match[2].length == 11) {
+        //print a thumbnail
+        valueObject.presentationUrl = `<a href="${valueObject.presentationUrl}" target="_blank">
+        <img src="https://img.youtube.com/vi/${match[2]}/hqdefault.jpg" class="img-fluid youtube-picture">
+        ${valueObject.presentationUrl}</a>`;
+      } else {
+        //error just print a link
+        valueObject.presentationUrl = `<a href="${valueObject.presentationUrl}" target="_blank">${valueObject.presentationUrl}</a>`;
+      }
+    } else {
+      valueObject.presentationUrl = `<a href="${valueObject.presentationUrl}" target="_blank">${valueObject.presentationUrl}</a>`;
+    }
 
     const dataArrayToDisplay = createArrayOfObjects(
       rowConfiguration,
