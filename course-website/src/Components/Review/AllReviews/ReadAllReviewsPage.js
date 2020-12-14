@@ -67,7 +67,7 @@ const ReadAllReviewsPage = async (props) => {
         props.state.user.token,
         undefined
       );
-      console.log("summary:", myReviewSummary);
+      //console.log("summary:", myReviewSummary);
       if (!myReviewSummary) return;
       props.state.myReviewSummary = myReviewSummary;
 

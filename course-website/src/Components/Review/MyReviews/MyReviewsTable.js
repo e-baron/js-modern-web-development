@@ -38,6 +38,12 @@ const MyReviewsTable = async (props) => {
         hidden: false,
       },
       { columnTitle: "A revoir", hidden: false },
+      {
+        dataKey: "like",
+        columnTitle: "Coup de coeur",
+        hidden: false,
+        className : "like-col"
+      },
       { dataKey: "frontendRepo", columnTitle: "Repo frontend", hidden: false },
       { dataKey: "backendRepo", columnTitle: "Repo backend", hidden: false },
       {
@@ -109,11 +115,28 @@ const MyReviewsTable = async (props) => {
       undefined,
       (item) =>
         item.endOfReviewDate
-          ? `<div class="performed-review"><i class="fas fa-check-circle fa-lg"></i></div>`
+          ? `<div class="performed-review update-review">
+          <i class="fas fa-check-circle fa-lg performed-review"></i>
+          <br>
+          <i class="fas fa-pen fa-lg update-review"></i>
+          </div>`
           : `<div class="perform-review">
           <i class="fas fa-plus expected-review"></i>
           <i class="fas fa-comment fa-lg expected-review"></i>
           </div>`
+    );
+
+    // deal with like data
+    updatePropertyWithDataToAllObjects(
+      myReviewsCloned,
+      "like",
+      (key, element) => {
+        if (!element[key]) return "";
+        //print a heart
+        element[
+          key
+        ] = `<i class="fas fa-heart fa-lg liked-review"></i>`;
+      }
     );
 
     //deal with data associated to the frontend repo, backend repo, and the deployed frontend URL
@@ -168,6 +191,12 @@ const MyReviewsTable = async (props) => {
     performReviews.forEach((cellIcon) =>
       cellIcon.addEventListener("click", onPerformReview(props))
     );
+
+    let updateReviews = document.querySelectorAll(".update-review");
+    updateReviews.forEach((cellIcon) =>
+      cellIcon.addEventListener("click", onUpdateReview(props))
+    );
+
   } catch (err) {
     console.error("MyReviewsTable::Error:", err);
     if (err.message) PrintError({ innerText: err.message });
@@ -188,6 +217,26 @@ const onPerformReview = (props) => (e) => {
     e.target.parentElement.parentElement.parentElement.parentElement.dataset._id
   )
     props.state._id =
+      e.target.parentElement.parentElement.parentElement.parentElement.dataset._id;
+  MyReviewForm({
+    parentHtmlElement: props.currentHtmlElement,
+    state: props.state,
+  });
+};
+
+const onUpdateReview = (props) => (e) => {
+  // the id is given in the current table row under data-id attribute
+  //props.state._id =
+  //e.target.parentElement.parentElement.parentElement.parentElement.dataset._id;
+  if (e.target.parentElement.parentElement.dataset._id)
+    props.state.projectIdFromMyReview = e.target.parentElement.parentElement.dataset._id;
+  else if (e.target.parentElement.parentElement.parentElement.dataset._id)
+    props.state.projectIdFromMyReview =
+      e.target.parentElement.parentElement.parentElement.dataset._id;
+  else if (
+    e.target.parentElement.parentElement.parentElement.parentElement.dataset._id
+  )
+    props.state.projectIdFromMyReview =
       e.target.parentElement.parentElement.parentElement.parentElement.dataset._id;
   MyReviewForm({
     parentHtmlElement: props.currentHtmlElement,

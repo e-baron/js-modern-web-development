@@ -89,7 +89,7 @@ const MyReviewForm = async (props) => {
     ];
 
     if (props.state._id) {
-      // deal with a modification of a review
+      // deal with a modification of an expected review
       const review = props.state.myReviews.find(
         (item) => item._id === props.state._id
       );
@@ -126,6 +126,29 @@ const MyReviewForm = async (props) => {
       form.addEventListener("submit", onSaveClick(props, configuration));
       updateGenericModal2("Votre revue volontaire du projet", form);
       showGenericModal();
+    } else if (props.state.projectIdFromMyReview) {
+      // deal with a modification of a performed review
+      const review = props.state.myReviews.find(
+        (item) => item._id === props.state.projectIdFromMyReview
+      );
+      // don't allow to update the like info if the current like status is set to true (we shall never be able to remove a like, only to add one)
+      if (review.like)
+        configuration.find((item) => item.dataKey === "like").disabled = true;
+
+      const form = getFormOuterHtmlFromObject(review, configuration);
+
+      // add a label to the form checkbox
+      //const checkbox = form.querySelector("input[type='checkbox']");
+      const checkbox = form.querySelector("#like"); // easier than previous css path
+      const label = checkbox.previousElementSibling; // the previous element to the input (checkbox) is the label      label.htmlFor = "like";
+      label.htmlFor = "like";
+      label.innerText = "❤";
+      // swap the label and checkbox input
+      checkbox.parentElement.insertBefore(checkbox, label);
+
+      form.addEventListener("submit", onSaveClick(props, configuration));
+      updateGenericModal2("Modification de votre revue attribuée du projet", form);
+      showGenericModal();
     }
 
     // props.renderDelayed => auto render was disabled
@@ -159,6 +182,14 @@ const onSaveClick = (props, configuration) => async (e) => {
         ...data,
         projectId: props.state.projectId,
       });
+    } else if(props.state.projectIdFromMyReview){
+      // deal with a modification of a performed review
+      element = await callAPI(
+        "/api/reviews/" + props.state.projectIdFromMyReview,
+        "PATCH",
+        props.state.user.token,
+        data
+      );
     }
 
     closeGenericModal();
@@ -169,7 +200,7 @@ const onSaveClick = (props, configuration) => async (e) => {
     else PrintError({ innerText: "" });
 
     // update the complete ReadMyReviewsPage : both the summary and the table shall be updated
-    if (props.state._id) ReadMyReviewsPage({ state: props.state });
+    if (props.state._id || props.state.projectIdFromMyReview) ReadMyReviewsPage({ state: props.state });
     else if (props.state.projectId)
       if (!props.state.isDetailedReview)
         ReadAllReviewsPage({ state: props.state });

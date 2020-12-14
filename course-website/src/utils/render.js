@@ -346,7 +346,7 @@ const getTableOuterHtmlFromArray = (
         header.innerHTML = columnHeader;
         // deal with providing the column name in each cell (to hide columns later) with data-columnName attribute
         header.dataset.columnName = columnKey;
-        if (columnClass) header.className;
+        if (columnClass) header.className = columnClass;
         header.classList.add(columnKey);
 
         //header.style.width = "100px";

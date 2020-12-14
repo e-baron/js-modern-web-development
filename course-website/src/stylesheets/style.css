@@ -183,6 +183,12 @@ input:valid {
   stroke-width: 1rem;*/
 }
 
+.update-review {
+  color:darkblue;
+  font-weight: bold;  
+  cursor: pointer;
+}
+
 .my-reviews {
   margin-top: 1rem;
 }
@@ -251,6 +257,10 @@ input:valid {
 }
 
 .countLiked {
+  width: 5rem;
+}
+
+.like-col {
   width: 5rem;
 }
 
