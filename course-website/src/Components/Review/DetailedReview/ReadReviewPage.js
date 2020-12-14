@@ -216,17 +216,19 @@ const ReadReviewPage = async (props) => {
 
     // deal with the project name
     header.innerText = "Nom du projet";
-    cell.innerHTML = projectInfoCloned.name;
+    cell.innerHTML = projectInfoCloned.name;    
     line.appendChild(header);
-    line.appendChild(cell);
+    line.appendChild(cell);    
     reviewTable.appendChild(line);
 
     // deal with the project description
     line = document.createElement("tr");
     header = document.createElement("th");
     cell = document.createElement("td");
-    header.innerHTML = "Description du projet";
-    cell.innerText = projectInfoCloned.description;
+    header.innerText = "Description du projet";
+    cell.innerHTML = projectInfoCloned.description;
+    header.className = CLASS_TITLES;
+    cell.className = CLASS_VALUES;
     line.appendChild(header);
     line.appendChild(cell);
     reviewTable.appendChild(line);
@@ -245,6 +247,8 @@ const ReadReviewPage = async (props) => {
     cell = document.createElement("td");
     header.innerText = "Membres du projet";
     cell.innerHTML = projectMembers;
+    header.className = CLASS_TITLES;
+    cell.className = CLASS_VALUES;
     line.appendChild(header);
     line.appendChild(cell);
     reviewTable.appendChild(line);
@@ -254,6 +258,8 @@ const ReadReviewPage = async (props) => {
     header = document.createElement("th");
     cell = document.createElement("td");
     header.innerText = "Url de la vidéo de présentation du projet";
+    header.className = CLASS_TITLES;
+    cell.className = CLASS_VALUES;
     if (!projectInfoCloned.presentationUrl)
       projectInfoCloned.presentationUrl = "";
     else if (projectInfoCloned.presentationUrl.includes("youtu")) {
@@ -285,6 +291,8 @@ const ReadReviewPage = async (props) => {
     cell.innerHTML = projectInfoCloned.frontendRepo
       ? `<a href="${projectInfoCloned.frontendRepo}" target="_blank">${projectInfoCloned.frontendRepo}</a>`
       : "";
+    header.className = CLASS_TITLES;
+    cell.className = CLASS_VALUES;
     line.appendChild(header);
     line.appendChild(cell);
     reviewTable.appendChild(line);
@@ -297,7 +305,9 @@ const ReadReviewPage = async (props) => {
     cell.innerHTML = projectInfoCloned.backendRepo
       ? `<a href="${projectInfoCloned.backendRepo}" target="_blank">${projectInfoCloned.backendRepo}</a>`
       : "";
-    line.appendChild(header);
+      header.className = CLASS_TITLES;
+      cell.className = CLASS_VALUES;
+      line.appendChild(header);
     line.appendChild(cell);
     reviewTable.appendChild(line);
 
@@ -311,6 +321,8 @@ const ReadReviewPage = async (props) => {
       : "";
     line.appendChild(header);
     line.appendChild(cell);
+    header.className = CLASS_TITLES;
+    cell.className = CLASS_VALUES;
     reviewTable.appendChild(line);
 
     // deal with the praise
@@ -318,6 +330,8 @@ const ReadReviewPage = async (props) => {
     header = document.createElement("th");
     header.innerText = "Points forts";
     header.rowSpan = reviewCount;
+    header.className = CLASS_TITLES;
+    
     line.appendChild(header);
     let firstRow = true;
     projectReviews.forEach((review) => {
@@ -328,7 +342,7 @@ const ReadReviewPage = async (props) => {
 
       cell.innerHTML = `<q>${review.praise}</q>
                          <br><i><small>- ${names}</small></i>`;
-      cell.className = CLASS_TITLES;
+      cell.className = CLASS_VALUES;
       line.appendChild(cell);
       reviewTable.appendChild(line);
     });
@@ -339,6 +353,7 @@ const ReadReviewPage = async (props) => {
     header.innerText = "Points à améliorer";
     header.rowSpan = reviewCount;
     header.className = "review-titles";
+    header.className = CLASS_TITLES;    
     line.appendChild(header);
     firstRow = true;
     projectReviews.forEach((review) => {
@@ -348,7 +363,7 @@ const ReadReviewPage = async (props) => {
       const cell = document.createElement("td");
       cell.innerHTML = `<q>${review.notImpressed}</q>
                          <br><i><small>- ${names}</small></i>`;
-      cell.className = CLASS_TITLES;
+      cell.className = CLASS_VALUES;
       line.appendChild(cell);
       reviewTable.appendChild(line);
     });

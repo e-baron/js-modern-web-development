@@ -287,11 +287,12 @@ input:valid {
 }
 
 /*Style for detailled review tables*/
-.review-property {
+.review-property, .review-title {
   width: 30%;
+  word-wrap: break-word;
 }
 
-.review-value {
+.review-value{
   width: 70%;
   word-wrap: break-word;
 }
