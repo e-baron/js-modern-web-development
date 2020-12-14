@@ -241,6 +241,7 @@ input:valid {
 
 .short-description {
   width: 10rem;
+  word-wrap: break-word;
 }
 
 .perform-review {
