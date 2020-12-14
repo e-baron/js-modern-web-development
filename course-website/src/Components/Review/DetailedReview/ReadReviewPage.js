@@ -282,7 +282,9 @@ const ReadReviewPage = async (props) => {
     header = document.createElement("th");
     cell = document.createElement("td");
     header.innerHTML = "URL pour le repository du frontend";
-    cell.innerText = projectInfoCloned.frontendRepo;
+    cell.innerHTML = projectInfoCloned.frontendRepo
+      ? `<a href="${projectInfoCloned.frontendRepo}" target="_blank">${projectInfoCloned.frontendRepo}</a>`
+      : "";
     line.appendChild(header);
     line.appendChild(cell);
     reviewTable.appendChild(line);
@@ -292,7 +294,9 @@ const ReadReviewPage = async (props) => {
     header = document.createElement("th");
     cell = document.createElement("td");
     header.innerHTML = "URL pour le repository du backend";
-    cell.innerText = projectInfoCloned.backendRepo;
+    cell.innerHTML = projectInfoCloned.backendRepo
+      ? `<a href="${projectInfoCloned.backendRepo}" target="_blank">${projectInfoCloned.backendRepo}</a>`
+      : "";
     line.appendChild(header);
     line.appendChild(cell);
     reviewTable.appendChild(line);
@@ -302,7 +306,9 @@ const ReadReviewPage = async (props) => {
     header = document.createElement("th");
     cell = document.createElement("td");
     header.innerHTML = "URL du frontend déployé";
-    cell.innerText = projectInfoCloned.frontendProductionUrl;
+    cell.innerHTML = projectInfoCloned.frontendProductionUrl
+      ? `<a href="${projectInfoCloned.frontendProductionUrl}" target="_blank">${projectInfoCloned.frontendProductionUrl}</a>`
+      : "";
     line.appendChild(header);
     line.appendChild(cell);
     reviewTable.appendChild(line);
