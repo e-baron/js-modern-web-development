@@ -83,6 +83,7 @@ input:valid {
 /*Style for ProjectView table*/
 .property {
   width: 40%;
+  word-wrap: break-word;
 }
 
 .value {

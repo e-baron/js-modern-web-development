@@ -12,12 +12,14 @@ import ProjectPage from "./Project/ProjectPage.js";
 import ReadMyReviewsPage from "./Review/MyReviews/ReadMyReviewsPage.js";
 import ReadAllReviewsPage from "./Review/AllReviews/ReadAllReviewsPage.js";
 import DetailedReviewPage from "./Review/DetailedReview/ReadReviewPage.js";
+import PublicProjectPage from "./PublicProject/PublicProjectPage.js";
 
 
 const routes = {
   "/": ContentPage,
   "/contenu": ContentPage,
   "/about": AboutPage,
+  "/publicprojects": PublicProjectPage,
   "/error": ErrorPage,
   "/login": Login,
   "/logintemp": LoginTempPage,

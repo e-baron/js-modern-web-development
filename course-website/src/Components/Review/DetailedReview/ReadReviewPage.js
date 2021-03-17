@@ -97,12 +97,14 @@ const ReadReviewPage = async (props) => {
     // has not been performed by userName (projectReviews)
     // AND the username is not part of the projectMembers
     // AND the userName has no expectedReviews (it shall never happened, tested before even trying to render the table)
+    // AND the project group is in review
     const addFreeReview =
       detailedReview.projectMembers.includes(props.state.user.userName) ||
       detailedReview.projectReviews.find(
         (element) => element.userName === props.state.user.userName
       ) ||
-      props.state.myReviewSummary.expectedReviews > 0
+      props.state.myReviewSummary.expectedReviews > 0 ||
+      props.state.projectGroup.status !== "review"
         ? undefined
         : `<i class="fas fa-plus fa-2x potential-review"></i>
       <i class="fas fa-comment fa-2x potential-review"></i>          
@@ -216,9 +218,9 @@ const ReadReviewPage = async (props) => {
 
     // deal with the project name
     header.innerText = "Nom du projet";
-    cell.innerHTML = projectInfoCloned.name;    
+    cell.innerHTML = projectInfoCloned.name;
     line.appendChild(header);
-    line.appendChild(cell);    
+    line.appendChild(cell);
     reviewTable.appendChild(line);
 
     // deal with the project description
@@ -305,9 +307,9 @@ const ReadReviewPage = async (props) => {
     cell.innerHTML = projectInfoCloned.backendRepo
       ? `<a href="${projectInfoCloned.backendRepo}" target="_blank">${projectInfoCloned.backendRepo}</a>`
       : "";
-      header.className = CLASS_TITLES;
-      cell.className = CLASS_VALUES;
-      line.appendChild(header);
+    header.className = CLASS_TITLES;
+    cell.className = CLASS_VALUES;
+    line.appendChild(header);
     line.appendChild(cell);
     reviewTable.appendChild(line);
 
@@ -331,7 +333,7 @@ const ReadReviewPage = async (props) => {
     header.innerText = "Points forts";
     header.rowSpan = reviewCount;
     header.className = CLASS_TITLES;
-    
+
     line.appendChild(header);
     let firstRow = true;
     projectReviews.forEach((review) => {
@@ -353,7 +355,7 @@ const ReadReviewPage = async (props) => {
     header.innerText = "Points à améliorer";
     header.rowSpan = reviewCount;
     header.className = "review-titles";
-    header.className = CLASS_TITLES;    
+    header.className = CLASS_TITLES;
     line.appendChild(header);
     firstRow = true;
     projectReviews.forEach((review) => {

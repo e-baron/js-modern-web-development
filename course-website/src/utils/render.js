@@ -574,8 +574,16 @@ const getFormOuterHtmlFromObject = (object, configuration) => {
         } else {
           input = document.createElement("input");
           input.type = element.type;
-          if (object && object[element.dataKey] !== undefined)
+          if (object && object[element.dataKey] !== undefined) {
             input.value = object[element.dataKey];
+            if (input.type === "checkbox") {
+              if (typeof object[element.dataKey] === "string")
+                input.checked = JSON.parse(
+                  object[element.dataKey].toLowerCase()
+                );
+              else input.checked = object[element.dataKey];
+            }
+          }
         }
         input.classList.add("form-control");
         input.name = element.dataKey;

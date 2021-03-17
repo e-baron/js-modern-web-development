@@ -7,7 +7,7 @@ import {
 } from "../../../utils/array/array.js";
 import MyReviewForm from "../MyReviews/MyReviewForm.js";
 import PrintError from "../../PrintError.js";
-import {RedirectUrl} from "../../Router.js";
+import { RedirectUrl } from "../../Router.js";
 
 const MAX_CHAR = 125;
 
@@ -17,16 +17,22 @@ const AllReviewsTable = async (props) => {
 
     // Print an error if you try to view the results and you still have expected reviews
     if (props.state.myReviewSummary.expectedReviews > 0) {
-      PrintError({
-        innerText: `Veuillez compléter les revues qui vous ont été attribuées dans le Menu Revues de projets, Mes revues.
+      if (props.state.projectGroup.status === "review")
+        PrintError({
+          innerText: `Veuillez compléter les revues qui vous ont été attribuées dans le Menu Revues de projets, Mes revues.
                 Une fois vos ${props.state.myReviewSummary.expectedReviews} revues réalisées, 
                 votre accès aux résultats sera débloqué  ; )`,
-      });
+        });
+      else
+        PrintError({
+          innerText: `Vous n'avez pas complété les ${props.state.myReviewSummary.expectedReviews} revues qui vous avait été attribuées dans le Menu Revues de projets, Mes revues.
+                Votre accès aux résultats est donc bloqué  ; )`,
+        });
 
       return;
     }
 
-    const {allReviews} = props.state;    
+    const { allReviews } = props.state;
 
     // Deall with the all reviews summary
 
@@ -41,13 +47,13 @@ const AllReviewsTable = async (props) => {
       {
         dataKey: "countLiked",
         columnTitle: "Coups de coeur",
-        hidden: false,       
+        hidden: false,
       },
       ,
       {
         dataKey: "countReviews",
         columnTitle: "Nombre de revues",
-        hidden: false,        
+        hidden: false,
       },
       { columnTitle: "Revue?", hidden: false },
       { columnTitle: "Détails?", hidden: false },
@@ -117,6 +123,7 @@ const AllReviewsTable = async (props) => {
     // has not been performed by userName (projectReviews)
     // AND the username is not part of the projectMembers
     // AND the userName has no expectedReviews (it shall never happened, tested before even trying to render the table)
+    // AND the project group status is in review
     addPropertyWithDataToAllObjects(
       allReviewsCloned,
       "revue?",
@@ -126,7 +133,8 @@ const AllReviewsTable = async (props) => {
         item.projectReviews.find(
           (element) => element.userName === props.state.user.userName
         ) ||
-        props.state.myReviewSummary.expectedReviews > 0
+        props.state.myReviewSummary.expectedReviews > 0 ||
+        props.state.projectGroup.status !== "review"
           ? ""
           : `<div class="potential-review">
           <i class="fas fa-plus potential-review"></i>
@@ -266,8 +274,8 @@ const onDetailledReview = (props) => (e) => {
     props.state.projectId =
       e.target.parentElement.parentElement.parentElement.parentElement.dataset._id;
 
- // Redirect to the ReadReviewPage, by giving the state data (to be reuse in regards to browser history operations)
-    RedirectUrl("/detailed-review", {state:props.state});
+  // Redirect to the ReadReviewPage, by giving the state data (to be reuse in regards to browser history operations)
+  RedirectUrl("/detailed-review", { state: props.state });
 };
 
 export default GenericFunctionalComponent(AllReviewsTable);

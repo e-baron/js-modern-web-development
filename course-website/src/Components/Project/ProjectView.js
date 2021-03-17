@@ -14,7 +14,14 @@ import {
 import ProjectUpdate from "./ProjectUpdate";
 import { getNamesFromEmail } from "../../utils/string/string.js";
 
-const ProjectView = async (projectId, index, projectData, admin, userName) => {
+const ProjectView = async (
+  projectId,
+  index,
+  projectData,
+  admin,
+  userName,
+  projectGroup
+) => {
   try {
     let projectModal = document.querySelector("#projectModal");
     // add a generic modal to the project page
@@ -30,11 +37,11 @@ const ProjectView = async (projectId, index, projectData, admin, userName) => {
 
     const rowConfiguration = {
       isHeaderRowHidden: true,
-      verticalHeaders: [           
+      verticalHeaders: [
         { rowTitle: "<b>Nom du projet</b>", dataKey: "name" },
         { rowTitle: "<b>Description du projet</b>", dataKey: "description" },
-        { rowTitle: "<b>Membres du projet</b>", dataKey: "projectMembers" },  
-      
+        { rowTitle: "<b>Membres du projet</b>", dataKey: "projectMembers" },
+
         {
           rowTitle: "<b>Url du repository pour le frontend</b>",
           dataKey: "frontendRepo",
@@ -54,11 +61,11 @@ const ProjectView = async (projectId, index, projectData, admin, userName) => {
         {
           rowTitle: "<b>Url du backend déployé</b>",
           dataKey: "frontendProductionUrl",
-        },        
+        },
         {
           rowTitle: "<b>Projet public ?</b>",
           dataKey: "isPublic",
-        },
+        } /*
         {
           rowTitle: "<b>Nom du projet pour le public</b>",
           dataKey: "publicName",
@@ -70,7 +77,7 @@ const ProjectView = async (projectId, index, projectData, admin, userName) => {
         {
           rowTitle: "<b>Description des auteurs pour le public</b>",
           dataKey: "publicDescription",
-        },
+        },*/,
       ],
     };
 
@@ -89,8 +96,7 @@ const ProjectView = async (projectId, index, projectData, admin, userName) => {
     } else valueObject.projectMembers = "";
 
     // update info in regards to the presentation video
-    if (!valueObject.presentationUrl)
-    valueObject.presentationUrl = "";
+    if (!valueObject.presentationUrl) valueObject.presentationUrl = "";
     else if (valueObject.presentationUrl.includes("youtu")) {
       // get the youtube id
       const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -107,6 +113,15 @@ const ProjectView = async (projectId, index, projectData, admin, userName) => {
     } else {
       valueObject.presentationUrl = `<a href="${valueObject.presentationUrl}" target="_blank">${valueObject.presentationUrl}</a>`;
     }
+
+    // update info in regards to isPublic
+    let checked;
+    if (typeof valueObject.isPublic === "string")
+      checked = JSON.parse(valueObject.isPublic.toLowerCase());
+    else checked = valueObject.isPublic;
+    valueObject.isPublic = `<input type="checkbox" class="form-control" name="isPublic" id="isPublic" ${
+      checked ? "checked" : ""
+    } disabled>`;
 
     const dataArrayToDisplay = createArrayOfObjects(
       rowConfiguration,
@@ -142,18 +157,21 @@ const ProjectView = async (projectId, index, projectData, admin, userName) => {
     showGenericModal();
     if (userHasSufficientPrivilege) {
       const btn = document.getElementById("updateProjectBtn");
-      btn.addEventListener("click", onUpdateClick(projectId, admin));
+      btn.addEventListener(
+        "click",
+        onUpdateClick(projectId, admin, projectGroup)
+      );
     }
   } catch (err) {
     console.error("Project Page::Error:", err);
   }
 };
 
-const onUpdateClick = (projectId, admin) => async (e) => {
+const onUpdateClick = (projectId, admin, projectGroup) => async (e) => {
   // because the projectData row could be refreshed, ensure that you
   // get the last version of the data when it is asked to update this project
   // deal with a modal
-  ProjectUpdate(projectId, admin);
+  ProjectUpdate(projectId, admin, projectGroup);
 };
 
 const setValueItemPropertyValueFromObject = (propertyName, element) => {

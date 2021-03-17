@@ -42,7 +42,7 @@ const MyReviewsTable = async (props) => {
         dataKey: "like",
         columnTitle: "Coup de coeur",
         hidden: false,
-        className : "like-col"
+        className: "like-col",
       },
       { dataKey: "frontendRepo", columnTitle: "Repo frontend", hidden: false },
       { dataKey: "backendRepo", columnTitle: "Repo backend", hidden: false },
@@ -109,22 +109,31 @@ const MyReviewsTable = async (props) => {
     // add a key "arevoir" with  value being an HTML element that will include
     // a SVG icon "comment" from fontawsome only when the review is still expected
     // add a property to all object in the array, with a value based on passed callback
-    addPropertyWithDataToAllObjects(
-      myReviewsCloned,
-      "arevoir",
-      undefined,
-      (item) =>
-        item.endOfReviewDate
-          ? `<div class="performed-review update-review">
+    // Do this only if the project group is in review
+    if (props.state.projectGroup.status === "review") {
+      addPropertyWithDataToAllObjects(
+        myReviewsCloned,
+        "arevoir",
+        undefined,
+        (item) =>
+          item.endOfReviewDate
+            ? `<div class="performed-review update-review">
           <i class="fas fa-check-circle fa-lg performed-review"></i>
           <br>
           <i class="fas fa-pen fa-lg update-review"></i>
           </div>`
-          : `<div class="perform-review">
+            : `<div class="perform-review">
           <i class="fas fa-plus expected-review"></i>
           <i class="fas fa-comment fa-lg expected-review"></i>
           </div>`
-    );
+      );
+    }
+    // hide the A revoir column
+    else {
+      columnConfiguration.find(
+        (conf) => conf.columnTitle === "A revoir"
+      ).hidden = true;
+    }
 
     // deal with like data
     updatePropertyWithDataToAllObjects(
@@ -133,9 +142,7 @@ const MyReviewsTable = async (props) => {
       (key, element) => {
         if (!element[key]) return "";
         //print a heart
-        element[
-          key
-        ] = `<i class="fas fa-heart fa-lg liked-review"></i>`;
+        element[key] = `<i class="fas fa-heart fa-lg liked-review"></i>`;
       }
     );
 
@@ -196,7 +203,6 @@ const MyReviewsTable = async (props) => {
     updateReviews.forEach((cellIcon) =>
       cellIcon.addEventListener("click", onUpdateReview(props))
     );
-
   } catch (err) {
     console.error("MyReviewsTable::Error:", err);
     if (err.message) PrintError({ innerText: err.message });
@@ -229,7 +235,8 @@ const onUpdateReview = (props) => (e) => {
   //props.state._id =
   //e.target.parentElement.parentElement.parentElement.parentElement.dataset._id;
   if (e.target.parentElement.parentElement.dataset._id)
-    props.state.projectIdFromMyReview = e.target.parentElement.parentElement.dataset._id;
+    props.state.projectIdFromMyReview =
+      e.target.parentElement.parentElement.dataset._id;
   else if (e.target.parentElement.parentElement.parentElement.dataset._id)
     props.state.projectIdFromMyReview =
       e.target.parentElement.parentElement.parentElement.dataset._id;
