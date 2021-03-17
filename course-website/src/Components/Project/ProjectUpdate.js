@@ -7,7 +7,7 @@ import {
   getFormDataOnSubmit,
 } from "../../utils/render.js";
 
-const ProjectUpdate = async (projectId, admin) => {
+const ProjectUpdate = async (projectId, admin, projectGroup) => {
   // because the projectData row could be refreshed, ensure that you
   // get the last version of the data when it is asked to update this project
   // deal with a modal
@@ -91,10 +91,10 @@ const ProjectUpdate = async (projectId, admin) => {
       },
       {
         title: "Projet public ?",
-        dataKey: "isPublic",
-        type: "text",
-        hidden: true,
-      },
+        dataKey: "isPublic",  
+        type: "checkbox",      
+        hidden: true,       
+      },/*
       {
         title: "Nom du projet pour le public",
         dataKey: "publicName",
@@ -112,7 +112,7 @@ const ProjectUpdate = async (projectId, admin) => {
         dataKey: "publicAuthors",
         type: "text",
         hidden: true,
-      },
+      },*/
       {
         title: "Sauver",
         type: "submit",
@@ -126,6 +126,14 @@ const ProjectUpdate = async (projectId, admin) => {
         (element) => element.dataKey === "name"
       ).hidden = false;
     }
+
+    /* provide the choice to make a project public */
+    if (projectGroup.status == "advertising") {
+      configuration.find(
+        (element) => element.dataKey === "isPublic"
+      ).hidden = false;
+    }
+
 
     const modalForm = getFormOuterHtmlFromObject(projectFound, configuration);
 
