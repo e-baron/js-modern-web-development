@@ -45,13 +45,14 @@ const PublicProjectPage = async (props) => {
       </p>`,
     });
 
-    /* ReadAllReviewsTable is set into a div that has to be responsive*/
-    await PublicProjectTable({
-      state: props.state,
-      parentHtmlElement: props.currentHtmlElement,
-      renderDelayed: true,
-      className: "table-responsive",
-    });
+    if (allProjects.length > 0)
+      /* ReadAllReviewsTable is set into a div that has to be responsive*/
+      await PublicProjectTable({
+        state: props.state,
+        parentHtmlElement: props.currentHtmlElement,
+        renderDelayed: true,
+        className: "table-responsive",
+      });
 
     // initialisation of the Error component
     PrintError();
